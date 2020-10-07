@@ -5,6 +5,8 @@ from dashboard.models import Category, Newsletter, TypeProduct
 from django.shortcuts import get_object_or_404
 from .forms import BasicTypeProductForm
 import random
+from math import radians, cos, sin, asin, sqrt
+from django.http import JsonResponse
 
 
 def home(request):
@@ -15,6 +17,22 @@ def home(request):
     #form
     if request.method == 'POST':
         form = BasicTypeProductForm(request.POST)
+        if form.is_valid():
+            form_data = form.cleaned_data
+            distance = calc_distance(form_data['lat_from'], form_data['lng_from'], form_data['lat_to'], form_data['lng_to'])
+            request.session['location_from'] = form_data['location_from']
+            request.session['location_to'] = form_data['location_to']
+            request.session['distance'] = distance
+            print(distance)
+            output = {
+                'success': True,
+            }
+        else:
+            output = {
+                'success': False,
+            }
+        return JsonResponse(output)
+
     else:
         form = BasicTypeProductForm()
 
@@ -60,7 +78,11 @@ def article(request, id):
 
 
 def valuation(request):
-    return render(request, 'app/valuation.html')
+    distance = request.session.get('distance')
+    context = {
+        'distance': distance
+    }
+    return render(request, 'app/valuation.html', context)
 
 
 def valuation_second(request):
@@ -79,3 +101,25 @@ def signup_company(request):
 
 def signup_company_1(request):
     return render(request, 'app/signup_company_1.html')
+
+
+def calc_distance(lat1, lon1, lat2, lon2):
+    # The math module contains a function named
+    # radians which converts from degrees to radians.
+    lon1 = radians(float(lon1))
+    lon2 = radians(float(lon2))
+    lat1 = radians(float(lat1))
+    lat2 = radians(float(lat2))
+
+    # Haversine formula
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+
+    c = 2 * asin(sqrt(a))
+
+    # Radius of earth in kilometers. Use 3956 for miles
+    r = 6371
+
+    # calculate the result
+    return (c * r)
