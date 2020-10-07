@@ -66,6 +66,9 @@
     <link rel="stylesheet" href="{% static 'assets/libs/autocomplete/dist/css/jquery-ui.css' %}">
     <!-- Quick CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/quick-website.css' %}" id="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.css' %}">
+
     <style>
         .ui-autocomplete {
             max-height: 200px;
@@ -530,6 +533,11 @@
 <script src="{% static 'assets/js/quick-website.js' %}"></script>
 <script src="{% static 'assets/libs/form/jquery.form.js' %}"></script>
 
+
+
+<script src="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+
+
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCVp48NCfljl9OXyzGuS4VY8VBJM0DKz6Y"></script>
 <!-- Feather Icons -->
 <script>
@@ -559,7 +567,7 @@
     $(document).ready(function () {
         var autocomplete1, autocomplete2;
         autocomplete1 = new google.maps.places.Autocomplete((document.getElementById('id_location_from')), {
-            types: ['(cities)'],
+            types: ['geocode'],
         });
         google.maps.event.addListener(autocomplete1, 'place_changed', function () {
             console.log("here");
@@ -588,18 +596,15 @@
 
         $('#location_frm').ajaxForm({
             beforeSubmit:function(){
-                var error = $('#error');
-                error.html('');
                 var error_val = 0;
                 if(!location_from_actived){
                     error_val++;
-                    error.append(get_error_message('Please Input Exact location to location_from field'));
                 }
                 if(!location_to_actived){
                     error_val++;
-                    error.append(get_error_message('Please Input Exact location to location_to field'))
                 }
                 if(error_val){
+                    sweet_alert('');
                     return false;
                 }
             },
@@ -627,7 +632,25 @@
                 </div>`;
     }
 
+    function sweet_alert(message){
+            console.log(message);
+             const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger ml-3'
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire(
+                'Wrong Location',
+                'Please Input exact loaction again :)',
+                'error'
+            );
 
+
+
+
+    }
 
 </script>
 </body>
