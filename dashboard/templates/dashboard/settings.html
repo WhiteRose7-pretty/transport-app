@@ -1,0 +1,510 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, shrink-to-fit=no">
+  <title>Messenger - Responsive Bootstrap Application</title>
+
+  <!-- Template core CSS -->
+  <link rel="stylesheet" href="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.css' %}">
+  <link href="{% static 'dashboard/css/template.min.css' %}" rel="stylesheet">
+  <link href="{% static 'dashboard/css/template.dark.min.css' %}" rel="stylesheet" media="(prefers-color-scheme: dark)">
+
+
+
+</head>
+<!-- Head -->
+
+<body>
+
+  <div class="layout">
+
+    <!-- Navigation -->
+    <div class="navigation navbar navbar-light justify-content-center py-xl-7">
+
+      <!-- Brand -->
+      <a href="#" class="d-none d-xl-block mb-6">
+        <img src="{% static 'dashboard/images/logo-white.png' %}" class="mx-auto fill-primary" alt="" style="height: 46px;">
+      </a>
+
+      <!-- Menu -->
+      <ul class="nav navbar-nav flex-row flex-xl-column flex-grow-1 justify-content-between justify-content-xl-center py-3 py-lg-0" role="tablist">
+
+        <!-- Chats -->
+        <li class="nav-item mt-xl-9">
+          <a class="nav-link position-relative p-0 py-xl-3" data-toggle="tab" href="#tab-content-dialogs" title="Chats" role="tab">
+            <i class="icon-lg fe-message-square"></i>
+          </a>
+        </li>
+
+        <!-- Invisible item to center nav vertically -->
+        <li class="nav-item d-none d-xl-block invisible flex-xl-grow-1">
+          <a class="nav-link position-relative p-0 py-xl-3" href="#" title="">
+            <i class="icon-lg fe-x"></i>
+          </a>
+        </li>
+
+        <!-- Create group -->
+        <li class="nav-item">
+          <a class="nav-link position-relative p-0 py-xl-3" data-toggle="tab" href="#tab-content-create-chat" title="Create chat" role="tab">
+            <i class="icon-lg fe-list"></i>
+          </a>
+        </li>
+
+        <!-- Friend -->
+        <li class="nav-item mt-xl-9">
+          <a class="nav-link position-relative p-0 py-xl-3" data-toggle="tab" href="#tab-content-friends" title="Friends" role="tab">
+            <i class="icon-lg fe-plus-square"></i>
+          </a>
+        </li>
+
+        <!-- Profile -->
+        <li class="nav-item mt-xl-9">
+          <a class="nav-link position-relative p-0 py-xl-3 active" data-toggle="tab" href="#tab-content-user" title="User" role="tab">
+            <i class="icon-lg fe-settings"></i>
+            <div class="badge badge-dot badge-primary badge-bottom-center"></div>
+          </a>
+        </li>
+
+        <!-- Demo only: Documentation -->
+        <li class="nav-item mt-xl-9 d-none d-xl-block flex-xl-grow-1">
+          <a class="nav-link position-relative p-0 py-xl-3" data-toggle="tab" href="#tab-content-demos" title="Demos" role="tab">
+            <i class="icon-lg fe-home"></i>
+          </a>
+        </li>
+
+        <!-- Settings -->
+        <li class="nav-item mt-xl-9">
+          <a class="nav-link position-relative p-0 py-xl-3" href="{% url 'account_logout' %}" title="Settings">
+            <i class="icon-lg fe-log-out"></i>
+          </a>
+        </li>
+
+      </ul>
+      <!-- Menu -->
+
+    </div>
+    <!-- Navigation -->
+
+    <!-- Main Content -->
+    <div class="main main-visible" data-mobile-height="">
+
+      <!-- Chat -->
+      <div class="chat">
+
+        <!-- Chat: body -->
+        <div class="chat-body">
+
+          <!-- Chat: Header -->
+          <div class="chat-header border-bottom py-4 py-lg-6 px-lg-7">
+            <div class="container-fluid">
+
+              <div class="row align-items-center">
+
+                <!-- Close chat(mobile) -->
+                <div class="col-3 d-xl-none ">
+                  <ul class="list-inline mb-0" style="display:none;">
+                    <li class="list-inline-item">
+                      <a class="text-muted px-0" href="#" data-chat="open">
+                        <i class="icon-md fe-chevron-left"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Chat photo -->
+                <div class="col-6 col-xl-6">
+                  <div class="media text-center text-xl-left">
+                    <div class="media-body align-self-center text-truncate">
+                      <h6 class="text-truncate mb-n1">Ustawienia</h6>
+                      <small class="text-muted">Uzupełnij swój profil</small>
+                    </div>
+                  </div>
+                </div>
+
+              </div><!-- .row -->
+
+            </div>
+          </div>
+          <!-- Chat: Header -->
+
+          <!-- Chat: Content-->
+          <div class="chat-content px-lg-8">
+            <div class="py-6 py-lg-10">
+
+              <!-- Accordion -->
+              <div class="accordion modified-accordion mb-n6 mb-lg-8" id="profile-settings">
+                <div class="card-columns">
+
+                  <!-- Card -->
+                  <div class="card mb-6 mb-lg-8">
+                    <div class="card-header position-relative">
+                      <a href="#" class="text-reset d-block stretched-link collapsed" data-toggle="collapse" data-target="#profile-settings-account" aria-controls="profile-settings-account" aria-expanded="true">
+                        <div class="row no-gutters align-items-center">
+                          <!-- Title -->
+                          <div class="col">
+                            <h5>Konto</h5>
+                            <p>Infomacje o Twoim profilu.</p>
+                          </div>
+
+                          <!-- Icon -->
+                          <div class="col-auto">
+                            <i class="text-muted icon-md fe-user"></i>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div id="profile-settings-account" class="collapse" data-parent="#profile-settings">
+                      <div class="card-body">
+                        <form method="POST">
+                        {% csrf_token %}
+
+                          <div class="form-group">
+                            <label class="small" for="profile-name">Imie</label>
+                            {{ form_user_data.name }}
+                          </div>
+                          
+                          <div class="form-group">
+                            <label class="small" for="profile-name">Naziwsko</label>
+                            {{ form_user_data.surname }}
+                          </div>
+
+                          <div class="form-group">
+                            <label class="small" for="profile-email">Email (Tylko administrator może zmienić Twój email)</label>
+                            <input class="form-control form-control-lg" name="profile-phone" id="email" type="text" placeholder="{{ user }}" disabled>
+                          </div>
+
+                          <button class="btn btn-lg btn-primary btn-block" type="submit" name="buttonAccount">Zapisz podstawowe infomacje
+                          </button>
+                        </form>
+                      </div>
+                    </div><!-- .collapse -->
+
+                  </div>
+                  <!-- Card -->
+
+                  <!-- Card -->
+                  <div class="card mb-6 mb-lg-8">
+                    <div class="card-header position-relative">
+                      <a href="#" class="text-reset d-block stretched-link collapsed" data-toggle="collapse" data-target="#profile-settings-notifications" aria-controls="profile-settings-notifications" aria-expanded="true">
+                        <div class="row no-gutters align-items-center">
+                          <!-- Title -->
+                          <div class="col">
+                            <h5>Środki</h5>
+                            <p>Twój aktualny stan konta.</p>
+                          </div>
+
+                          <!-- Icon -->
+                          <div class="col-auto">
+                            <i class="text-muted icon-md fe-dollar-sign"></i>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div id="profile-settings-notifications" class="collapse" data-parent="#profile-settings">
+                      <div class="card-body">
+                        <form method="POST" id="withdrawalMoenyForm">
+                          <input type="hidden" name="csrfmiddlewaretoken" value="ADZnWAUbhyTMjkDCtHI2nDbq2GRXemfsZPKSQZAcb4O1jJuYAKQ2kCI3ihCmuQC0">
+
+                          <div class="form-group">
+                            <label class="small" for="profile-earned_money-amount">Do wypłaty</label>
+                            <input class="form-control form-control-lg" name="earned_money-amount" id="profile-earned_money-amount" type="text" placeholder="0.00 PLN" disabled>
+                          </div>
+
+                          <!-- Tradidtional transver -->
+                          <div id="fieldWithdrawMoney" style="display:none;">
+                            <div class="form-group">
+                              <label class="small text-success" for="profile-withdraw_form"><b>Write the amount you want to withdraw</b></label>
+                              <input type="number" name="amount" class="form-control" placeholder="0. 00 USD" step="0.01" required id="id_amount">
+
+                            </div>
+
+                          </div>
+
+                          <!-- Hiden field -->
+                          <input type="hidden" name="buttonWithdrawal" value="buttonWithdrawal" />
+
+                          <!-- init button -->
+                          <button class="btn btn-lg btn-primary btn-block" type="button" onclick="showWithdrawalOptions()" id="buttonWithdrawType" style="display:block;">Wypłać środki</button>
+
+                        </form>
+                      </div>
+                    </div><!-- .collapse -->
+
+                  </div>
+                  <!-- Card -->
+
+                  <!-- Card -->
+                  <div class="card mb-6 mb-lg-8">
+                    <div class="card-header position-relative">
+                      <a href="#" class="text-reset d-block stretched-link collapsed" data-toggle="collapse" data-target="#profile-settings-security" aria-expanded="true" aria-controls="profile-settings-security">
+                        <div class="row no-gutters align-items-center">
+                          <!-- Title -->
+                          <div class="col">
+                            <h5>Bezpieczeństwo</h5>
+                            <p>Ustawienia bezpieczeństwa.</p>
+                          </div>
+
+                          <!-- Icon -->
+                          <div class="col-auto">
+                            <i class="text-muted icon-md fe-shield"></i>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div id="profile-settings-security" class="collapse" data-parent="#profile-settings">
+                      <div class="card-body">
+                        <form method="POST">
+                          {% csrf_token %}
+                          <div class="form-group">
+                            <label class="small" for="current-password">Aktualne hasło</label>
+                            {{ security_form.lastpassword }}
+
+                          </div>
+
+                          <div class="form-group">
+                            <label class="small" for="new-password">Nowe hasło</label>
+                            {{ security_form.newpassword1 }}
+
+                          </div>
+
+                          <div class="form-group">
+                            <label class="small" for="verify-password">Zweryfikuj hasło</label>
+                            {{ security_form.newpassword2 }}
+
+                          </div>
+
+                          <button class="btn btn-lg btn-primary btn-block" type="submit" name="buttonPasswordChange" data-toggle="tooltip" data-placement="top" title="Po zmianie hasła w celach bezpieczeństwa zostaniesz automatycznie wylogowany.">
+                            Zmień hasło
+                          </button>
+                        </form>
+                      </div>
+                    </div><!-- .collapse -->
+
+                  </div>
+                  <!-- Card -->
+
+                  <!-- Card -->
+                  <div class="card mb-6 mb-lg-8">
+                    <div class="card-header position-relative">
+                      <a href="#" class="text-reset d-block stretched-link collapsed" data-toggle="collapse" data-target="#profile-settings-social" aria-controls="profile-settings-social" aria-expanded="true">
+                        <div class="row no-gutters align-items-center">
+                          <!-- Title -->
+                          <div class="col">
+                            <h5>Dodatkowe infomacje</h5>
+                            <p>Dane do fakturowania przesyłek.</p>
+                          </div>
+
+                          <!-- Icon -->
+                          <div class="col-auto">
+                            <i class="text-muted icon-md fe-share-2"></i>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div id="profile-settings-social" class="collapse" data-parent="#profile-settings">
+                      <div class="card-body">
+
+                        <form method="POST">
+                          {% csrf_token %}
+
+                          <!-- Country -->
+                          <div class="form-group">
+                            <label class="small" for="profile-phone">Nazwa firmy</label>
+                            {{ form_company_data.company_name }}
+                          </div>
+
+                          <!-- Sex -->
+                          <div class="form-group">
+                            <label class="small" for="profile-phone">NIP</label>
+                            {{ form_company_data.nip }}
+                          </div>
+
+                          <!-- Preference -->
+                          <div class="form-group">
+                            <label class="small" for="profile-phone">Województwo</label>
+                            {{ form_company_data.province }}
+                          </div>
+                          
+                          <!-- Img Profile Verivication -->
+                          <div class="form-group">
+                            <label class="small" for="profile-phone">Miasto</label>
+                            {{ form_company_data.city }}
+                          </div>
+
+                          <!-- ID Card Image -->
+                          <div class="form-group">
+                            <label class="small" for="profile-phone">Kod pocztowy</label>
+                            {{ form_company_data.zip_code }}
+                          </div>
+                          
+                          <!-- ID Card Image -->
+                          <div class="form-group">
+                            <label class="small" for="profile-phone">Ulica</label>
+                            {{ form_company_data.street }}
+                          </div>
+
+                          <button class="btn btn-lg btn-primary btn-block" type="submit" name="buttonAdditionalInformation" style="margin-bottom: 30px">Zapisz informacje o firmie
+
+                          </button>
+                        </form>
+                      </div>
+                    </div><!-- .collapse -->
+
+                  </div>
+                
+
+                </div>
+              </div>
+              <!-- Accordion -->
+
+            </div>
+          </div>
+          <!-- Chat: Content -->
+
+        </div>
+        <!-- Chat: body -->
+
+      </div>
+      <!-- Chat -->
+
+    </div>
+    <!-- Main Content -->
+
+  </div>
+  <!-- Layout -->
+
+  <!-- DropzoneJS: Template -->
+  <div id="dropzone-template-js">
+    <div class="col-lg-4 my-3">
+      <div class="card bg-light">
+        <div class="card-body p-3">
+          <div class="media align-items-center">
+
+            <div class="dropzone-file-preview">
+              <div class="avatar avatar rounded bg-secondary text-basic-inverse d-block mr-5">
+                <i class="fe-paperclip"></i>
+              </div>
+            </div>
+
+            <div class="dropzone-image-preview">
+              <div class="avatar avatar mr-5">
+                <img src="#" class="avatar-img rounded" data-dz-thumbnail="" alt="">
+              </div>
+            </div>
+
+            <div class="media-body overflow-hidden">
+              <h6 class="text-truncate small mb-0" data-dz-name></h6>
+              <p class="extra-small" data-dz-size></p>
+            </div>
+
+            <div class="ml-5">
+              <a href="#" class="btn btn-sm btn-link text-decoration-none text-muted" data-dz-remove>
+                <i class="fe-x"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- DropzoneJS: Template -->
+
+  <!-- Modal: Invite friends -->
+  <div class="modal fade" id="invite-friends" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <div class="media flex-fill">
+            <div class="icon-shape rounded-lg bg-primary text-white mr-5">
+              <i class="fe-users"></i>
+            </div>
+            <div class="media-body align-self-center">
+              <h5 class="modal-title">Invite friends</h5>
+              <p class="small">Invite colleagues, clients and friends.</p>
+            </div>
+          </div>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form action="#">
+            <div class="form-group">
+              <label for="invite-email" class="small">Email</label>
+              <input type="text" class="form-control form-control-lg" id="invite-email">
+            </div>
+
+            <div class="form-group mb-0">
+              <label for="invite-message" class="small">Invitation message</label>
+              <textarea class="form-control form-control-lg" id="invite-message" data-autosize="true"></textarea>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-lg btn-block btn-primary d-flex align-items-center">
+            Invite friend
+            <i class="fe-user-plus ml-auto"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Modal: Invite friends -->
+
+  <!-- Scripts -->
+  <script src="{% static 'dashboard/js/libs/jquery.min.js' %}"></script>
+  <script src="{% static 'dashboard/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'dashboard/js/plugins/plugins.bundle.js' %}"></script>
+  <script src="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+  <script src="{% static 'dashboard/js/template.js' %}"></script>
+  <!-- Scripts -->
+  
+  {% if send %}
+  <script>
+    Swal.fire({
+      icon: 'success',
+      title: 'OK!',
+      timer: 4000,
+      text: '{{ send }}',
+      confirmButtonColor: '#5EC9A7',
+      confirmButtonText: 'Zamknij okno'
+    })
+  </script>
+  {% endif %}
+  
+  {% if send_error %}
+  <script>
+    Swal.fire({
+      title: 'Błąd!',
+      timer: 4000,
+      text: '{{ send_error }}',
+      icon: 'error',
+      confirmButtonColor: '#ff562f',
+      confirmButtonText: 'Zamknij okno'
+    })
+  </script>
+  {% endif %}
+  
+  <script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+  </script>
+
+</body>
+
+</html>

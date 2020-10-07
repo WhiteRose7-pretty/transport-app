@@ -1,0 +1,66 @@
+{% load static %}
+<div class="container">
+        <!-- Brand -->
+        <a class="" href="{% url 'app:home' %}">
+          {% if logo_white %}
+          <img alt="Image placeholder" src="{% static 'assets/img/brand/new-white-1.png' %}" id="navbar-logo" style="height:45px">
+          {% else %}
+          <img alt="Image placeholder" src="{% static 'assets/img/brand/new-dark-1.png' %}" id="navbar-logo" style="height:45px">
+          {% endif %}
+        </a>
+        <!-- Toggler -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main-collapse" aria-controls="navbar-main-collapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse navbar-collapse-overlay" id="navbar-main-collapse">
+          <!-- Toggler -->
+          <div class="position-relative">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-main-collapse" aria-controls="navbar-main-collapse" aria-expanded="false" aria-label="Toggle navigation">
+              <i data-feather="x"></i>
+            </button>
+          </div>
+          <!-- Main navigation -->
+          <ul class="navbar-nav ml-lg-auto">
+            <!-- Overview -->
+            <li class="nav-item nav-item-spaced">
+              <a class="nav-link" href="#jak-to-dziala" data-scroll-to data-scroll-to-offset="10">
+                Jak to działa?
+              </a>
+            </li>
+            <!-- Landings menu -->
+            <li class="nav-item nav-item-spaced">
+              <a class="nav-link" href="#dla-nadawcow" data-scroll-to data-scroll-to-offset="10">
+                Dla nadawców
+              </a>
+            </li>
+            <!-- Pages menu -->
+            <li class="nav-item nav-item-spaced">
+              <a class="nav-link" href="#historie-przesylek" data-scroll-to data-scroll-to-offset="10">Historie przesyłek</a>
+              <div class="dropdown-menu dropdown-menu-md p-0">
+              </div>
+            </li>
+            <!-- App menu -->
+            <li class="nav-item nav-item-spaced">
+              <a class="nav-link" href="{% url 'authentication:new_company' %}">
+                Dodaj firmę
+              </a>
+            </li>
+          </ul>
+          <!-- Right navigation -->
+          <ul class="navbar-nav align-items-lg-center d-none d-lg-flex ml-lg-auto">
+            <!-- Auth -->
+            <li class="nav-item">
+              <a href="{% url 'authentication:login' %}" class="btn btn-sm btn-primary ml-0">
+                <span>Zaloguj się</span>
+                <span><i class="far fa-user-circle ml-2"></i></span>
+              </a>
+            </li>
+          </ul>
+          <!-- Mobile button -->
+          <div class="d-lg-none px-4 text-center">
+            <a href="https://themes.getbootstrap.com/product/quick-website-ui-kit-2/" class="btn btn-block btn-sm btn-primary" target="_blank">Purchase now</a>
+          </div>
+        </div>
+      </div>
+    

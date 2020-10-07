@@ -1,0 +1,315 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Webpixels">
+  <title>Quick – Website UI Kit</title>
+  <!-- Preloader -->
+  <style>
+    @keyframes hidePreloader {
+      0% {
+        width: 100%;
+        height: 100%;
+      }
+
+      100% {
+        width: 0;
+        height: 0;
+      }
+    }
+
+    body>div.preloader {
+      position: fixed;
+      background: white;
+      width: 100%;
+      height: 100%;
+      z-index: 1071;
+      opacity: 0;
+      transition: opacity .5s ease;
+      overflow: hidden;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body:not(.loaded)>div.preloader {
+      opacity: 1;
+    }
+
+    body:not(.loaded) {
+      overflow: hidden;
+    }
+
+    body.loaded>div.preloader {
+      animation: hidePreloader .5s linear .5s forwards;
+    }
+  </style>
+  <script>
+    window.addEventListener("load", function() {
+      setTimeout(function() {
+        document.querySelector('body').classList.add('loaded');
+      }, 300);
+    });
+  </script>
+  <!-- Favicon -->
+  <link rel="icon" href="{% static 'assets/img/brand/favicon.png' %}" type="image/png"><!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'assets/libs/@fortawesome/fontawesome-free/css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.css' %}">
+  <!-- Quick CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/quick-website.css' %}" id="stylesheet">
+</head>
+
+<body>
+  <div class="modal fade" tabindex="-1" role="dialog" id="modal-cookies" data-backdrop="false" aria-labelledby="modal-cookies" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-aside left-4 right-4 bottom-4">
+      <div class="modal-content bg-dark-dark">
+        <div class="modal-body">
+          <!-- Text -->
+          <p class="text-sm text-white mb-3">
+            We use cookies so that our themes work for you. By using our website, you agree to our use of cookies.
+          </p>
+          <!-- Buttons -->
+          <a href="../../pages/utility/terms.html" class="btn btn-sm btn-white" target="_blank">Learn more</a>
+          <button type="button" class="btn btn-sm btn-primary mr-2" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Main content -->
+  <section class="section-half-rounded bg-cover bg-size--cover py-4 py-sm-0" style="background-image: url({% static 'assets/img/backgrounds/img-3.jpg' %});">
+    <div class="container-fluid d-flex flex-column py-4 py-sm-0 py-lg-5 py-xl-0">
+      <div class="row align-items-center min-vh-100">
+        <div class="col-md-8 col-lg-6 col-xl-6 mx-auto">
+          <div class="card shadow-lg border-0 mb-0">
+          <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          
+            <!-- FIRST STEP -->
+            <div class="card-body py-5 px-sm-5" style="display:block" id="formStepFirst">
+              <div>
+                <div class="mb-5 text-center">
+                  <h6 class="h3 mb-1">Dołącz jako firma 1/2</h6>
+                  <p class="text-muted mb-0">Podstawowe informacje o Twojej firmie.</p>
+                </div>
+                
+                <!-- ============================================-->
+                <!-- error message ==============================-->
+                {% for key, value in form.errors.items %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <strong>Błąd:</strong> {{ value|striptags }}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                {% endfor %}
+                <!-- end erroe message ==========================-->
+                <!-- ============================================-->
+                
+                <span class="clearfix"></span>
+                  <div class="form-group">
+                    <label class="form-control-label">Nazwa firmy</label>
+                    <div class="input-group input-group-merge">
+                      {{ form.company_name }}
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-building"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group mb-4">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div>
+                        <label class="form-control-label">Adres  </label>
+                      </div>
+                    </div>
+                    <div class="input-group input-group-merge">
+                      {{ form.location }}
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6 mb-4">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                          <label class="form-control-label">Telefon </label>
+                        </div>
+                      </div>
+                      <div class="input-group input-group-merge">
+                        {{ form.company_phone }}
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6  mb-4">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                          <label class="form-control-label">E-mail </label>
+                        </div>
+                      </div>
+                      <div class="input-group input-group-merge">
+                        {{ form.company_email }}
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-at"></i></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6 mb-4">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                          <label class="form-control-label">NIP</label>
+                        </div>
+                      </div>
+                      <div class="input-group input-group-merge">
+                        {{ form.nip }}
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-keyboard"></i></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6  mb-4">
+                      <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                          <label class="form-control-label">Ubezpieczenie OCP</label>
+                        </div>
+                      </div>
+                      <div>
+                          {{ form.licence }}
+                          <label for="id_licence">
+                              <i class="fa fa-upload"></i>
+                              <span>Wybierz plik…</span>
+                          </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-5">
+                    <button type="button" class="btn btn-block btn-primary" onClick="stepSecond();">Następny krok <i class="fas fa-chevron-right ml-2"></i></button>
+                  </div>
+              </div>
+            </div>
+            
+            <!-- SECOND STEP -->
+            <div class="card-body py-5 px-sm-5" style="display:none" id="formStepSecond">
+              <div>
+                <div class="mb-5 text-center">
+                  <h6 class="h3 mb-1">Dołącz jako firma 2/2</h6>
+                  <p class="text-muted mb-0">Dodatkowe informacje o Twojej firmie.</p>
+                </div>
+                <span class="clearfix"></span>
+                  <div class="form-group">
+                    <label class="form-control-label">Osoba kontaktowa</label>
+                    <div class="input-group input-group-merge">
+                      {{ form.contact_person }}
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-user"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group mb-4">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div>
+                        <label class="form-control-label">Obsługiwane kierunki</label>
+                      </div>
+                    </div>
+                    <div class="input-group input-group-merge">
+                      {{ form.directions_supported }}
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-map-marked-alt"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group mb-4">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div>
+                        <label class="form-control-label">Flota pojazdów</label>
+                      </div>
+                    </div>
+                    {{ form.vehicle_fleet }}
+                  </div>
+                  <div class="my-1">
+                    <div class="custom-control custom-checkbox mb-1">
+                      <input type="checkbox" class="custom-control-input" id="check-terms">
+                      <label class="custom-control-label" for="check-terms">Akceptuje <a href="../../pages/utility/terms.html">regulamin strony.</a></label>
+                    </div>
+                  </div>
+                  <div class="my-1">
+                    <div class="custom-control custom-checkbox mb-1">
+                      <input type="checkbox" class="custom-control-input" id="check-conditions">
+                      <label class="custom-control-label" for="check-conditions">Akceptuje <a href="../../pages/utility/terms.html">polityke prywaności.</a></label>
+                    </div>
+                  </div>
+                  <div class="my-1">
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="check-contact">
+                      <label class="custom-control-label" for="check-contact">Wyrażam zgodę na wysyłanie zapytań <a href="../../pages/utility/terms.html">drogą elektroniczną.</a></label>
+                    </div>
+                  </div>
+                  <div class="mt-4">
+                    <button type="submit" class="btn btn-block btn-primary">Zapisz informacje</button>
+                  </div>
+              </div>
+            </div>
+          
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Core JS  -->
+  <script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/libs/svg-injector/dist/svg-injector.min.js' %}"></script>
+  <script src="{% static 'assets/libs/feather-icons/dist/feather.min.js' %}"></script>
+  <!-- Optional JS -->
+  <script src="{% static 'assets/libs/in-view/dist/in-view.min.js' %}"></script>
+  <script src="{% static 'assets/libs/sticky-kit/dist/sticky-kit.min.js' %}"></script>
+  <script src="{% static 'assets/libs/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js' %}"></script>
+  <script src="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+  <!-- Quick JS -->
+  <script src="{% static 'assets/js/quick-website.js' %}"></script>
+  <!-- Feather Icons -->
+  <script>
+    feather.replace({
+      'width': '1em',
+      'height': '1em'
+    })
+  </script>
+  
+  <!-- Cechk fields -->
+  <script>
+  function stepSecond() {
+  var valueCompanyName = document.getElementById('id_company_name');
+  var valueLocation = document.getElementById('id_location');
+  var valueContactPhone = document.getElementById('id_company_phone');
+  var valueEmailCompany = document.getElementById('id_company_email');
+  var valueNip = document.getElementById('id_nip');
+  var valueLicence = document.getElementById('id_licence');
+  if (valueLicence.value.length == 0 || valueNip.value.length < 2 || valueEmailCompany.value.length < 2 || valueContactPhone.value.length < 2 || valueLocation.value.length < 2 || valueCompanyName.value.length < 2 ) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Wypełnij pola.',
+      timer: 2000,
+      text: 'Wypełnij poprawnie wszystkie pola...',
+      confirmButtonColor: '#ff3333',
+      confirmButtonText: 'Zamknij okno'
+    })
+  } else {
+  document.documentElement.scrollTop = document.body.scrollTop = 0;
+  document.getElementById('formStepFirst').style.display = 'none';
+  document.getElementById('formStepSecond').style.display = 'block';
+  }}
+  </script>
+  
+</body>
+
+</html>

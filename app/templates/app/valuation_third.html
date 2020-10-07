@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="TGcoders.pl">
+  <title>Transportuj24.pl - Formularz wyceny, dane kontaktowe zamawiającego.</title>
+  <!-- Preloader -->
+  <style>
+    @keyframes hidePreloader {
+      0% {
+        width: 100%;
+        height: 100%;
+      }
+
+      100% {
+        width: 0;
+        height: 0;
+      }
+    }
+
+    body>div.preloader {
+      position: fixed;
+      background: white;
+      width: 100%;
+      height: 100%;
+      z-index: 1071;
+      opacity: 0;
+      transition: opacity .5s ease;
+      overflow: hidden;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body:not(.loaded)>div.preloader {
+      opacity: 1;
+    }
+
+    body:not(.loaded) {
+      overflow: hidden;
+    }
+
+    body.loaded>div.preloader {
+      animation: hidePreloader .5s linear .5s forwards;
+    }
+  </style>
+  <script>
+    window.addEventListener("load", function() {
+      setTimeout(function() {
+        document.querySelector('body').classList.add('loaded');
+      }, 300);
+    });
+  </script>
+  <!-- Favicon -->
+  <link rel="icon" href="{% static 'assets/img/brand/favicon.png' %}" type="image/png">
+  <!-- Page CSS -->
+  <link rel="stylesheet" href="{% static 'assets/libs/@fancyapps/fancybox/dist/jquery.fancybox.min.css' %}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'assets/libs/@fortawesome/fontawesome-free/css/all.min.css' %}">
+  <!-- Quick CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/quick-website.css' %}" id="stylesheet">
+</head>
+
+<body>
+  <!-- ============================================-->
+  <!-- Form new product  ==========================-->
+  <form method="POST" enctype="multipart/form-data" name="newProductForm" id="newProductForm"><input type="hidden" name="csrfmiddlewaretoken" value="q7iwyZap5TED4N5QlzUwC2ckSi8kgPhO5Ow5y7qRghqK5JAPhmswA7diHD1YtmzX"><!-- ============================================-->
+    <!-- First step  ================================-->
+    <section id="firstStep" style="display:block;"><a href="javascript:history.back()" class="btn btn-secondary btn-icon-only rounded-circle position-absolute zindex-101 left-4 top-4 d-none d-lg-inline-flex"><span class="btn-inner--icon"><i data-feather="arrow-left"></i></span></a>
+      <div class="container d-flex flex-column">
+        <div class="row align-items-center justify-content-center min-vh-100">
+          <div class="col-md-8 col-lg-7 col-xl-6 py-6 py-md-0">
+            <div>
+              <div class="mb-2 text-center">
+                <h2 class="h1 mb-3 mt-4">
+
+                  O Twojej przesyłce
+
+                </h2>
+              </div><!-- TIME TO END -->
+              <div class="avatar-connect mb-6">
+                <ul class="d-flex justify-content-between">
+                  <li><a href="#" onClick="return false;"><span class="avatar bg-primary text-white rounded-circle">1</span></a></li>
+                  <li><a href="#" onClick="return false;"><span class="avatar bg-primary text-white rounded-circle">2</span></a></li>
+                  <li><a href="#" onClick="return false;"><span class="avatar bg-success text-white rounded-circle">3</span></a></li>
+                </ul>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label class="form-control-label">Telefon kontaktowy</label>
+                  <input type="text" class="form-control input-mask" placeholder="(00) 000 000 000">
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label class="form-control-label">Adres email</label>
+                  <input type="text" class="form-control input-mask" placeholder="nazwa@domena.pl">
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label class="form-control-label">Osoba kontaktowa</label>
+                  <input type="text" class="form-control input-mask" placeholder="Imię lub nazwa firmy...">
+                </div>
+              </div>
+
+
+              <div class="mt-4 mb-5"><button type="button" onclick="stepSecond()" class="btn btn-block btn-primary" id="firstDtepButton">Uzyskaj wycenę <i class="fas fa-chevron-right ml-2"></i></button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End first step =============================-->
+
+
+  </form><!-- end form new product =======================-->
+
+
+  <!-- Core JS  -->
+  <script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/libs/svg-injector/dist/svg-injector.min.js' %}"></script>
+  <script src="{% static 'assets/libs/feather-icons/dist/feather.min.js' %}"></script>
+  <!-- Optional JS -->
+  <script src="{% static 'assets/libs/in-view/dist/in-view.min.js' %}"></script>
+  <script src="{% static 'assets/libs/sticky-kit/dist/sticky-kit.min.js' %}"></script>
+  <script src="{% static 'assets/libs/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <!-- Page JS -->
+  <script src="{% static 'assets/libs/@fancyapps/fancybox/dist/jquery.fancybox.min.js' %}"></script>
+  <!-- Quick JS -->
+  <script src="{% static 'assets/js/quick-website.js' %}"></script>
+  <!-- Feather Icons -->
+  <script>
+    feather.replace({
+      'width': '1em',
+      'height': '1em'
+    })
+  </script>
+</body>
+
+</html>

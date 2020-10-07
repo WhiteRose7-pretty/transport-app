@@ -1,0 +1,18 @@
+PROVINCES_CHOICES = [
+    ('Mazowieckie', 'Mazowieckie'),
+    ('Śląskie', 'Śląskie'),
+    ('Wielkopolskie', 'Wielkopolskie'),
+    ('Małopolskie', 'Małopolskie'),
+    ('Dolnośląskie', 'Dolnośląskie'),
+    ('Łódzkie', 'Łódzkie'),
+    ('Pomorskie', 'Pomorskie'),
+    ('Podkarpackie', 'Podkarpackie'),
+    ('Lubelskie', 'Lubelskie'),
+    ('Kujawsko-pomorskie', 'Kujawsko-pomorskie'),
+    ('Zachodniopomorskie', 'Zachodniopomorskie'),
+    ('Warmińsko-mazurskie', 'Warmińsko-mazurskie'),
+    ('Świętokrzyskie', 'Świętokrzyskie'),
+    ('Podlaskie', 'Podlaskie'),
+    ('Lubuskie', 'Lubuskie'),
+    ('Opolskie', 'Opolskie'),
+]

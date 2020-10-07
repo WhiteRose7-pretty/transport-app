@@ -1,0 +1,324 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, shrink-to-fit=no">
+  <title>Messenger - Responsive Bootstrap Application</title>
+
+  <!-- Template core CSS -->
+
+  <link href="{% static 'dashboard/css/template.min.css' %}" rel="stylesheet">
+  <link href="{% static 'dashboard/css/template.dark.min.css' %}" rel="stylesheet" media="(prefers-color-scheme: dark)">
+
+
+
+</head>
+<!-- Head -->
+
+<body>
+
+  <div class="layout">
+
+    <!-- Navigation -->
+    <div class="navigation navbar navbar-light justify-content-center py-xl-7">
+
+      <!-- Brand -->
+      <a href="#" class="d-none d-xl-block mb-6">
+        <img src="{% static 'dashboard/images/logo-white.png' %}" class="mx-auto fill-primary" alt="" style="height: 46px;">
+      </a>
+
+      <!-- Menu -->
+      <ul class="nav navbar-nav flex-row flex-xl-column flex-grow-1 justify-content-between justify-content-xl-center py-3 py-lg-0" role="tablist">
+
+        <!-- Chats -->
+        <li class="nav-item mt-xl-9">
+          <a class="nav-link position-relative p-0 py-xl-3" data-toggle="tab" href="#tab-content-dialogs" title="Chats" role="tab">
+            <i class="icon-lg fe-message-square"></i>
+          </a>
+        </li>
+
+        <!-- Invisible item to center nav vertically -->
+        <li class="nav-item d-none d-xl-block invisible flex-xl-grow-1">
+          <a class="nav-link position-relative p-0 py-xl-3" href="#" title="">
+            <i class="icon-lg fe-x"></i>
+          </a>
+        </li>
+
+        <!-- Create group -->
+        <li class="nav-item">
+          <a class="nav-link position-relative p-0 py-xl-3 active" data-toggle="tab" href="#tab-content-create-chat" title="Create chat" role="tab">
+            <i class="icon-lg fe-list"></i>
+            <div class="badge badge-dot badge-primary badge-bottom-center"></div>
+          </a>
+        </li>
+
+        <!-- Friend -->
+        <li class="nav-item mt-xl-9">
+          <a class="nav-link position-relative p-0 py-xl-3" data-toggle="tab" href="#tab-content-friends" title="Friends" role="tab">
+            <i class="icon-lg fe-plus-square"></i>
+          </a>
+        </li>
+
+        <!-- Profile -->
+        <li class="nav-item mt-xl-9">
+          <a class="nav-link position-relative p-0 py-xl-3" href="{% url 'dashboard:settings' %}" title="User" role="tab">
+            <i class="icon-lg fe-settings"></i>
+          </a>
+        </li>
+
+        <!-- Demo only: Documentation -->
+        <li class="nav-item mt-xl-9 d-none d-xl-block flex-xl-grow-1">
+          <a class="nav-link position-relative p-0 py-xl-3" data-toggle="tab" href="#tab-content-demos" title="Demos" role="tab">
+            <i class="icon-lg fe-home"></i>
+          </a>
+        </li>
+
+        <!-- Settings -->
+        <li class="nav-item mt-xl-9">
+          <a class="nav-link position-relative p-0 py-xl-3" href="{% url 'account_logout' %}" title="Settings">
+            <i class="icon-lg fe-log-out"></i>
+          </a>
+        </li>
+
+      </ul>
+      <!-- Menu -->
+
+    </div>
+    <!-- Navigation -->
+
+    <!-- Main Content -->
+    <div class="main main-visible" data-mobile-height="">
+
+      <!-- Chat -->
+      <div class="chat">
+
+        <!-- Chat: body -->
+        <div class="chat-body">
+
+          <!-- Chat: Header -->
+          <div class="chat-header border-bottom py-4 py-lg-6 px-lg-7">
+            <div class="container-fluid">
+
+              <div class="row align-items-center">
+
+                <!-- Close chat(mobile) -->
+                <div class="col-3 d-xl-none ">
+                  <ul class="list-inline mb-0" style="display:none;">
+                    <li class="list-inline-item">
+                      <a class="text-muted px-0" href="#" data-chat="open">
+                        <i class="icon-md fe-chevron-left"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Chat photo -->
+                <div class="col-6 col-xl-6">
+                  <div class="media text-center text-xl-left">
+                    <div class="media-body align-self-center text-truncate">
+                      <h6 class="text-truncate mb-n1">Przesyłki</h6>
+                      <small class="text-muted">Lista Twoich przesyłek</small>
+                    </div>
+                  </div>
+                </div>
+
+              </div><!-- .row -->
+
+            </div>
+          </div>
+          <!-- Chat: Header -->
+
+          <!-- Chat: Content-->
+          <div class="chat-content px-lg-8">
+            <div class="py-6 py-lg-10">
+            
+              <div class="row">
+              
+                <!-- product -->
+                <div class="col-12 mb-5">
+                  <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                          <div class="col-8">
+                          <img class="rounded float-left mr-6" src="{% static 'dashboard/images/avatars/2a.jpg' %}" alt="Image Description" style="width: 100px;">
+                          <h5 class="mt-4">Zestaw mebli pokojowych + obraz</h5>
+                          <p><span class="fe-map-pin mr-2"></span>Grójecka 65/21, 02-094 Warszawa <br><span class="fe-truck mr-2"></span>55 Exhibition Rd, Knightsbridge, London SW7 2PG, United Kingdom</p>
+                          </div>
+                          <div class="col-4 text-right mt-7">
+                            <button class="btn  btn-primary">Opłać: 149.99zł</button>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- product 1-->
+                <div class="col-12 mb-5">
+                  <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                          <div class="col-8">
+                          <img class="rounded float-left mr-6" src="{% static 'dashboard/images/avatars/3a.jpg' %}" alt="Image Description" style="width: 100px;">
+                          <h5 class="mt-4">Paczka standardowa 90x90</h5>
+                          <p><span class="fe-map-pin mr-2"></span>Mikołaja Kopernika 9, 40-001 Katowice<br><span class="fe-truck mr-2"></span>225 Nepperhan Ave, Yonkers, NY 10701, United States</p>
+                          </div>
+                          <div class="col-4 text-right mt-7">
+                            <button class="btn  btn-danger">Oczekuje na wycene</button>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                
+                
+                <div class="col-12 mb-5">
+                  <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                          <div class="col-8">
+                          <img class="rounded float-left mr-6" src="{% static 'dashboard/images/avatars/1a.jpg' %}" alt="Image Description" style="width: 100px;">
+                          <h5 class="mt-4">Kot perski</h5>
+                          <p><span class="fe-map-pin mr-2"></span>Müllerstraße 3 a, 13353 Berlin, Germany<br><span class="fe-truck mr-2"></span>Ulitsa Bol'shaya Yakimanka, 24, Moscow, Russia, 119180</p>
+                          </div>
+                          <div class="col-4 text-right mt-7">
+                            <button class="btn  btn-danger">Oczekuje na wycene</button>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-12 mb-5">
+                  <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                          <div class="col-8">
+                          <img class="rounded float-left mr-6" src="{% static 'dashboard/images/avatars/2.jpg' %}" alt="Image Description" style="width: 100px;">
+                          <h5 class="mt-4">Motocykl</h5>
+                          <p>Katowice, Słoneczna 77<br>Katowice, Słoneczna 77</p>
+                          </div>
+                          <div class="col-4 text-right mt-7">
+                            <button class="btn  btn-danger">Oczekuje na wycene</button>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+
+            </div>
+          
+          </div>
+          <!-- Chat: Content -->
+
+        </div>
+        <!-- Chat: body -->
+
+      </div>
+      <!-- Chat -->
+
+    </div>
+    <!-- Main Content -->
+
+  </div>
+  <!-- Layout -->
+
+  <!-- DropzoneJS: Template -->
+  <div id="dropzone-template-js">
+    <div class="col-lg-4 my-3">
+      <div class="card bg-light">
+        <div class="card-body p-3">
+          <div class="media align-items-center">
+
+            <div class="dropzone-file-preview">
+              <div class="avatar avatar rounded bg-secondary text-basic-inverse d-block mr-5">
+                <i class="fe-paperclip"></i>
+              </div>
+            </div>
+
+            <div class="dropzone-image-preview">
+              <div class="avatar avatar mr-5">
+                <img src="#" class="avatar-img rounded" data-dz-thumbnail="" alt="">
+              </div>
+            </div>
+
+            <div class="media-body overflow-hidden">
+              <h6 class="text-truncate small mb-0" data-dz-name></h6>
+              <p class="extra-small" data-dz-size></p>
+            </div>
+
+            <div class="ml-5">
+              <a href="#" class="btn btn-sm btn-link text-decoration-none text-muted" data-dz-remove>
+                <i class="fe-x"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- DropzoneJS: Template -->
+
+  <!-- Modal: Invite friends -->
+  <div class="modal fade" id="invite-friends" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <div class="media flex-fill">
+            <div class="icon-shape rounded-lg bg-primary text-white mr-5">
+              <i class="fe-users"></i>
+            </div>
+            <div class="media-body align-self-center">
+              <h5 class="modal-title">Invite friends</h5>
+              <p class="small">Invite colleagues, clients and friends.</p>
+            </div>
+          </div>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form action="#">
+            <div class="form-group">
+              <label for="invite-email" class="small">Email</label>
+              <input type="text" class="form-control form-control-lg" id="invite-email">
+            </div>
+
+            <div class="form-group mb-0">
+              <label for="invite-message" class="small">Invitation message</label>
+              <textarea class="form-control form-control-lg" id="invite-message" data-autosize="true"></textarea>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-lg btn-block btn-primary d-flex align-items-center">
+            Invite friend
+            <i class="fe-user-plus ml-auto"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal: Invite friends -->
+
+  <!-- Scripts -->
+  <script src="{% static 'dashboard/js/libs/jquery.min.js' %}"></script>
+  <script src="{% static 'dashboard/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'dashboard/js/plugins/plugins.bundle.js' %}"></script>
+  <script src="{% static 'dashboard/js/template.js' %}"></script>
+  <!-- Scripts -->
+
+</body>
+
+</html>
