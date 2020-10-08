@@ -579,7 +579,7 @@
         });
 
         autocomplete2 = new google.maps.places.Autocomplete((document.getElementById('id_location_to')), {
-            types: ['(cities)'],
+            types: ['geocode'],
         });
 
         google.maps.event.addListener(autocomplete2, 'place_changed', function () {
