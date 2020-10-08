@@ -570,7 +570,6 @@
             types: ['geocode'],
         });
         google.maps.event.addListener(autocomplete1, 'place_changed', function () {
-            console.log("here");
             var near_place = autocomplete1.getPlace();
             if (near_place.geometry.location.lat() !== 0) {
                 $('#id_lat_from').val(near_place.geometry.location.lat());
@@ -584,7 +583,6 @@
         });
 
         google.maps.event.addListener(autocomplete2, 'place_changed', function () {
-            console.log("here1");
             var near_place = autocomplete2.getPlace();
             if (near_place.geometry.location.lat() !== 0) {
                 $('#id_lat_to').val(near_place.geometry.location.lat());
@@ -610,7 +608,6 @@
             },
             success:function(data)
             {
-                console.log(data);
                 if(data.errors)
                 {
                     $('#error').append(get_error_message('Error was happened, Please try again.'))
@@ -633,7 +630,7 @@
     }
 
     function sweet_alert(message){
-            console.log(message);
+
              const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success',
