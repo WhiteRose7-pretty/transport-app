@@ -1,0 +1,323 @@
+{% load static %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="TGcoders.pl">
+  <title>Transportuj24.pl - Strona główna.</title>
+  <style>
+    @keyframes hidePreloader {
+      0% {
+        width: 100%;
+        height: 100%;
+      }
+
+      100% {
+        width: 0;
+        height: 0;
+      }
+    }
+
+    body>div.preloader {
+      position: fixed;
+      background: white;
+      width: 100%;
+      height: 100%;
+      z-index: 1071;
+      opacity: 0;
+      transition: opacity .5s ease;
+      overflow: hidden;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body:not(.loaded)>div.preloader {
+      opacity: 1;
+    }
+
+    body:not(.loaded) {
+      overflow: hidden;
+    }
+
+    body.loaded>div.preloader {
+      animation: hidePreloader .5s linear .5s forwards;
+    }
+  </style>
+  <script>
+    window.addEventListener("load", function() {
+      setTimeout(function() {
+        document.querySelector('body').classList.add('loaded');
+      }, 300);
+    });
+  </script><!-- Favicon -->
+  <link rel="icon" href="{% static 'assets/img/brand/favicon.png' %}" type="image/png"><!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'assets/libs/%40fortawesome/fontawesome-free/css/all.min.css' %}"><!-- Quick CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/quick-website.css' %}" id="stylesheet">
+</head>
+
+<body>
+  <!--===============================================-->
+  <!--    Cookies-->
+  <!--===============================================-->
+  <div class="preloader">
+    <div class="spinner-border text-primary" role="status"><span class="sr-only">Wczytywanie...</span></div>
+  </div>
+  <div class="modal fade" tabindex="-1" role="dialog" id="modal-cookies" data-backdrop="false" aria-labelledby="modal-cookies" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-aside left-4 right-4 bottom-4">
+      <div class="modal-content bg-dark-dark">
+        <div class="modal-body">
+          <!-- Text -->
+          <p class="text-sm text-white mb-3">
+            Używamy plików cookie, aby zapewnić najwyższy poziom działania naszego serwisu. Korzystając z naszej witryny, zgadzasz się na ich wykorzystywanie.
+          </p><!-- Buttons --><a href="/regulamin/" class="btn btn-sm btn-white" target="_blank">Czyatj więcej</a><button type="button" class="btn btn-sm btn-primary mr-2" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--===============================================-->
+  <!--    End of Cookies-->
+  <!--===============================================-->
+  <!-- Header -->
+  <header class="" id="header-main">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg navbar-light" id="navbar-main">
+      <!-- Include navbar content -->
+      {% include "app/basic/navbar.html" %}
+    </nav>
+  </header><!-- Main content -->
+  <section>
+    <!-- Container -->
+    <div class="container d-flex align-items-center text-center text-lg-left py-5 py-lg-6 border-bottom">
+      <div class="col px-0">
+        <div class="row justify-content-center">
+          <div class="col-lg-8 text-center">
+            <!-- Title -->
+            <h2 class="h1 mb-2">Regulamin strony</h2>
+            <h6 class="font-weight-light text-muted">Ostatnia aktualizacja: 26.04.2020 r.</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="slice">
+    <div class="container">
+      <div class="row row-grid justify-content-between">
+        <div class="col-lg-3">
+          <div data-toggle="sticky" data-sticky-offset="50">
+            <div class="card">
+              <div class="card-body">
+                <nav class="nav nav-pills flex-column" id="nav-terms"><a class="nav-link text-sm" href="#item-1" data-scroll-to data-scroll-to-offset="130">Postanowienia wstępne</a><a class="nav-link text-sm" href="#item-2" data-scroll-to data-scroll-to-offset="130">Definicje</a><a class="nav-link text-sm" href="#item-3" data-scroll-to data-scroll-to-offset="130">Kontakt z administratorem</a><a class="nav-link text-sm" href="#item-4" data-scroll-to data-scroll-to-offset="130">Wymagania techniczne</a><a class="nav-link text-sm" href="#item-5" data-scroll-to data-scroll-to-offset="130">Informacje ogólne</a><a class="nav-link text-sm" href="#item-6" data-scroll-to data-scroll-to-offset="130">Zakładanie konta w serwisie</a><a class="nav-link text-sm" href="#item-7" data-scroll-to data-scroll-to-offset="130">Zasady dodawania produktu</a><a class="nav-link text-sm" href="#item-8" data-scroll-to data-scroll-to-offset="130">Reklamacja</a><a class="nav-link text-sm" href="#item-9" data-scroll-to data-scroll-to-offset="130">Pozasądowe kwestie</a><a class="nav-link text-sm" href="#item-10" data-scroll-to data-scroll-to-offset="130">Dane osobowe użytkowników</a><a class="nav-link text-sm" href="#item-11" data-scroll-to data-scroll-to-offset="130">Postanowienia końcowe</a></nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="mb-5">
+            <h5 id="item-1">Postanowienia wstępne</h5>
+            <p>
+              Serwis internetowy lombo.pl, dostępny pod adresem internetowym <a href="https://lombo.pl/">https://lombo.pl/</a>, prowadzony jest przez Pana Macieja Czerwińskiego z siedzibą w Poznaniu.
+            </p>
+            <p>
+              Niniejszy Regulamin skierowany jest zarówno do konsumentów (osób i firm sprzedających lub zastawiających swój produkt), jak i do lombardów (podmiotów dokonujących wyceny i składających oferty zarówno na zakup jak i udzielenie pożyczki) korzystających z serwisu. Określa zasady korzystania ze strony internetowej, zasady i tryb przechowywania danych oraz ich wzajemnego udostępniania a także funkcje jakie pełni niniejszy serwis.
+            </p>
+            <p>
+              Kopiowanie, powielanie lub udostępnianie treści znajdujących się w niniejszym serwisie jest kategorycznie zabronione.
+            </p>
+            <p>
+              Lombo.pl nie zezwala na używanie narzędzi do pobierania oraz masowego przetwarzania danych, indeksowania oraz innych form udostępniania części lub całości strony bez uprzedniej uzyskanej zgody wydanej przez administratora serwisu.
+            </p>
+            <p>
+              Lombo.pl nie bierze żadnej odpowiedzialności za sprzedane lub wystawione przedmioty, a pełni wyłącznie funkcję portalu ogłoszeniowego.
+            </p>
+            <p>
+              Lombo.pl nie jest odpowiedzialne za weryfikacje lombardów dokonujących wyceny oraz składających oferty kupna.
+            </p>
+            <p>
+              Nasz serwis nie oferuje gwarancji na zakupione przedmioty, nie weryfikuje pod kątem prawnym lombardów udzielających pożyczki. Wszystkie spory między lombardami, a wystawiającymi przedmioty klientami, podmioty muszą rozstrzygać wyłącznie we własnym zakresie.
+            </p>
+          </div>
+          <div class="mb-5">
+            <h5 id="item-2">Definicje</h5>
+            <p>
+              Lombard - osoba fizyczna prowadząca działalność gospodarczą lub spółka kapitałowa wpisana do Krajowego Rejestru Sądowego.
+            </p>
+            <p>
+              Klient - każdy podmiot dokonujący wystawienia swojego przedmiotu w naszym serwisie w celu jego sprzedaży lub zastawienia.
+            </p>
+            <p>
+              Regulamin - niniejszego portalu.
+            </p>
+            <p>
+              Produkt - przedmiot wystawiony na sprzedaż lub pod zastaw przez klienta oraz przedmiot wystawiony przez lombard.
+            </p>
+            <p>
+              Konto - konto klienta w naszym serwisie, są w nim gromadzone dane podane przez Klienta oraz informacje o złożonych przez niego ofertach kupna i wystawionych produktach na sprzedaż.
+            </p>
+            <p>
+              Formularz rejestracji - formularz dostępny w serwisie, umożliwiający utworzenie Konta.
+            </p>
+            <p>
+              Formularz sprzedaży - formularz sprzedaży lub zastawienia produktu wypełniony przez klienta na stronie głównej.
+            </p>
+          </div>
+          <div class="mb-5">
+            <h5 id="item-3">Kontakt z administratorem</h5>
+            <p>
+              Kontakt z administratorem powinien nastąpić przez adres email biuro@lombo.pl lub poprzez lombotgw@gmail.com.
+            </p>
+            <p>
+              W sprawach technicznych lub pozostałych kwestiach lombo.pl zezwala na kontakt z firmą odpowiedzialną za realizację serwisu poprzez <a href="https://tgwebsite.com/">formularz kontaktowy</a>.
+            </p>
+          </div>
+          <div class="mb-5">
+            <h5 id="item-4">Wymagania techniczne</h5>
+            <p>
+              Do korzystania z funkcji oferowanych przez lombo.pl, w tym przeglądania produktów oraz ich wystawiania niezbędne są:
+            </p>
+            <p>
+              Urządzenie końcowe z dostępem do sieci Internet i przeglądarką internetową typu Firefox, Google Chrome, Opera, IE lub inna,
+            </p>
+            <p>
+              aktywne konto poczty elektronicznej (e-mail) lub aktywny numer telefonu,
+            </p>
+            <p>
+              włączona obsługa plików cookies.
+            </p>
+          </div>
+          <div class="mb-5">
+            <h5 id="item-5">Informacje ogólne</h5>
+            <p>
+              Właściciel serwisu w najszerszym dopuszczalnym przez prawo zakresie nie ponosi odpowiedzialności za zakłócenia w tym przerwy w funkcjonowaniu seriwsu powodowane siłą wyższą, niedozwolonym działaniem osób trzecich lub niekompatybilnością serwisu internetowego z infrastrukturą techniczną Klienta
+            </p>
+            <p>
+              Przeglądanie dodanych produktów przez klientów indywidualnych wymaga założenia konta firmowego w naszym serwisie.
+            </p>
+            <p>
+              Przeglądanie produktów sprzedawanych przez lombardy nie wymaga założenia konta oraz rejestracji w serwisie.
+            </p>
+            <p>
+              Administrator serwisu nie bierze odpowiedzialności za ceny produktów oraz ustalenia między stronami dotyczące jego zastawienia sprzedaży lub innych kwestii nie związanych z dodaniem ogłoszenia w serwisie.
+            </p>
+          </div>
+          <div class="mb-5">
+            <h5 id="item-6">Zakładanie konta w serwisie</h5>
+            <p>
+              Aby założyć konto, należy wypełnić Formularz rejestracji. Niezbędne jest podanie następujących danych: Nazwa firmy, numer telefonu, adres emial, hasło, lokalizacja (ulica, miasto, województwo)
+            </p>
+            <p>
+              Założenie konta w naszym serwisie jest w pełni darmowe jak również sprzedaż, wystawianie produktów zarówno dla lombardów, jak i klientów prywatnych.
+            </p>
+            <p>
+              Klient ma możliwość w każdej chwili, bez podania przyczyny i bez ponoszenia z tego tytułu jakichkolwiek opłat i konsekwencji usunąć konto poprzez wysłanie stosownego żądania do administratora serwisu, w szczególności za pośrednictwem poczty elektronicznej lub pisemnie na adresy podane w § 3, lub kontakt z wykonawcą strony poprzez <a href="http://tgwebsite.com/kontakt/" target="_blank">formularz kontaktowy</a>.
+            </p>
+          </div>
+          <div class="mb-5">
+            <h5 id="item-7">Zasady dodawania produktu</h5>
+            <p>
+              W celu dodania produktu należy:
+            </p>
+            <p>
+              1.) Przejść do strony głównej naszego serwisu.
+            </p>
+            <p>
+              2.) Wybrać opcje jakiej oferty oczekujemy, zastawienia lub sprzedaży produktu.
+            </p>
+            <p>
+              3.) Uzupełnić poprawnie formularz, zaakceptować regulamin oraz politykę prywatności naszego serwisu.
+            </p>
+            <p>
+              W sprzedaży swojego produktu jako lombard należy:
+            </p>
+            <p>
+              1.) Utworzyć darmowe konto w naszym serwisie.
+            </p>
+            <p>
+              2.) Wypełnić formularz dodawania produktu w panelu po zalogowaniu.
+            </p>
+            <p>
+              3.) Posiadać aktywnie działający punkt oraz zarejestrowaną firmę. Firma nie może posiadać statusu zawieszonej lub zamkniętej działalności.
+            </p>
+          </div>
+          <div class="mb-5">
+            <h5 id="item-8">Reklamacja</h5>
+            <p>
+              Serwis Lombo.pl nie bierze odpowiedzialności za sprzedawane i zastawiane produkty oraz za kontakt klientów z lombardami oraz lombardów z klientami. Wszystkie reklamacje w tych tematach użytkownik powinien rozwiązywać we własnym zakresie.
+            </p>
+            <p>
+              Reklamacje na temat działania serwisu należy kierować na adres email podany w punkcie 3.
+            </p>
+          </div>
+          <div class="mb-5">
+            <h5 id="item-9">Pozasądowe kwestie</h5>
+            <p>
+              Kwestie sądowe oraz spory pozasądowe związane ze sprzedażą produktu lub wystawieniem czy zastawieniem klienci wraz z lombardami powinny rozwiązywać we własnym zakresie. Lombo.pl nie bierze odpowiedzialności za naruszenia, fałszywe ogłoszenia czy nieprawdziwe dane podawane przez lombardy, jak również wystawiających przedmioty klientów. W szczególności fałszywe adresy do dokonywania zakupów produktów online, fałszywe ceny przedmiotówm, fałszywe opisy przedmiotów. Użytkownicy są zobligowani do sprawdzenia we własnym zakresie działania zakupionego lub sprzedawanego przedmiotu oraz ponoszą odpowiedzialność za niego wyłącznie we własnym zakresie. Lombo.pl udziela wyłącznie możliwości dodawania i wystawiania produktów. Nie weryfikuje dodanych ogłoszeń.
+            </p>
+          </div>
+          <div class="mb-5">
+            <h5 id="item-10">Dane osobowe użytkowników</h5>
+            <p>
+              Administratorem danych osobowych klientów zbieranych za pośrednictwem niniejszego serwisu jest Maciej Czerwiński z siedzibą w Poznaniu.
+            </p>
+            <p>
+              Dane osobowe klientów i lombardów są zbierane w celu zapewnienia możliwości połączenia lombardów z klientami. Jeżeli użytkownik wyrazi na to zgodę w celach marketingowych i promocji działania niniejszego serwisu.
+            </p>
+            <p>
+              Odbiorcami danych osobowych mogą być:
+            </p>
+            <p>
+              W przypadku osoby, która jest zainteresowana sprzedażą swojego przedmiotu lub jego zastawieniem i poprawnie wypełniła formularz dodawania produktu, wszystkie lombardy spełniające kryteria lokalizacji oraz kryteria kategorii zainteresowania danymi przedmiotami.
+            </p>
+            <p>
+              W przypadku produktów wystawionych przez lombardy wszyscy użytkownicy portalu zarówno Ci, którzy poprawnie wypełnili formularz sprzedaży lub zastawienia produktu jak również osoby niezarejestrowane które wyłącznie odwiedziły niniejszą stronę.
+            </p>
+          </div>
+          <div class="mb-5">
+            <h5 id="item-11">Postanowienia końcowe</h5>
+            <p>
+              Serwis jest prowadzony w języku polskim
+            </p>
+            <p>
+              Administrator zastrzega sobie możliwość wprowadzania zmian w regulaminie i polityce prywatności, a także działania serwisu zgodnie z własnym uznaniem brzez uprzedniego informowania klientów i lombardów.
+            </p>
+            <p>
+              W sprawach nieuregulowanych w niniejszym Regulaminie mają zastosowanie powszechnie obowiązujące przepisy prawa polskiego, w szczególności: Kodeksu cywilnego; ustawy o świadczeniu usług drogą elektroniczną; ustawy o prawach konsumenta, ustawy o ochronie danych osobowych.
+            </p>
+            </p>
+            <p>
+              Wszystkie sprawy sądowe i pozasądowe lombardy z klientami powinny rozstrzygać wyłącznie we własnym zakresie.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- ============================================-->
+  <!-- Footer =====================================-->
+  <footer class="position-relative" id="footer-main">
+    <div class="footer pt-lg-7 footer-dark bg-dark">
+      {% include "app/basic/footer.html" %}
+    </div>
+  </footer><!-- End footer =================================-->
+
+  <script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/libs/svg-injector/dist/svg-injector.min.js' %}"></script>
+  <script src="{% static 'assets/libs/feather-icons/dist/feather.min.js' %}"></script><!-- Optional JS -->
+  <script src="{% static 'assets/libs/in-view/dist/in-view.min.js' %}"></script>
+  <script src="{% static 'assets/libs/sticky-kit/dist/sticky-kit.min.js' %}"></script>
+  <script src="{% static 'assets/libs/imagesloaded/imagesloaded.pkgd.min.js' %}"></script><!-- Quick JS -->
+  <script src="{% static 'assets/js/quick-website.js' %}"></script><!-- Feather Icons -->
+  <script>
+    feather.replace({
+      'width': '1em',
+      'height': '1em'
+    })
+  </script>
+</body>
+
+</html>

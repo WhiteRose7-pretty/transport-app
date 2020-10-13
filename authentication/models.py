@@ -5,7 +5,7 @@ from imagekit.processors import ResizeToFill
 
 
 class CustomUser(AbstractUser):
-    # add additional fields in here
+    company = models.BooleanField(default=False)
 
     def __str__(self):
         return self.email

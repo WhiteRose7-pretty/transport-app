@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'imagekit',
     'ckeditor',
+    'company',
 ]
 
 MIDDLEWARE = [
@@ -164,7 +165,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 
 # ocpjonalnie emaillogin_project/settings.py
 LOGIN_REDIRECT_URL = 'dashboard:products' #redirect
-ACCOUNT_LOGOUT_REDIRECT_URL = 'authentication:login' #rediect
+ACCOUNT_LOGOUT_REDIRECT_URL = 'app:home' #rediect
 
 ACCOUNT_FORMS = {'login': 'authentication.forms.SimpleLoginForm',
                  'signup': 'authentication.forms.SimpleSignupForm'}

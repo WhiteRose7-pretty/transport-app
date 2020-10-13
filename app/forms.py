@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import FileInput
 
 
 
@@ -19,3 +20,34 @@ class BasicTypeProductForm(forms.Form):
                                                                                  'placeholder': 'Skąd?'}))
     lng_to = forms.CharField(max_length=500, required=False, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
                                                                                'placeholder': 'Dokąd?'}))
+
+
+
+class FirstStepForm(forms.Form):
+    length = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                'placeholder': 'Wartość w cm'}))
+    width = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                'placeholder': 'Wartość w cm'}))
+    height = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                'placeholder': 'Wartość w cm'}))
+    weight = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                'placeholder': 'Wartość w kg'}))
+    comments = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows': '4',
+                                                            'class': 'form-control form-control-emphasized',
+                                                            'placeholder': 'Powiedz nam parę słów o swojej przesyłce...'}))
+    data = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                         'data-mask': '00/00/0000',
+                                                                         'placeholder': 'DD/MM/YYYY'}))
+    img_1 = forms.ImageField(required=False, widget=FileInput(attrs={'class': 'custom-input-file',
+                                                   'accept': '.jpg, .jpeg',}))
+    img_2 = forms.ImageField(required=False, widget=FileInput(attrs={'class': 'custom-input-file',
+                                                   'accept': '.jpg, .jpeg',}))
+    img_3 = forms.ImageField(required=False, widget=FileInput(attrs={'class': 'custom-input-file',
+                                                   'accept': '.jpg, .jpeg',}))
+    phone = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                         'placeholder': '(+00) 000 000 000'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control form-control-emphasized',
+                                                            'placeholder': 'nazwa@domena.pl',}))
+    contact_person = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                                  'placeholder': 'Podaj tekst...'}))
+

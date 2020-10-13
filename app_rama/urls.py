@@ -24,5 +24,6 @@ urlpatterns = [
     path('', include('app.urls', namespace='app')),
     path('profil/', include('dashboard.urls', namespace='dashboard')),
     path('uwierzytelnienie/', include('authentication.urls', namespace='authentication')),
-    path('accounts/', include('allauth.urls')),  # potrzebne do wysłania emaila
+    path('profil-firmowy/', include('company.urls', namespace='company')),
+    path('accounts/', include('allauth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

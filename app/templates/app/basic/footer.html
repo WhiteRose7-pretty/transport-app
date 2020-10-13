@@ -1,1 +1,92 @@
 {% load static %}
+<div class="container pt-1">
+  <div class="row justify-content-center">
+    <div class="col-lg-12">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <h3 class="text-secondary mb-2">Dołącz do nas</h3>
+          <p class="lead mb-0 text-white opacity-8">
+            Przewieź swoją paczkę lub dołącz do nas jako firma transportowa.
+          </p>
+        </div>
+        <div class="col-lg-5 text-lg-right mt-4 mt-lg-0">
+          <a href="{% if special_navbar %}{% url 'app:home' %}{% endif %}#formularz-wyceny" class="btn btn-white my-2" href="#jak-to-dziala" data-scroll-to>
+            Wyceń transport <i class="fas fa-box-open ml-2 text-primary"></i>
+          </a>
+          <a href="{% url 'authentication:new_company' %}" class="btn btn-primary my-2 ml-0 ml-sm-3">
+            Dodaj firmę <i class="fas fa-truck-moving ml-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="divider divider-fade divider-dark my-5">
+  <div class="row">
+    <div class="col-lg-4 mb-5 mb-lg-0">
+      <!-- Theme's logo -->
+      <a href="{% url 'app:home' %}">
+        <img alt="Image placeholder" src="{% static 'assets/img/brand/new-white-1.png' %}" id="footer-logo" style="height:60px">
+      </a>
+      <!-- Webpixels' mission -->
+      <p class="mt-4 text-sm opacity-8 pr-lg-4">Nasz serwis daje możliwość kompleksowej wyceny
+        niestandardowych przesyłek. Natomiast jako firma transportowa otrzymujesz dostęp do najlepszych
+        zleceń z całej Polski.</p>
+      <!-- Social -->
+    </div>
+    <div class="col-lg-2 col-6 col-sm-4 ml-lg-auto mb-5 mb-lg-0">
+      <h6 class="heading mb-3">Dla klientów</h6>
+      <ul class="list-unstyled">
+        <li><a href="{% if special_navbar %}{% url 'app:home' %}{% endif %}#formularz-wyceny" class="text-white">Nadaj przesyłkę</a></li>
+        <li><a href="{% url 'dashboard:phone_contact' %}" class="text-white">Kontakt</a></li>
+        <li><a href="{% url 'app:terms' %}" class="text-white">Regulamin</a></li>
+        <li><a href="{% url 'app:privacy_policy' %}" class="text-white">Prywatność</a></li>
+      </ul>
+    </div>
+    <div class="col-lg-2 col-6 col-sm-4 mb-5 mb-lg-0">
+      <h6 class="heading mb-3">Dla firm</h6>
+      <ul class="list-unstyled">
+        <li><a href="{% url 'app:signup_company' %}" class="text-white">Zapisz się</a></li>
+        <li><a href="#" class="text-white" data-toggle="tooltip" data-placement="top" title="Wsparcie dla klientów firmowych uzyskasz pod adresem email biuro@transportuj24.pl">Wsparcie</a></li>
+        <li><a href="{% url 'app:terms' %}" class="text-white">Regulamin</a></li>
+        <li><a href="{% url 'app:privacy_policy' %}" class="text-white">Prywatność</a></li>
+      </ul>
+    </div>
+    <div class="col-lg-2 col-6 col-sm-4 mb-5 mb-lg-0">
+      <h6 class="heading mb-3">Pozostałe</h6>
+      <ul class="list-unstyled">
+        <li><a href="{% url 'app:blog' %}" class="text-white">Blog</a></li>
+        <li><a href="{% if special_navbar %}{% url 'app:home' %}{% endif %}#jak-to-dziala" class="text-white">Jak to działa?</a></li>
+        <li><a href="{% url 'app:blog' %}" class="text-white">Blog</a></li>
+        <li><a href="{% url 'company:chat' %}" class="text-white">Logowanie (firma)</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="divider divider-fade divider-dark my-4">
+  <div class="row align-items-center justify-content-md-between pb-4">
+    <div class="col-md-6">
+      <div class="copyright text-sm font-weight-bold text-center text-md-left text-white">
+        &copy; 2020 <a href="https://transportuj24.pl/" class="font-weight-bold">Transportuj24.pl</a>.
+        Wszystkie prawa zastrzeżone.
+      </div>
+    </div>
+    <div class="col-md-6">
+      <ul class="nav justify-content-center justify-content-md-end mt-3 mt-md-0">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'app:privacy_policy' %}">
+            Prywatność
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'app:terms' %}">
+            Regulamin
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://tgcoders.pl/" target="_blank">
+            Create <i class="fab fa-connectdevelop"></i> TGcoders.pl
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

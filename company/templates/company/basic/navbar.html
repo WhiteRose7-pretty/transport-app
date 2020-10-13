@@ -1,0 +1,77 @@
+{% load static %}
+    <div class="navigation navbar navbar-light justify-content-center py-xl-7">
+
+      <!-- Brand -->
+      <a href="{% url 'dashboard:products' %}" class="d-none d-xl-block mb-6">
+        <img src="{% static 'dashboard/images/logo-white.png' %}" class="mx-auto fill-primary" alt="" style="height: 46px;">
+      </a>
+
+      <!-- Menu -->
+      <ul class="nav navbar-nav flex-row flex-xl-column flex-grow-1 justify-content-between justify-content-xl-center py-3 py-lg-0" role="tablist">
+
+
+        <!-- no visable elementy -->
+        <li class="nav-item d-none d-xl-block invisible flex-xl-grow-1">
+          <a class="nav-link position-relative p-0 py-xl-3" href="#" title="">
+            <i class="icon-lg fe-x"></i>
+          </a>
+        </li>
+        
+        <!-- 1 -->
+        <li class="nav-item">
+          <a class="nav-link position-relative p-0 py-xl-3 {% if nav_activate == 1 %}active{% endif %}" href="{% url 'company:chat' %}">
+            <i class="icon-lg fe-message-square"></i>
+            {% if nav_activate == 1 %}
+            <div class="badge badge-dot badge-primary badge-bottom-center"></div>
+            {% endif %}
+          </a>
+        </li>
+
+        <!-- 2 -->
+        <li class="nav-item mt-xl-9">
+          <a class="nav-link position-relative p-0 py-xl-3 {% if nav_activate == 2 %}active{% endif %}" href="{% url 'company:products' %}">
+            <i class="icon-lg fe-list"></i>
+            {% if nav_activate == 2 %}
+            <div class="badge badge-dot badge-primary badge-bottom-center"></div>
+            {% endif %}
+          </a>
+        </li>
+
+        <!-- home page website 
+        <li class="nav-item mt-xl-9">
+          <a class="nav-link position-relative p-0 py-xl-3" href="{% url 'app:home' %}#formularz-wyceny">
+            <i class="icon-lg fe-plus-square"></i>
+          </a>
+        </li>-->
+
+        <!-- 3
+        <li class="nav-item mt-xl-9">
+          <a class="nav-link position-relative p-0 py-xl-3 {% if nav_activate == 3 %}active{% endif %}" href="{% url 'dashboard:settings' %}" title="User" role="tab">
+            <i class="icon-lg fe-settings"></i>
+            {% if nav_activate == 3 %}
+            <div class="badge badge-dot badge-primary badge-bottom-center"></div>
+            {% endif %}
+          </a>
+        </li> -->
+
+        <!-- 4
+        <li class="nav-item mt-xl-9 d-none d-xl-block flex-xl-grow-1">
+          <a class="nav-link position-relative p-0 py-xl-3 {% if nav_activate == 4 %}active{% endif %}" href="{% url 'dashboard:phone_contact' %}">
+            <i class="icon-lg fe-phone"></i>
+            {% if nav_activate == 4 %}
+            <div class="badge badge-dot badge-primary badge-bottom-center"></div>
+            {% endif %}
+          </a>
+        </li> -->
+
+        <!-- Log out element -->
+        <li class="nav-item mt-xl-9">
+          <a class="nav-link position-relative p-0 py-xl-3" href="{% url 'account_logout' %}" title="Settings">
+            <i class="icon-lg fe-log-out"></i>
+          </a>
+        </li>
+
+      </ul>
+      <!-- Menu -->
+
+    </div>

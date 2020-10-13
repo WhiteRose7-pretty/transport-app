@@ -57,11 +57,12 @@
     });
   </script>
   <!-- Favicon -->
-  <link rel="icon" href="{% static 'assets/img/brand/favicon.png' %}" type="image/png">
+  <link rel="icon" href="{% static 'assets/img/brand/logo-sm.png' %}" type="image/png">
   <!-- Page CSS -->
   <link rel="stylesheet" href="{% static 'assets/libs/@fancyapps/fancybox/dist/jquery.fancybox.min.css' %}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{% static 'assets/libs/@fortawesome/fontawesome-free/css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.css' %}">
   <!-- Quick CSS -->
   <link rel="stylesheet" href="{% static 'assets/css/quick-website.css' %}" id="stylesheet">
 </head>
@@ -69,17 +70,32 @@
 <body>
   <!-- ============================================-->
   <!-- Form new product  ==========================-->
-  <form method="POST" enctype="multipart/form-data" name="newProductForm" id="newProductForm"><input type="hidden" name="csrfmiddlewaretoken" value="q7iwyZap5TED4N5QlzUwC2ckSi8kgPhO5Ow5y7qRghqK5JAPhmswA7diHD1YtmzX"><!-- ============================================-->
+  <form method="POST" enctype="multipart/form-data" name="newProductForm" id="newProductForm">
+  {% csrf_token %}
+  
+  
     <!-- First step  ================================-->
     <section id="firstStep" style="display:block;"><a href="javascript:history.back()" class="btn btn-secondary btn-icon-only rounded-circle position-absolute zindex-101 left-4 top-4 d-none d-lg-inline-flex"><span class="btn-inner--icon"><i data-feather="arrow-left"></i></span></a>
       <div class="container d-flex flex-column">
         <div class="row align-items-center justify-content-center min-vh-100">
           <div class="col-md-8 col-lg-7 col-xl-6 py-6 py-md-0">
-            <div>
               <div class="mb-2 text-center">
                 <h2 class="h1 mb-3 mt-4">
 
-                  O Twojej przesyłce
+                  Informacje podstawowe
+                  
+                    <!-- ============================================-->
+                    <!-- error message ==============================-->
+                    {% for key, value in form.errors.items %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      <strong>Błąd:</strong> {% if key != '__all__' %}{{ key|title  }} {% endif %} - {{ value|striptags }}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    {% endfor %}
+                    <!-- end erroe message ==========================-->
+                    <!-- ============================================-->
 
                 </h2>
               </div><!-- TIME TO END -->
@@ -94,33 +110,191 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label class="form-control-label">Długość</label>
-                  <input type="text" class="form-control input-mask" placeholder="Wartość w cm">
+                  {{ form.length }}
                 </div>
                 <div class="form-group col-md-6">
                   <label class="form-control-label">Szerokość</label>
-                  <input type="text" class="form-control input-mask" placeholder="Wartość w cm">
+                  {{ form.width }}
                 </div>
               </div>
               
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label class="form-control-label">Wysokość</label>
-                  <input type="text" class="form-control input-mask" placeholder="Wartość w cm">
+                  {{ form.height }}
                 </div>
                 <div class="form-group col-md-6">
                   <label class="form-control-label">Waga</label>
-                  <input type="text" class="form-control input-mask" placeholder="Wartość w kg">
+                  {{ form.weight }}
                 </div>
               </div>
               
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <label class="form-control-label">Uwagi (opcjonalnie)</label>
-                  <textarea class="form-control" placeholder="Powiedz nam parę słów o swojej przesyłce..." rows="4">{{ distance }}</textarea>
+                  {{ form.comments }}
                 </div>
               </div>
 
-              <div class="mt-4 mb-5"><button type="button" onclick="stepSecond()" class="btn btn-block btn-primary" id="firstDtepButton">Następny krok <i class="fas fa-chevron-right ml-2"></i></button></div>
+              <div class="mt-4 mb-5"><button type="button" class="btn btn-block btn-primary" id="firstDtepButton" onclick="stepSecond()">Następny krok <i class="fas fa-chevron-right ml-2"></i></button></div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End first step =============================-->
+    
+    <!-- First step  ================================-->
+    <section id="secondStep" style="display:none;"><a href="javascript:history.back()" class="btn btn-secondary btn-icon-only rounded-circle position-absolute zindex-101 left-4 top-4 d-none d-lg-inline-flex"><span class="btn-inner--icon"><i data-feather="arrow-left"></i></span></a>
+       <div class="container d-flex flex-column">
+        <div class="row align-items-center justify-content-center min-vh-100">
+          <div class="col-md-8 col-lg-7 col-xl-6 py-6 py-md-0">
+            <div>
+              <div class="mb-2 text-center">
+                <h2 class="h1 mb-3 mt-4">
+
+                  Informacje dodatkowe
+
+                </h2>
+              </div><!-- TIME TO END -->
+              <div class="avatar-connect mb-6">
+                <ul class="d-flex justify-content-between">
+                  <li><a href="#" onClick="return false;"><span class="avatar bg-primary text-white rounded-circle">1</span></a></li>
+                  <li><a href="#" onClick="return false;"><span class="avatar bg-primary text-white rounded-circle">2</span></a></li>
+                  <li><a href="#" onClick="return false;"><span class="avatar bg-secondary text-dark rounded-circle">3</span></a></li>
+                </ul>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label class="form-control-label">Data wysyłki</label>
+                  {{ form.data }}
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                      <label class="form-control-label">Zdjęcie przesyłki (opcjonalnie)</label>
+                    </div>
+                  </div>
+                  <div>
+                    {{ form.img_1 }}
+                    <label for="id_img_1">
+                      <i class="fa fa-upload"></i>
+                      <span>Wybierz plik…</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                      <label class="form-control-label">Dodatkowe zdjęcie przesyłki 1 (opcjonalnie)</label>
+                    </div>
+                  </div>
+                  <div>
+                    {{ form.img_2 }}
+                    <label for="id_img_2">
+                      <i class="fa fa-upload"></i>
+                      <span>Wybierz plik…</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                      <label class="form-control-label">Dodatkowe zdjęcie przesyłki 2 (opcjonalnie)</label>
+                    </div>
+                  </div>
+                  <div>
+                    {{ form.img_3 }}
+                    <label for="id_img_3">
+                      <i class="fa fa-upload"></i>
+                      <span>Wybierz plik…</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="mt-4 mb-5"><button type="button" onclick="stepThird()" class="btn btn-block btn-primary" id="secondStepButton">Następny krok <i class="fas fa-chevron-right ml-2"></i></button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End first step =============================-->
+    
+    <!-- First step  ================================-->
+    <section id="thirdStep" style="display:none;"><a href="javascript:history.back()" class="btn btn-secondary btn-icon-only rounded-circle position-absolute zindex-101 left-4 top-4 d-none d-lg-inline-flex"><span class="btn-inner--icon"><i data-feather="arrow-left"></i></span></a>
+      <div class="container d-flex flex-column">
+        <div class="row align-items-center justify-content-center min-vh-100">
+          <div class="col-md-8 col-lg-7 col-xl-6 py-6 py-md-0">
+            <div>
+              <div class="mb-2 text-center">
+                <h2 class="h1 mb-3 mt-4">
+
+                  O Twojej przesyłce
+
+                </h2>
+              </div><!-- TIME TO END -->
+              <div class="avatar-connect mb-6">
+                <ul class="d-flex justify-content-between">
+                  <li><a href="#" onClick="return false;"><span class="avatar bg-primary text-white rounded-circle">1</span></a></li>
+                  <li><a href="#" onClick="return false;"><span class="avatar bg-primary text-white rounded-circle">2</span></a></li>
+                  <li><a href="#" onClick="return false;"><span class="avatar bg-success text-white rounded-circle">3</span></a></li>
+                </ul>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label class="form-control-label">Telefon kontaktowy</label>
+                  {{ form.phone }}
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label class="form-control-label">Adres email</label>
+                  {{ form.email }}
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label class="form-control-label">Osoba kontaktowa</label>
+                  {{ form.contact_person }}
+                </div>
+              </div>
+              
+                <div class="mt-2 mb-5">
+                
+                  <div class="form-group mb-0">
+                    <strong class="text-danger" id="alert_conditions" style="display:none;"><i class="fas fa-exclamation-circle mr-2"></i> Zaakceptuj regulamin i polityke prywatności.</strong>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="custom-control-input" id="check-terms" required> 
+                      <label class="custom-control-label" for="check-terms">Akceptuje regulamin i polityke prywatności. <a href="#" target="_blank">Czytaj więcej</a>.
+                      </label>
+                    </div>
+                  </div>
+                
+                  <button type="button" onClick="submitFunction();" class="btn btn-block btn-primary" id="buttonSubmitProduct">
+                    <span style="display:block;" id="buttonText">
+                      Następny krok <i class="fas fa-chevron-right ml-2"></i>
+                    </span>
+                    <span style="display:none;" id="buttonSipner">
+                      Wczytywanie...
+                      <div class="spinner-border spinner-grow-sm ml-2" role="status">
+                        <span class="sr-only">Wczytywanie...</span>
+                      </div>
+                    </span>
+                  </button>
+                </div>
+            
             </div>
           </div>
         </div>
@@ -142,6 +316,8 @@
   <script src="{% static 'assets/libs/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
   <!-- Page JS -->
   <script src="{% static 'assets/libs/@fancyapps/fancybox/dist/jquery.fancybox.min.js' %}"></script>
+  <script src="{% static 'assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js' %}"></script>
+  <script src="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
   <!-- Quick JS -->
   <script src="{% static 'assets/js/quick-website.js' %}"></script>
   <!-- Feather Icons -->
@@ -150,6 +326,78 @@
       'width': '1em',
       'height': '1em'
     })
+  </script>
+  <!--============================== Steps function =============================-->
+  <script>
+  function stepFirst() {
+  document.getElementById('firstStep').style.display = 'block';
+  document.getElementById('secondStep').style.display = 'none';
+  document.getElementById('thirdStep').style.display = 'none';
+  }
+  
+  function stepSecond() {
+  var valueLength = document.getElementById('id_length');
+  var valueWidth = document.getElementById('id_width');
+  var valueHeight = document.getElementById('id_height');
+  var valueWeight = document.getElementById('id_weight');
+  var valueComments = document.getElementById('id_comments');
+  if (valueLength.value.length < 1 || valueWidth.value.length < 1 || valueHeight.value.length < 1 || valueWeight.value.length < 1) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Wypełnij wymiary!',
+      timer: 2000,
+      text: 'Wypełnij poprawnie wszystkie wymiary przesyłki.',
+      confirmButtonColor: '#ff3333',
+      confirmButtonText: 'Zamknij okno'
+    })
+  } else {
+  document.documentElement.scrollTop = document.body.scrollTop = 0;
+  document.getElementById('firstStep').style.display = 'none';
+  document.getElementById('secondStep').style.display = 'block';
+  document.getElementById('thirdStep').style.display = 'none';
+  }}
+  
+  function stepThird() {
+  var valueCategory = document.getElementById('id_data');
+  if (valueCategory.value.length < 6 ) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Wypełnij pola.',
+      timer: 2000,
+      text: 'Wypełnij poprawnie date wysyłki.',
+      confirmButtonColor: '#ff3333',
+      confirmButtonText: 'Zamknij okno'
+    })
+  } else {
+  document.documentElement.scrollTop = document.body.scrollTop = 0;
+  document.getElementById('firstStep').style.display = 'none';
+  document.getElementById('secondStep').style.display = 'none';
+  document.getElementById('thirdStep').style.display = 'block';
+  }}
+  
+  function submitFunction() {
+  var valuePhone = document.getElementById('id_phone');
+  var valueEmail = document.getElementById('id_email');
+  var valueContactPerson = document.getElementById('id_contact_person');
+  var valueTherms = document.getElementById('check-terms');
+  if (valueEmail.value.length < 2 || valueContactPerson.value.length < 2 || valuePhone.value.length < 9 || valueTherms.checked === false ) {
+    if ( valueTherms.checked === false ) {
+    document.getElementById('alert_conditions').style.display = 'block';
+    }
+    Swal.fire({
+      icon: 'error',
+      title: 'Wypełnij pola.',
+      timer: 3000,
+      text: 'Wypełnij poprawnie wszystkie pola i zaakceptuj polityke prywatności...',
+      confirmButtonColor: '#ff3333',
+      confirmButtonText: 'Zamknij okno'
+    })
+  } else {
+  document.getElementById('buttonSubmitProduct').disabled = true;
+  document.getElementById('buttonText').style.display = 'none';
+  document.getElementById('buttonSipner').style.display = 'block';
+  $('#newProductForm').submit();
+  }}
   </script>
 </body>
 

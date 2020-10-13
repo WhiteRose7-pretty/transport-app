@@ -57,8 +57,8 @@
                 <div class="col-6 col-xl-6">
                   <div class="media text-center text-xl-left">
                     <div class="media-body align-self-center text-truncate">
-                      <h6 class="text-truncate mb-n1">Ustawienia</h6>
-                      <small class="text-muted">Uzupełnij swój profil</small>
+                      <h6 class="text-truncate mb-n1">Kontakt</h6>
+                      <small class="text-muted">Kontakt mailowy lub telefoniczny</small>
                     </div>
                   </div>
                 </div>
@@ -84,8 +84,8 @@
                         <div class="row no-gutters align-items-center">
                           <!-- Title -->
                           <div class="col">
-                            <h5>Konto</h5>
-                            <p>Infomacje o Twoim profilu.</p>
+                            <h5>Rozmowa</h5>
+                            <p>Zamów rozmowę telefoniczną.</p>
                           </div>
 
                           <!-- Icon -->
@@ -102,125 +102,21 @@
                         {% csrf_token %}
 
                           <div class="form-group">
-                            <label class="small" for="profile-name">Imie</label>
-                            {{ form_user_data.name }}
+                            <label class="small" for="profile-email">Imię lub nazwa firmy</label>
+                            {{ phone_form.name }}
                           </div>
                           
                           <div class="form-group">
-                            <label class="small" for="profile-name">Naziwsko</label>
-                            {{ form_user_data.surname }}
+                            <label class="small" for="profile-email">Numer telefonu do połaczenia</label>
+                            {{ phone_form.phone }}
                           </div>
-
+                          
                           <div class="form-group">
-                            <label class="small" for="profile-email">Email (Tylko administrator może zmienić Twój email)</label>
-                            <input class="form-control form-control-lg" name="profile-phone" id="email" type="text" placeholder="{{ user }}" disabled>
+                            <label class="small" for="profile-email">Preferowany termin</label>
+                            {{ phone_form.date }}
                           </div>
 
-                          <button class="btn btn-lg btn-primary btn-block" type="submit" name="buttonAccount">Zapisz podstawowe infomacje
-                          </button>
-                        </form>
-                      </div>
-                    </div><!-- .collapse -->
-
-                  </div>
-                  <!-- Card -->
-
-                  <!-- Card -->
-                  <div class="card mb-6 mb-lg-8">
-                    <div class="card-header position-relative">
-                      <a href="#" class="text-reset d-block stretched-link collapsed" data-toggle="collapse" data-target="#profile-settings-notifications" aria-controls="profile-settings-notifications" aria-expanded="true">
-                        <div class="row no-gutters align-items-center">
-                          <!-- Title -->
-                          <div class="col">
-                            <h5>Środki</h5>
-                            <p>Twój aktualny stan konta.</p>
-                          </div>
-
-                          <!-- Icon -->
-                          <div class="col-auto">
-                            <i class="text-muted icon-md fe-dollar-sign"></i>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-
-                    <div id="profile-settings-notifications" class="collapse" data-parent="#profile-settings">
-                      <div class="card-body">
-                        <form method="POST" id="withdrawalMoenyForm">
-                          <input type="hidden" name="csrfmiddlewaretoken" value="ADZnWAUbhyTMjkDCtHI2nDbq2GRXemfsZPKSQZAcb4O1jJuYAKQ2kCI3ihCmuQC0">
-
-                          <div class="form-group">
-                            <label class="small" for="profile-earned_money-amount">Do wypłaty</label>
-                            <input class="form-control form-control-lg" name="earned_money-amount" id="profile-earned_money-amount" type="text" placeholder="0.00 PLN" disabled>
-                          </div>
-
-                          <!-- Tradidtional transver -->
-                          <div id="fieldWithdrawMoney" style="display:none;">
-                            <div class="form-group">
-                              <label class="small text-success" for="profile-withdraw_form"><b>Write the amount you want to withdraw</b></label>
-                              <input type="number" name="amount" class="form-control" placeholder="0. 00 USD" step="0.01" required id="id_amount">
-
-                            </div>
-
-                          </div>
-
-                          <!-- Hiden field -->
-                          <input type="hidden" name="buttonWithdrawal" value="buttonWithdrawal" />
-
-                          <!-- init button -->
-                          <button class="btn btn-lg btn-primary btn-block" type="button" onclick="showWithdrawalOptions()" id="buttonWithdrawType" style="display:block;">Wypłać środki</button>
-
-                        </form>
-                      </div>
-                    </div><!-- .collapse -->
-
-                  </div>
-                  <!-- Card -->
-
-                  <!-- Card -->
-                  <div class="card mb-6 mb-lg-8">
-                    <div class="card-header position-relative">
-                      <a href="#" class="text-reset d-block stretched-link collapsed" data-toggle="collapse" data-target="#profile-settings-security" aria-expanded="true" aria-controls="profile-settings-security">
-                        <div class="row no-gutters align-items-center">
-                          <!-- Title -->
-                          <div class="col">
-                            <h5>Bezpieczeństwo</h5>
-                            <p>Ustawienia bezpieczeństwa.</p>
-                          </div>
-
-                          <!-- Icon -->
-                          <div class="col-auto">
-                            <i class="text-muted icon-md fe-shield"></i>
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-
-                    <div id="profile-settings-security" class="collapse" data-parent="#profile-settings">
-                      <div class="card-body">
-                        <form method="POST">
-                          {% csrf_token %}
-                          <div class="form-group">
-                            <label class="small" for="current-password">Aktualne hasło</label>
-                            {{ security_form.lastpassword }}
-
-                          </div>
-
-                          <div class="form-group">
-                            <label class="small" for="new-password">Nowe hasło</label>
-                            {{ security_form.newpassword1 }}
-
-                          </div>
-
-                          <div class="form-group">
-                            <label class="small" for="verify-password">Zweryfikuj hasło</label>
-                            {{ security_form.newpassword2 }}
-
-                          </div>
-
-                          <button class="btn btn-lg btn-primary btn-block" type="submit" name="buttonPasswordChange" data-toggle="tooltip" data-placement="top" title="Po zmianie hasła w celach bezpieczeństwa zostaniesz automatycznie wylogowany.">
-                            Zmień hasło
-                          </button>
+                          <button class="btn btn-lg btn-primary btn-block" type="submit" name="buttonSubmitPhoneContact">Wyślij prośbę o kontakt</button>
                         </form>
                       </div>
                     </div><!-- .collapse -->
@@ -235,8 +131,8 @@
                         <div class="row no-gutters align-items-center">
                           <!-- Title -->
                           <div class="col">
-                            <h5>Dodatkowe infomacje</h5>
-                            <p>Dane do fakturowania przesyłek.</p>
+                            <h5>Wiadomość</h5>
+                            <p>Wyślij wiadomość email.</p>
                           </div>
 
                           <!-- Icon -->
@@ -255,43 +151,25 @@
 
                           <!-- Country -->
                           <div class="form-group">
-                            <label class="small" for="profile-phone">Nazwa firmy</label>
-                            {{ form_company_data.company_name }}
-                          </div>
-
-                          <!-- Sex -->
-                          <div class="form-group">
-                            <label class="small" for="profile-phone">NIP</label>
-                            {{ form_company_data.nip }}
+                            <label class="small" for="profile-email">Adres email</label>
+                            {{ email_form.email }}
                           </div>
 
                           <!-- Preference -->
                           <div class="form-group">
-                            <label class="small" for="profile-phone">Województwo</label>
-                            {{ form_company_data.province }}
+                            <label class="small" for="profile-email">Treść wiadomości</label>
+                            {{ email_form.description }}
                           </div>
                           
-                          <!-- Img Profile Verivication -->
-                          <div class="form-group">
-                            <label class="small" for="profile-phone">Miasto</label>
-                            {{ form_company_data.city }}
+                          <div class="form-row">
+                            <div class="from-group col-md-6 mb-2">
+                              <a class="btn btn-lg btn-info btn-block" href="{% url 'dashboard:chat' %}" style="margin-bottom: 30px">Przejdź do czatu</a>
+                            </div>
+                            <div class="from-group col-md-6 mb-2">
+                              <button class="btn btn-lg btn-primary btn-block" type="submit" name="buttonSubmitEmailContact" style="margin-bottom: 30px">Wyślij wiadomość</button>
+                            </div>
                           </div>
 
-                          <!-- ID Card Image -->
-                          <div class="form-group">
-                            <label class="small" for="profile-phone">Kod pocztowy</label>
-                            {{ form_company_data.zip_code }}
-                          </div>
-                          
-                          <!-- ID Card Image -->
-                          <div class="form-group">
-                            <label class="small" for="profile-phone">Ulica</label>
-                            {{ form_company_data.street }}
-                          </div>
-
-                          <button class="btn btn-lg btn-primary btn-block" type="submit" name="buttonAdditionalInformation" style="margin-bottom: 30px">Zapisz informacje o firmie
-
-                          </button>
                         </form>
                       </div>
                     </div><!-- .collapse -->
@@ -407,6 +285,7 @@
   <script src="{% static 'dashboard/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'dashboard/js/plugins/plugins.bundle.js' %}"></script>
   <script src="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+  <script src="{% static 'assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js' %}"></script>
   <script src="{% static 'dashboard/js/template.js' %}"></script>
   <!-- Scripts -->
   

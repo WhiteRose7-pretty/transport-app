@@ -1,656 +1,654 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="TGcoders.pl">
-    <title>Transportuj24.pl - Strona główna.</title>
-    <!-- Preloader -->
-    <style>
-        @keyframes hidePreloader {
-            0% {
-                width: 100%;
-                height: 100%;
-            }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="TGcoders.pl">
+  <title>Transportuj24.pl - Strona główna. Uzyskaj darmową wycenę swojej przesyłki.</title>
+  <!-- Preloader -->
+  <style>
+    @keyframes hidePreloader {
+      0% {
+        width: 100%;
+        height: 100%;
+      }
 
-            100% {
-                width: 0;
-                height: 0;
-            }
-        }
+      100% {
+        width: 0;
+        height: 0;
+      }
+    }
 
-        body > div.preloader {
-            position: fixed;
-            background: white;
-            width: 100%;
-            height: 100%;
-            z-index: 1071;
-            opacity: 0;
-            transition: opacity .5s ease;
-            overflow: hidden;
-            pointer-events: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    body>div.preloader {
+      position: fixed;
+      background: white;
+      width: 100%;
+      height: 100%;
+      z-index: 1071;
+      opacity: 0;
+      transition: opacity .5s ease;
+      overflow: hidden;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        body:not(.loaded) > div.preloader {
-            opacity: 1;
-        }
+    body:not(.loaded)>div.preloader {
+      opacity: 1;
+    }
 
-        body:not(.loaded) {
-            overflow: hidden;
-        }
+    body:not(.loaded) {
+      overflow: hidden;
+    }
 
-        body.loaded > div.preloader {
-            animation: hidePreloader .5s linear .5s forwards;
-        }
-    </style>
-    <script>
-        window.addEventListener("load", function () {
-            setTimeout(function () {
-                document.querySelector('body').classList.add('loaded');
-            }, 300);
-        });
-    </script>
-    <!-- Favicon -->
-    <link rel="icon" href="{% static 'assets/img/brand/favicon.png' %}" type="image/png">
-    <!-- Page CSS -->
-    <link rel="stylesheet" href="{% static 'assets/libs/@fancyapps/fancybox/dist/jquery.fancybox.min.css' %}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{% static 'assets/libs/@fortawesome/fontawesome-free/css/all.min.css' %}">
-    <!-- Autocompleted -->
-    <link rel="stylesheet" href="{% static 'assets/libs/autocomplete/dist/css/jquery-ui.css' %}">
-    <!-- Quick CSS -->
-    <link rel="stylesheet" href="{% static 'assets/css/quick-website.css' %}" id="stylesheet">
+    body.loaded>div.preloader {
+      animation: hidePreloader .5s linear .5s forwards;
+    }
+  </style>
+  <script>
+    window.addEventListener("load", function() {
+      setTimeout(function() {
+        document.querySelector('body').classList.add('loaded');
+      }, 300);
+    });
+  </script>
+  <!-- Favicon -->
+  <link rel="icon" href="{% static 'assets/img/brand/logo-sm.png' %}" type="image/png">
+  <!-- Page CSS -->
+  <link rel="stylesheet" href="{% static 'assets/libs/@fancyapps/fancybox/dist/jquery.fancybox.min.css' %}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'assets/libs/@fortawesome/fontawesome-free/css/all.min.css' %}">
+  <!-- Autocompleted -->
+  <link rel="stylesheet" href="{% static 'assets/libs/autocomplete/dist/css/jquery-ui.css' %}">
+  <!-- Quick CSS -->
+  <link rel="stylesheet" href="{% static 'assets/css/quick-website.css' %}" id="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.css' %}">
 
-    <style>
-        .ui-autocomplete {
-            max-height: 200px;
-            overflow-y: auto;
-            /* prevent horizontal scrollbar */
-            overflow-x: hidden;
-        }
-    </style>
+  <style>
+    .ui-autocomplete {
+      max-height: 200px;
+      overflow-y: auto;
+      /* prevent horizontal scrollbar */
+      overflow-x: hidden;
+    }
+  </style>
 </head>
 
 <body>
-<!-- Preloader -->
-<div class="preloader">
+  <!-- Preloader -->
+  <div class="preloader">
     <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
+      <span class="sr-only">Loading...</span>
     </div>
-</div>
-<div class="modal fade" tabindex="-1" role="dialog" id="modal-cookies" data-backdrop="true"
-     aria-labelledby="modal-cookies" aria-hidden="true">
+  </div>
+  <div class="modal fade" tabindex="-1" role="dialog" id="modal-cookies" data-backdrop="true" aria-labelledby="modal-cookies" aria-hidden="true">
     <div class="modal-dialog modal-dialog-aside left-4 right-4 bottom-4">
-        <div class="modal-content bg-dark-dark">
-            <div class="modal-body">
-                <!-- Text -->
-                <p class="text-sm text-white mb-3">
-                    Używamy plików cookie, aby zapewnić najwyższy poziom działania naszego serwisu. Korzystając z naszej
-                    witryny, zgadzasz się na ich wykorzystywanie.
-                </p>
-                <!-- Buttons -->
-                <a href="#" class="btn btn-sm btn-white" target="_blank">Czytaj więcej</a>
-                <button type="button" class="btn btn-sm btn-primary mr-2" data-dismiss="modal">OK</button>
-            </div>
+      <div class="modal-content bg-dark-dark">
+        <div class="modal-body">
+          <!-- Text -->
+          <p class="text-sm text-white mb-3">
+            Używamy plików cookie, aby zapewnić najwyższy poziom działania naszego serwisu. Korzystając z naszej
+            witryny, zgadzasz się na ich wykorzystywanie.
+          </p>
+          <!-- Buttons -->
+          <a href="#" class="btn btn-sm btn-white" target="_blank">Czytaj więcej</a>
+          <button type="button" class="btn btn-sm btn-primary mr-2" data-dismiss="modal">OK</button>
         </div>
+      </div>
     </div>
-</div>
-<!-- Header -->
-<header class="" id="header-main">
+  </div>
+  <!-- Header -->
+  <header class="" id="header-main">
     <!-- Navbar -->
     <nav class="navbar navbar-main navbar-expand-lg navbar-light" id="navbar-main">
-        {% include "app/basic/navbar.html" %}
+      {% include "app/basic/navbar.html" %}
     </nav>
-</header>
+  </header>
 
-<!-- Main content -->
-<section class="slice py-5" id="formularz-wyceny">
+  <!-- Main content -->
+  <section class="slice py-5" id="formularz-wyceny">
     <div class="container">
-        <div class="row row-grid align-items-center">
-            <div class="col-12 col-md-5 col-lg-6 order-md-2">
-                <!-- Image -->
-                <figure class="w-100">
-                    <img alt="Image placeholder" src="{% static 'assets/img/svg/illustrations/14-cut.png' %}"
-                         class="img-fluid mw-md-120">
-                </figure>
+      <div class="row row-grid align-items-center">
+        <div class="col-12 col-md-5 col-lg-6 order-md-2 d-none d-md-block">
+          <!-- Image -->
+          <figure class="w-100">
+            <img alt="Image placeholder" src="{% static 'assets/img/svg/illustrations/14-cut.png' %}" class="img-fluid mw-md-120">
+          </figure>
+        </div>
+        <div class="col-12 col-md-7 col-lg-6 order-md-1 pr-md-5 mt-0">
+          <!-- Heading -->
+          <h2 class="display-4 text-center text-md-left mb-3">
+            Wypełnij formularz i&nbsp;uzyskaj <strong class="text-primary">bezpłatną wycenę</strong>.
+          </h2>
+          <!-- Text -->
+          <form action="/" id="location_frm" method="post">
+            {% csrf_token %}
+            <div class="form-group ui-widget">
+              {{ form.type_product }}
             </div>
-            <div class="col-12 col-md-7 col-lg-6 order-md-1 pr-md-5">
-                <!-- Heading -->
-                <h2 class="display-4 text-center text-md-left mb-3">
-                    Wypełnij formularz i&nbsp;uzyskaj <strong class="text-primary">bezpłatną wycenę</strong>.
-                </h2>
-                <!-- Text -->
-                <form action="/" id="location_frm" method="post"  >
-                    {% csrf_token %}
-                    <div class="form-group ui-widget">
-                        {{ form.type_product }}
-                    </div>
-                    <!-- Buttons -->
-                    <div class="form-row mb-3">
-                        <div class="form-group col-md-6 mb-0">
-                            {{ form.location_from }}
-                        </div>
-                        <div class="form-group col-md-6 mb-0">
-                            {{ form.location_to }}
-                        </div>
-                    </div>
+            <!-- Buttons -->
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-3">
+                {{ form.location_from }}
+              </div>
+              <div class="form-group col-md-6 mb-3">
+                {{ form.location_to }}
+              </div>
+            </div>
 
-                    <div class="form-row mb-3 d-none">
-                        <div class="form-group col-md-6 mb-0">
-                            {{ form.lat_from }}
-                        </div>
-                        <div class="form-group col-md-6 mb-0">
-                            {{ form.lng_from }}
-                        </div>
-                    </div>
+            <div class="form-row mb-3 d-none">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.lat_from }}
+              </div>
+              <div class="form-group col-md-6 mb-0">
+                {{ form.lng_from }}
+              </div>
+            </div>
 
-                    <div class="form-row mb-3 d-none">
-                        <div class="form-group col-md-6 mb-0">
-                            {{ form.lat_to }}
-                        </div>
-                        <div class="form-group col-md-6 mb-0">
-                            {{ form.lng_to }}
-                        </div>
-                    </div>
+            <div class="form-row mb-3 d-none">
+              <div class="form-group col-md-6 mb-0">
+                {{ form.lat_to }}
+              </div>
+              <div class="form-group col-md-6 mb-0">
+                {{ form.lng_to }}
+              </div>
+            </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6 mb-0">
-                            <a class="btn btn-neutral btn-icon btn-block" href="#jak-to-dziala" data-scroll-to
-                               data-scroll-to-offset="10">
-                                <span class="btn-inner--text">Jak to działa?</span>
-                            </a>
-                        </div>
-                        <div class="form-group col-md-6 mb-0">
-                            <!--
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-0 d-none d-md-block">
+                <a class="btn btn-neutral btn-icon btn-block" href="#jak-to-dziala" data-scroll-to data-scroll-to-offset="10">
+                  <span class="btn-inner--text">Jak to działa?</span>
+                </a>
+              </div>
+              <div class="form-group col-md-6 mb-0">
+                <!--
                             <a href="{% url 'app:valuation' %}" class="btn btn-primary btn-icon btn-block">
                                 <span class="btn-inner--text">Wyceń transport</span><span class="btn-inner--icon">
                     <i data-feather="arrow-right"></i>
                   </span>
                             </a>
                             -->
-                            <button class="btn btn-primary btn-icon btn-block" type="submit">
-                                <span class="btn-inner--text">Wyceń transport</span>
-                                <span class="btn-inner--icon">
-                                    <i data-feather="arrow-right"></i>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <div id="error">
+                <button class="btn btn-primary btn-icon btn-block" type="submit" name="valuationButtonSubmit">
+                  <span class="btn-inner--text">Wyceń transport</span>
+                  <span class="btn-inner--icon">
+                    <i data-feather="arrow-right"></i>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+          <div id="error">
 
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
-</section>
-<section class="slice slice-lg pt-lg-6 pb-0 pb-lg-6">
+  </section>
+  <section class="slice slice-lg pt-lg-6 pb-0 pb-lg-6">
     <div class="container">
-        <!-- Title -->
-        <div class="row justify-content-lg-end">
-            <div class="col-lg-5 text-lg-right">
-                <h6 class="display-4 text-danger">-50%</h6>
-                <p class="lh-180 mb-3">
-                    Z <b class="text-primary">Transportuj24</b> wyślesz cokolwiek zechcesz, w dowolne miejsce w Polsce i
-                    na świecie.
-                </p>
-            </div>
-            <div class="col-lg-6">
-                <h3 class="display-4 lh-130">Nawet o połowę taniej z&nbsp;naszym serwisem.</h3>
-            </div>
+      <!-- Title -->
+      <div class="row justify-content-lg-end">
+        <div class="col-lg-5 text-lg-right">
+          <h6 class="display-4 text-danger">-50%</h6>
+          <p class="lh-180 mb-3">
+            Z <b class="text-primary">Transportuj24</b> wyślesz cokolwiek zechcesz, w dowolne miejsce w Polsce i na świecie.
+          </p>
         </div>
-        <!-- Card -->
-        <div class="row mt-5" id="jak-to-dziala">
-            <div class="col-md-4">
-                <div class="card border-0 bg-soft-danger">
-                    <div class="card-body pb-5">
-                        <div class="pt-4 pb-5">
-                            <img alt="Image placeholder" src="{% static 'assets/img/theme/light/1a.jpg' %}"
-                                 class="img-fluid rounded">
-                        </div>
-                        <h5 class="h4 lh-130 text-dark mb-3">1. Wybierz przesyłkę</h5>
-                        <p class="text-dark opacity-6 mb-0">Określ przesyłkę, jaką chcesz wysłać do docelowego odbiorcy.
-                            Wybierz wagę, rozmiar i ilość. Podaj dogodny termin realizacji.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card border-0 bg-soft-success mt-lg-5">
-                    <div class="card-body pb-5">
-                        <div class="pt-4 pb-5">
-                            <img alt="Image placeholder" src="{% static 'assets/img/theme/light/2a.jpg' %}"
-                                 class="img-fluid rounded">
-                        </div>
-                        <h5 class="h4 lh-130 text-dark mb-3">2. Podaj lokalizację</h5>
-                        <p class="text-dark opacity-6 mb-0">Wybierz skąd kierowca powinien odebrać Twoją przesyłkę i
-                            dokąd powinna zostać dostarczona.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card border-0 bg-soft-warning mt-lg-7">
-                    <div class="card-body pb-5">
-                        <div class="pt-4 pb-5">
-                            <img alt="Image placeholder" src="{% static 'assets/img/theme/light/3a.jpg' %}"
-                                 class="img-fluid rounded">
-                        </div>
-                        <h5 class="h4 lh-130 text-dark mb-3">3. Otrzymaj ofertę</h5>
-                        <p class="text-dark opacity-6 mb-0">Bezpłatnie wycenimy dla Ciebie przesyłkę. Uzgodnimy
-                            szczegóły z&nbsp;kierowcą i zadbamy o jej bezpieczeństwo.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="col-lg-6">
+          <h3 class="display-4 lh-130">Nawet o połowę taniej z&nbsp;naszym serwisem.</h3>
         </div>
+      </div>
+      <!-- Card -->
+      <div class="row mt-5" id="jak-to-dziala">
+        <div class="col-md-4">
+          <div class="card border-0 bg-soft-danger">
+            <div class="card-body pb-5">
+              <div class="pt-4 pb-5">
+                <img alt="Image placeholder" src="{% static 'assets/img/theme/light/1a.jpg' %}" class="img-fluid rounded">
+              </div>
+              <h5 class="h4 lh-130 text-dark mb-3">1. Wybierz przesyłkę</h5>
+              <p class="text-dark opacity-6 mb-0">Określ przesyłkę, jaką chcesz wysłać do docelowego odbiorcy.
+                Wybierz wagę, rozmiar i ilość. Podaj dogodny termin realizacji.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 bg-soft-success mt-lg-5">
+            <div class="card-body pb-5">
+              <div class="pt-4 pb-5">
+                <img alt="Image placeholder" src="{% static 'assets/img/theme/light/2a.jpg' %}" class="img-fluid rounded">
+              </div>
+              <h5 class="h4 lh-130 text-dark mb-3">2. Podaj lokalizację</h5>
+              <p class="text-dark opacity-6 mb-0">Wybierz skąd kierowca powinien odebrać Twoją przesyłkę i
+                dokąd powinna zostać dostarczona.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card border-0 bg-soft-warning mt-lg-7">
+            <div class="card-body pb-5">
+              <div class="pt-4 pb-5">
+                <img alt="Image placeholder" src="{% static 'assets/img/theme/light/3a.jpg' %}" class="img-fluid rounded">
+              </div>
+              <h5 class="h4 lh-130 text-dark mb-3">3. Otrzymaj ofertę</h5>
+              <p class="text-dark opacity-6 mb-0">Bezpłatnie wycenimy dla Ciebie przesyłkę. Uzgodnimy
+                szczegóły z&nbsp;kierowcą i zadbamy o jej bezpieczeństwo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
-<section class="slice slice-lg" id="dla-nadawcow">
+  </section>
+  <section class="slice slice-lg" id="dla-nadawcow">
     <div class="container">
-        <div class="row row-grid justify-content-around align-items-center">
-            <div class="col-lg-6 order-lg-2 ml-lg-auto pl-lg-6">
-                <!-- Heading -->
-                <h5 class="h2 mt-4">Z nami przewieziesz cokolwiek zechcesz.</h5>
-                <!-- Text -->
-                <p class="lead lh-190 my-4">
-                    Jeżeli masz do nadania <b>zwykłą</b> lub <b>bardzo niestandardowe przesyłkę</b>, wykonasz to z <b>Transportuj24</b>.
-                </p>
-                <!-- List -->
-                <ul class="list-unstyled">
-                    <li class="py-2">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <div class="icon icon-shape icon-primary icon-sm rounded-circle mr-3">
-                                    <i class="fas fa-car"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6 mb-0">Samochody / Motory / Quady</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="py-2">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <div class="icon icon-shape icon-warning icon-sm rounded-circle mr-3">
-                                    <i class="fas fa-home"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6 mb-0">Meble / RTV / AGD</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="py-2">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <div class="icon icon-shape icon-success icon-sm rounded-circle mr-3">
-                                    <i class="fas fa-cogs"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6 mb-0">Maszyny / Ładunki / Palety / Paczki</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="py-2">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <div class="icon icon-shape icon-dark icon-sm rounded-circle mr-3">
-                                    <i class="fas fa-horse"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="h6 mb-0">Przeprowadzki / Zwierzęta / Inne</span>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-lg-6 order-lg-1">
-                <!-- Image -->
-                <div class="position-relative zindex-100">
-                    <img alt="Image placeholder" src="{% static 'assets/img/svg/illustrations/2d.png' %}"
-                         class="img-fluid">
+      <div class="row row-grid justify-content-around align-items-center">
+        <div class="col-lg-6 order-lg-2 ml-lg-auto pl-lg-6">
+          <!-- Heading -->
+          <h5 class="h2 mt-4">Z nami przewieziesz cokolwiek zechcesz.</h5>
+          <!-- Text -->
+          <p class="lead lh-190 my-4">
+            Jeżeli masz do nadania <b>zwykłą</b> lub <b>bardzo niestandardowe przesyłkę</b>, wykonasz to z <b>Transportuj24</b>.
+          </p>
+          <!-- List -->
+          <ul class="list-unstyled">
+            <li class="py-2">
+              <div class="d-flex align-items-center">
+                <div>
+                  <div class="icon icon-shape icon-primary icon-sm rounded-circle mr-3">
+                    <i class="fas fa-car"></i>
+                  </div>
                 </div>
-            </div>
+                <div>
+                  <span class="h6 mb-0">Samochody / Motory / Quady</span>
+                </div>
+              </div>
+            </li>
+            <li class="py-2">
+              <div class="d-flex align-items-center">
+                <div>
+                  <div class="icon icon-shape icon-warning icon-sm rounded-circle mr-3">
+                    <i class="fas fa-home"></i>
+                  </div>
+                </div>
+                <div>
+                  <span class="h6 mb-0">Meble / RTV / AGD</span>
+                </div>
+              </div>
+            </li>
+            <li class="py-2">
+              <div class="d-flex align-items-center">
+                <div>
+                  <div class="icon icon-shape icon-success icon-sm rounded-circle mr-3">
+                    <i class="fas fa-cogs"></i>
+                  </div>
+                </div>
+                <div>
+                  <span class="h6 mb-0">Maszyny / Ładunki / Palety / Paczki</span>
+                </div>
+              </div>
+            </li>
+            <li class="py-2">
+              <div class="d-flex align-items-center">
+                <div>
+                  <div class="icon icon-shape icon-dark icon-sm rounded-circle mr-3">
+                    <i class="fas fa-horse"></i>
+                  </div>
+                </div>
+                <div>
+                  <span class="h6 mb-0">Przeprowadzki / Zwierzęta / Inne</span>
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
+        <div class="col-lg-6 order-lg-1">
+          <!-- Image -->
+          <div class="position-relative zindex-100">
+            <img alt="Image placeholder" src="{% static 'assets/img/svg/illustrations/2d.png' %}" class="img-fluid">
+          </div>
+        </div>
+      </div>
     </div>
-</section>
-<section class="slice slice-lg bg-section-dark pt-5 pt-lg-8">
+  </section>
+  <section class="slice slice-lg bg-section-dark pt-5 pt-lg-8">
     <!-- SVG separator -->
     <div class="shape-container shape-line shape-position-top shape-orientation-inverse">
-        <svg width="2560px" height="100px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-             preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100"
-             style="enable-background:new 0 0 2560 100;" xml:space="preserve" class="">
+      <svg width="2560px" height="100px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px" viewBox="0 0 2560 100" style="enable-background:new 0 0 2560 100;" xml:space="preserve" class="">
         <polygon points="2560 0 2560 100 0 100"></polygon>
       </svg>
     </div>
     <!-- Container -->
     <div class="container position-relative zindex-100">
-        <div class="col">
-            <div class="row justify-content-center">
-                <div class="col-md-10 text-center">
-                    <div class="mt-4 mb-6">
-                        <h2 class="h1">
-                            Prowadzisz firmę transportową?
-                        </h2>
-                        <h4 class="mt-3">Pomóż Klientom w całym kraju przewieźć swoją niestandardową przesyłkę.</h4>
-                        <!-- Play button -->
-                        <a href="{% url 'authentication:new_company' %}" title="Zapisz się już dziś!"
-                           class="btn btn-dark btn-lg btn-icon hover-translate-y-n10 mt-4">
-                            <span class="btn-inner--text">Dołącz jako firma <i
-                                    class="fas fa-chevron-right ml-2"></i></span>
-                        </a>
-                    </div>
-                </div>
+      <div class="col">
+        <div class="row justify-content-center">
+          <div class="col-md-10 text-center">
+            <div class="mt-4 mb-6">
+              <h2 class="h1">
+                Prowadzisz firmę transportową?
+              </h2>
+              <h4 class="mt-3">Pomóż Klientom w całym kraju przewieźć swoją niestandardową przesyłkę.</h4>
+              <!-- Play button -->
+              <a href="{% url 'authentication:new_company' %}" title="Zapisz się już dziś!" class="btn btn-dark btn-lg btn-icon hover-translate-y-n10 mt-4">
+                <span class="btn-inner--text">Dołącz jako firma <i class="fas fa-chevron-right ml-2"></i></span>
+              </a>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</section>
-<section class="slice slice-lg">
+  </section>
+  <section class="slice slice-lg">
     <div class="container">
-        <div class="row" id="historie-przesylek">
-            <div class="col-lg-6">
-                <span class="badge badge-primary badge-pill">Co nowego przewieźliśmy?</span>
-                <h5 class="lh-180 mt-4 mb-6">Poznaj historie naszych Klientów i ich niezwykłe paczki, które przewieźli z
-                    naszym portalem <b>Transportuj24</b>.</h5>
-            </div>
+      <div class="row" id="historie-przesylek">
+        <div class="col-lg-6">
+          <span class="badge badge-primary badge-pill">Co nowego przewieźliśmy?</span>
+          <h5 class="lh-180 mt-4 mb-6">Poznaj historie naszych Klientów i ich niezwykłe paczki, które przewieźli z
+            naszym portalem <b>Transportuj24</b>.</h5>
         </div>
-        <!-- Features -->
-        <div class="container">
+      </div>
+      <!-- Features -->
+      <div class="container">
 
-            <div class="row">
+        <div class="row">
 
-                {% for object in post_list %}
-                    <div class="col-xl-4 col-md-6">
-                        <div class="card hover-translate-y-n3 hover-shadow-lg overflow-hidden">
-                            <div class="position-relative overflow-hidden">
-                                <a href="{% url 'app:article' object.id %}" class="d-block">
-                                    <img alt="Image placeholder" src="{{ object.img_800x600.url }}"
-                                         class="card-img-top">
-                                </a>
-                            </div>
-                            <div class="card-body py-4">
-                                <small class="d-block text-sm mb-2">{{ object.created_at }}</small>
-                                <a href="{% url 'app:article' object.id %}"
-                                   class="h5 stretched-link lh-150">{{ object.topic|truncatechars:40 }}</a>
-                                <p class="mt-3 mb-0 lh-170">{{ object.sub_title|truncatechars:80 }}</p>
-                            </div>
-                            <div class="card-footer border-0 delimiter-top">
-                                <div class="row align-items-center">
-                                    <div class="col-auto">
-                                        <span class="avatar avatar-sm bg-primary rounded-circle">{{ object.owner|make_list|first }}</span>
-                                        <span class="text-sm mb-0 avatar-content">{{ object.owner }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-
+          {% for object in post_list %}
+          <div class="col-xl-4 col-md-6">
+            <div class="card hover-translate-y-n3 hover-shadow-lg overflow-hidden">
+              <div class="position-relative overflow-hidden">
+                <a href="{% url 'app:article' object.id %}" class="d-block">
+                  <img alt="Image placeholder" src="{{ object.img_800x600.url }}" class="card-img-top">
+                </a>
+              </div>
+              <div class="card-body py-4">
+                <small class="d-block text-sm mb-2">{{ object.created_at }}</small>
+                <a href="{% url 'app:article' object.id %}" class="h5 stretched-link lh-150">{{ object.topic|truncatechars:40 }}</a>
+                <p class="mt-3 mb-0 lh-170">{{ object.sub_title|truncatechars:80 }}</p>
+              </div>
+              <div class="card-footer border-0 delimiter-top">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <span class="avatar avatar-sm bg-primary rounded-circle">{{ object.owner|make_list|first }}</span>
+                    <span class="text-sm mb-0 avatar-content">{{ object.owner }}</span>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+          {% endfor %}
 
-            <!-- Load more -->
-            <div class="mt-4 text-center">
-                <a href="{% url 'app:blog' %}" class="btn btn-neutral hover-translate-y-n3">Czytaj więcej <i
-                        class="fas fa-chevron-right ml-1"></i></a>
-            </div>
         </div>
+
+        <!-- Load more -->
+        <div class="mt-4 text-center">
+          <a href="{% url 'app:blog' %}" class="btn btn-neutral hover-translate-y-n3">Czytaj więcej <i class="fas fa-chevron-right ml-1"></i></a>
+        </div>
+      </div>
     </div>
-</section>
-<footer class="position-relative" id="footer-main">
+  </section>
+  <footer class="position-relative" id="footer-main">
     <div class="footer pt-lg-5 footer-dark bg-dark">
-        <!-- SVG shape -->
-        <!-- Footer -->
-        <div class="container pt-1">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="row align-items-center">
-                        <div class="col-lg-7">
-                            <h3 class="text-secondary mb-2">Dołącz do nas</h3>
-                            <p class="lead mb-0 text-white opacity-8">
-                                Przewieź swoją paczkę lub dołącz do nas jako firma transportowa.
-                            </p>
-                        </div>
-                        <div class="col-lg-5 text-lg-right mt-4 mt-lg-0">
-                            <a href="#formularz-wyceny" class="btn btn-white my-2" href="#jak-to-dziala" data-scroll-to>
-                                Wyceń transport <i class="fas fa-box-open ml-2 text-primary"></i>
-                            </a>
-                            <a href="{% url 'authentication:new_company' %}" class="btn btn-primary my-2 ml-0 ml-sm-3">
-                                Dodaj firmę <i class="fas fa-truck-moving ml-2"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr class="divider divider-fade divider-dark my-5">
-            <div class="row">
-                <div class="col-lg-4 mb-5 mb-lg-0">
-                    <!-- Theme's logo -->
-                    <a href="../../index.html">
-                        <img alt="Image placeholder" src="{% static 'assets/img/brand/new-white-1.png' %}"
-                             id="footer-logo" style="height:60px">
-                    </a>
-                    <!-- Webpixels' mission -->
-                    <p class="mt-4 text-sm opacity-8 pr-lg-4">Nasz serwis daje możliwość kompleksowej wyceny
-                        niestandardowych przesyłek. Natomiast jako firma transportowa otrzymujesz dostęp do najlepszych
-                        zleceń z całej Polski.</p>
-                    <!-- Social -->
-                </div>
-                <div class="col-lg-2 col-6 col-sm-4 ml-lg-auto mb-5 mb-lg-0">
-                    <h6 class="heading mb-3">Dla klientów</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Moja paczka</a></li>
-                        <li><a href="#" class="text-white">Nadaj</a></li>
-                        <li><a href="#" class="text-white">Kontakt</a></li>
-                        <li><a href="#" class="text-white">Regulamin</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-2 col-6 col-sm-4 mb-5 mb-lg-0">
-                    <h6 class="heading mb-3">Dla firm</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Zaloguj</a></li>
-                        <li><a href="#" class="text-white">Zapisz się</a></li>
-                        <li><a href="#" class="text-white">Wsparcie</a></li>
-                        <li><a href="#" class="text-white">Regulamin</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-2 col-6 col-sm-4 mb-5 mb-lg-0">
-                    <h6 class="heading mb-3">Pozostałe</h6>
-                    <ul class="list-unstyled">
-                        <li><a href="{% url 'app:blog' %}" class="text-white">Blog</a></li>
-                        <li><a href="#" class="text-white">Jak to działa?</a></li>
-                        <li><a href="#" class="text-white">O nas</a></li>
-                    </ul>
-                </div>
-            </div>
-            <hr class="divider divider-fade divider-dark my-4">
-            <div class="row align-items-center justify-content-md-between pb-4">
-                <div class="col-md-6">
-                    <div class="copyright text-sm font-weight-bold text-center text-md-left text-white">
-                        &copy; 2020 <a href="https://transportuj24.pl/" class="font-weight-bold">Transportuj24.pl</a>.
-                        Wszystkie prawa zastrzeżone.
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <ul class="nav justify-content-center justify-content-md-end mt-3 mt-md-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                Prywatność
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                Regulamin
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://tgcoders.pl/" target="_blank">
-                                Create <i class="fab fa-connectdevelop"></i> TGcoders.pl
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+      <!-- SVG shape -->
+      <!-- Footer -->
+      {% include "app/basic/footer.html" %}
     </div>
-</footer>
+  </footer>
 
-<!-- Go to action -->
-<div class="customizer">
-    <button type=button id=btnSwitchMode data-mode=dark
-            class="btn btn-primary btn-sm btn-icon-only rounded-circle hover-scale-110 shadow-lg"><i
-            class="fas fa-phone"></i></button>
-    <a href=#modal-products data-toggle=modal
-       class="btn btn-sm btn-dark btn-icon-only rounded-circle hover-scale-110 shadow"><span class=btn-inner--icon><i
-            class="far fa-comments"></i></span></a>
-    <a href=#modal-products data-toggle=modal
-       class="btn btn-sm btn-info btn-icon-only rounded-circle hover-scale-110 shadow"><span class=btn-inner--icon><i
-            class="fas fa-at"></i></span></a>
-</div>
+  <!-- Go to action -->
+  <div class="customizer">
+    <button type="button" data-toggle="modal" data-target="#modal-phone-contact" class="btn btn-primary btn-sm btn-icon-only rounded-circle hover-scale-110 shadow-lg"><i class="fas fa-phone"></i></button>
+    <a href="{% url 'dashboard:chat' %}" class="btn btn-sm btn-dark btn-icon-only rounded-circle hover-scale-110 shadow"><span class="btn-inner--icon"><i class="far fa-comments"></i></span></a>
+    <button type="button" data-toggle="modal" data-target="#modal-email-contact" class="btn btn-sm btn-info btn-icon-only rounded-circle hover-scale-110 shadow"><span class="btn-inner--icon"><i class="fas fa-at"></i></span></button>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modal-phone-contact" tabindex="-1" role="dialog" aria-labelledby="modal-phone-contact" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <form method="POST">
+      {% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-title d-flex align-items-center" id="modal-phone-contact-title">
+              <div>
+                <div class="icon icon-sm icon-shape icon-warning rounded-circle shadow mr-3">
+                  <i class="fas fa-phone"></i>
+                </div>
+              </div>
+              <div>
+                <h6 class="mb-0">Formularz rozmowy telefonicznej</h6>
+              </div>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="form-control-label">Imię lub nazwa firmy</label>
+                  {{ contact_phone_form.name }}
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="form-control-label">Numer telefonu</label>
+                  {{ contact_phone_form.phone }}
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="form-control-label">Data rozmowy</label>
+                  {{ contact_phone_form.date }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-primary" name="submitContactPhone">Umów rozmowę</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="modal-email-contact" tabindex="-1" role="dialog" aria-labelledby="modal-email-contact" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <form method="POST">
+      {% csrf_token %}
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-title d-flex align-items-center" id="modal-email-contact-title">
+              <div>
+                <div class="icon icon-sm icon-shape icon-primary rounded-circle shadow mr-3">
+                  <i class="fas fa-at"></i>
+                </div>
+              </div>
+              <div>
+                <h6 class="mb-0">Formularz kontaktowy</h6>
+              </div>
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="form-control-label">Twój adres email</label>
+                  {{ email_contact_form.email }}
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label class="form-control-label">Treść wiadomości</label>
+                  {{ email_contact_form.description }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-info" name="buttonSubmitEmailContact">Wyślij wiadomość</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
-<!-- Core JS  -->
-<script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>
-<script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'assets/libs/svg-injector/dist/svg-injector.min.js' %}"></script>
-<script src="{% static 'assets/libs/feather-icons/dist/feather.min.js' %}"></script>
-<!-- Optional JS -->
-<script src="{% static 'assets/libs/in-view/dist/in-view.min.js' %}"></script>
-<script src="{% static 'assets/libs/sticky-kit/dist/sticky-kit.min.js' %}"></script>
-<script src="{% static 'assets/libs/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
-<!-- Page JS -->
-<script src="{% static 'assets/libs/@fancyapps/fancybox/dist/jquery.fancybox.min.js' %}"></script>
-<!-- Autocompleted -->
-<script src="{% static 'assets/libs/autocomplete/dist/js/jquery-ui-1.12.1/jquery-ui.js' %}"></script>
-<!-- Quick JS -->
-<script src="{% static 'assets/js/quick-website.js' %}"></script>
-<script src="{% static 'assets/libs/form/jquery.form.js' %}"></script>
+  <!-- Core JS  -->
+  <script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/libs/svg-injector/dist/svg-injector.min.js' %}"></script>
+  <script src="{% static 'assets/libs/feather-icons/dist/feather.min.js' %}"></script>
+  <!-- Optional JS -->
+  <script src="{% static 'assets/libs/in-view/dist/in-view.min.js' %}"></script>
+  <script src="{% static 'assets/libs/sticky-kit/dist/sticky-kit.min.js' %}"></script>
+  <script src="{% static 'assets/libs/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <!-- Page JS -->
+  <script src="{% static 'assets/libs/@fancyapps/fancybox/dist/jquery.fancybox.min.js' %}"></script>
+  <!-- Autocompleted -->
+  <script src="{% static 'assets/libs/autocomplete/dist/js/jquery-ui-1.12.1/jquery-ui.js' %}"></script>
+  <!-- Input mask -->
+  <script src="{% static 'assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js' %}"></script>
+  <!-- Quick JS -->
+  <script src="{% static 'assets/js/quick-website.js' %}"></script>
+  <script src="{% static 'assets/libs/form/jquery.form.js' %}"></script>
 
 
 
-<script src="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+  <script src="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
 
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCVp48NCfljl9OXyzGuS4VY8VBJM0DKz6Y"></script>
-<!-- Feather Icons -->
-<script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCVp48NCfljl9OXyzGuS4VY8VBJM0DKz6Y"></script>
+  <!-- Feather Icons -->
+  <script>
     feather.replace({
-        'width': '1em',
-        'height': '1em'
+      'width': '1em',
+      'height': '1em'
     })
-</script>
-<script>
-    var location_to_actived = false;
-    var location_from_actived = false;
-    $(function () {
-        var availableTags = [
-            {% for object in type_products %}
-                "{{ object.name }}",
-            {% endfor %}
-        ];
-        $("#id_type_product").autocomplete({
-            minLength: 0,
-            source: availableTags
-        }).focus(function () {
-            //Use the below line instead of triggering keydown
-            $(this).data("uiAutocomplete").search($(this).val());
-        });
-    });
+  </script>
+  <script>
+      var location_to_actived = false;
+      var location_from_actived = false;
+      $(function () {
+          var availableTags = [
+              {% for object in type_products %}
+                  "{{ object.name }}",
+              {% endfor %}
+          ];
+          $("#id_type_product").autocomplete({
+              minLength: 0,
+              source: availableTags
+          }).focus(function () {
+              //Use the below line instead of triggering keydown
+              $(this).data("uiAutocomplete").search($(this).val());
+          });
+      });
 
-    $(document).ready(function () {
-        var autocomplete1, autocomplete2;
-        autocomplete1 = new google.maps.places.Autocomplete((document.getElementById('id_location_from')), {
-            types: ['geocode'],
-        });
-        google.maps.event.addListener(autocomplete1, 'place_changed', function () {
-            var near_place = autocomplete1.getPlace();
-            if (near_place.geometry.location.lat() !== 0) {
-                $('#id_lat_from').val(near_place.geometry.location.lat());
-                $('#id_lng_from').val(near_place.geometry.location.lng());
-                location_from_actived = true
-            }
-        });
+      $(document).ready(function () {
+          var autocomplete1, autocomplete2;
+          autocomplete1 = new google.maps.places.Autocomplete((document.getElementById('id_location_from')), {
+              types: ['geocode'],
+          });
+          google.maps.event.addListener(autocomplete1, 'place_changed', function () {
+              var near_place = autocomplete1.getPlace();
+              if (near_place.geometry.location.lat() !== 0) {
+                  $('#id_lat_from').val(near_place.geometry.location.lat());
+                  $('#id_lng_from').val(near_place.geometry.location.lng());
+                  location_from_actived = true
+              }
+          });
 
-        autocomplete2 = new google.maps.places.Autocomplete((document.getElementById('id_location_to')), {
-            types: ['geocode'],
-        });
+          autocomplete2 = new google.maps.places.Autocomplete((document.getElementById('id_location_to')), {
+              types: ['geocode'],
+          });
 
-        google.maps.event.addListener(autocomplete2, 'place_changed', function () {
-            var near_place = autocomplete2.getPlace();
-            if (near_place.geometry.location.lat() !== 0) {
-                $('#id_lat_to').val(near_place.geometry.location.lat());
-                $('#id_lng_to').val(near_place.geometry.location.lng());
-                location_to_actived = true
-            }
-        });
-
-
-        $('#location_frm').ajaxForm({
-            beforeSubmit:function(){
-                var error_val = 0;
-                if(!location_from_actived){
-                    error_val++;
-                }
-                if(!location_to_actived){
-                    error_val++;
-                }
-                if(error_val){
-                    sweet_alert('');
-                    return false;
-                }
-            },
-            success:function(data)
-            {
-                if(data.errors)
-                {
-                    $('#error').append(get_error_message('Error was happened, Please try again.'))
-                }
-                if(data.success)
-                {
-                    document.location.href = '/wycena/'
-                }
-            }
-        });
-    });
-
-    function get_error_message(message){
-        return `<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>`;
-    }
-
-    function sweet_alert(message){
-
-             const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success',
-                    cancelButton: 'btn btn-danger ml-3'
-                },
-                buttonsStyling: false
-            });
-            swalWithBootstrapButtons.fire(
-                'Wrong Location',
-                'Please Input exact loaction again :)',
-                'error'
-            );
+          google.maps.event.addListener(autocomplete2, 'place_changed', function () {
+              var near_place = autocomplete2.getPlace();
+              if (near_place.geometry.location.lat() !== 0) {
+                  $('#id_lat_to').val(near_place.geometry.location.lat());
+                  $('#id_lng_to').val(near_place.geometry.location.lng());
+                  location_to_actived = true
+              }
+          });
 
 
+          $('#location_frm').ajaxForm({
+              beforeSubmit:function(){
+                  var error_val = 0;
+                  if(!location_from_actived){
+                      error_val++;
+                  }
+                  if(!location_to_actived){
+                      error_val++;
+                  }
+                  if(error_val){
+                      sweet_alert('');
+                      return false;
+                  }
+              },
+              success:function(data)
+              {
+                  if(data.errors)
+                  {
+                      $('#error').append(get_error_message('Error was happened, Please try again.'))
+                  }
+                  if(data.success)
+                  {
+                      document.location.href = '/wycena/'
+                  }
+              }
+          });
+      });
+
+      function get_error_message(message){
+          return `<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                      ${message}
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>`;
+      }
+
+      function sweet_alert(message){
+
+               const swalWithBootstrapButtons = Swal.mixin({
+                  customClass: {
+                      confirmButton: 'btn btn-danger',
+                      cancelButton: 'btn btn-danger ml-3'
+                  },
+                  buttonsStyling: false
+              });
+              swalWithBootstrapButtons.fire(
+                  'Błąd!',
+                  'Wybierz jedną z dostępnych lokalizacji.',
+                  'error'
+              );
 
 
-    }
 
-</script>
+
+      }
+
+  </script>
+  {% if send %}
+  <script>
+    Swal.fire({
+      title: 'OK!',
+      timer: 4000,
+      text: '{{ send }}',
+      icon: 'success',
+      confirmButtonColor: '#5EC9A7',
+      confirmButtonText: 'Zamknij okno'
+    })
+  </script>
+  {% endif %}
+  
 </body>
 
 </html>
-

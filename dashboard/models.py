@@ -17,20 +17,25 @@ class TypeProduct(models.Model):
 
 
 class NewOrder(models.Model):
-    type_product = models.ForeignKey(TypeProduct, on_delete=models.CASCADE, verbose_name='Typ produktu')
+    type_product = models.CharField(max_length=500)
     location_name_from = models.CharField(max_length=500, verbose_name='Lokalizacja nadawcy')
-    org_latitude_form = models.IntegerField(verbose_name='Współrzedne nadawcy (Szerokość geograficzna)')
-    org_longitude_from = models.IntegerField(verbose_name='Współrzedne nadawcy (Długość geograficzna)')
+    org_latitude_form = models.CharField(max_length=500, verbose_name='Współrzedne nadawcy (Szerokość geograficzna)')
+    org_longitude_from = models.CharField(max_length=500, verbose_name='Współrzedne nadawcy (Długość geograficzna)')
     location_name_to = models.CharField(max_length=500, verbose_name='Lokalizacja odbiorcy')
-    org_latitude_to = models.IntegerField(verbose_name='Współrzedne odbiorcy (Szerokość geograficzna)')
-    org_longitude_to = models.IntegerField(verbose_name='Współrzedne odbiorcy (Długość geograficzna)')
-    date = models.DateTimeField(verbose_name='Data wysłania paczki')
+    org_latitude_to = models.CharField(max_length=500, verbose_name='Współrzedne odbiorcy (Szerokość geograficzna)')
+    org_longitude_to = models.CharField(max_length=500, verbose_name='Współrzedne odbiorcy (Długość geograficzna)')
+    distance = models.CharField(max_length=500, verbose_name='Odległość między punktami')
+    date = models.CharField(max_length=50, verbose_name='Data wysłania paczki')
     image_1 = ProcessedImageField(upload_to='profile-pictures',
                                   verbose_name='Zdjęcie poglądowe 1',
                                   processors=[ResizeToFit(1080, 1080)],
                                   format='JPEG',
                                   options={'quality': 100},
                                   blank=True, null=True)
+    profile_pictures = ImageSpecField(source='image_1',
+                                      processors=[ResizeToFill(400, 400)],
+                                      format='JPEG',
+                                      options={'quality': 80})
     image_2 = ProcessedImageField(upload_to='profile-pictures',
                                   verbose_name='Zdjęcie poglądowe 2',
                                   processors=[ResizeToFit(1080, 1080)],
@@ -43,18 +48,23 @@ class NewOrder(models.Model):
                                   format='JPEG',
                                   options={'quality': 100},
                                   blank=True, null=True)
-    items_descriptions = models.TextField(verbose_name='Opis przedmiotu')
-    width = models.PositiveIntegerField(verbose_name='Szerokość paczki')
-    depth = models.PositiveIntegerField(verbose_name='Długość paczki')
-    height = models.PositiveIntegerField(verbose_name='Wysokość paczki')
-    weight = models.PositiveIntegerField(verbose_name='Waga paczki')
+    items_descriptions = models.TextField(verbose_name='Opis przedmiotu', blank=True)
+    width = models.IntegerField(verbose_name='Szerokość paczki')
+    depth = models.IntegerField(verbose_name='Długość paczki')
+    height = models.IntegerField(verbose_name='Wysokość paczki')
+    weight = models.IntegerField(verbose_name='Waga paczki')
     email = models.EmailField(verbose_name='Adres email')
     phone = models.CharField(max_length=30, verbose_name='Numer telefonu')
-    country_user = models.CharField(max_length=100)
-    unique_url = models.URLField(verbose_name='URL przesyłki')
-    custom_id = models.IntegerField(verbose_name='ID użytkownika')
+    contact_person = models.CharField(max_length=50)
+    unique_url = models.URLField(verbose_name='URL przesyłki', blank=True)
+    custom_id = models.CharField(max_length=500, blank=True, null=True)
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, blank=True, null=True)
+    price = models.DecimalField(max_digits=30, decimal_places=2, verbose_name='Cena', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Data utworzenia')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Data edycji')
+
+    def __str__(self):
+        return '%s - %s' % (self.type_product, self.pk)
 
     class Meta:
         verbose_name = 'Wyceny'

@@ -49,3 +49,22 @@ class EditCompanyDataForm(forms.Form):
                                                                             'placeholder': '00-000'}))
     street = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control',
                                                                           'placeholder': 'Podaj ulice i numer domu'}))
+
+
+class ContactPhoneForm(forms.Form):
+    name = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class': 'form-control',
+                                                                        'placeholder': 'Podaj imię lub firmę...'}))
+    phone = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control',
+                                                                        'placeholder': 'Podaj numer telefonu...'}))
+    date = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
+                                                         'data-mask': '0000-00-00 00:00',
+                                                         'placeholder': 'RRRR-MM-DD HH:MM'
+                                                         }))
+
+
+class EmailContactForm(forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control',
+                                                            'placeholder': 'Podaj adres email...',}))
+    description = forms.CharField(widget=forms.Textarea(attrs={'rows': '6',
+                                                               'class': 'form-control',
+                                                               'placeholder': 'Wpisz treść wiadomości...'}))
