@@ -96,7 +96,7 @@
             witryny, zgadzasz się na ich wykorzystywanie.
           </p>
           <!-- Buttons -->
-          <a href="#" class="btn btn-sm btn-white" target="_blank">Czytaj więcej</a>
+          <a href="{% url 'app:privacy_policy' %}" class="btn btn-sm btn-white" target="_blank">Czytaj więcej</a>
           <button type="button" class="btn btn-sm btn-primary mr-2" data-dismiss="modal">OK</button>
         </div>
       </div>
@@ -252,7 +252,7 @@
           <h5 class="h2 mt-4">Z nami przewieziesz cokolwiek zechcesz.</h5>
           <!-- Text -->
           <p class="lead lh-190 my-4">
-            Jeżeli masz do nadania <b>zwykłą</b> lub <b>bardzo niestandardowe przesyłkę</b>, wykonasz to z <b>Transportuj24</b>.
+            Jeżeli masz do nadania <b>zwykłe</b> lub <b>bardzo niestandardowe przesyłki</b>, wykonasz to z <b>Transportuj24</b>.
           </p>
           <!-- List -->
           <ul class="list-unstyled">
@@ -449,6 +449,7 @@
             </div>
           </div>
           <div class="modal-footer">
+            <button type="submit" class="btn btn-sm btn-dark" name="submitContactPhone">Zadzwoń: (+48) 882 023 063</button>
             <button type="submit" class="btn btn-sm btn-primary" name="submitContactPhone">Umów rozmowę</button>
           </div>
         </div>
