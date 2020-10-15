@@ -1,0 +1,93 @@
+{% load static %}
+    <div class="sidebar">
+      <div class="tab-content h-100" role="tablist">
+        <div class="tab-pane fade h-100" id="tab-content-create-chat" role="tabpanel">
+          <div class="d-flex flex-column h-100">
+
+
+          </div>
+        </div>
+
+
+        <div class="tab-pane fade h-100 show active" id="tab-content-dialogs" role="tabpanel">
+          <div class="d-flex flex-column h-100">
+
+            <div class="hide-scrollbar">
+              <div class="container-fluid py-6">
+
+                <!-- Title -->
+                <h2 class="font-bold mb-6">Chats</h2>
+                <!-- Title -->
+
+
+
+                <!-- Favourites -->
+                <div class="text-center hide-scrollbar d-flex my-7" data-horizontal-scroll="">
+                    {% for item in contact %}
+
+                          <a href="/profil/chat/{{ item.pk }}" class="d-block text-reset mr-7 mr-lg-6">
+                            <div class="avatar avatar-sm {{ item.other.online_s|yesno:"avatar-online, avatar" }} mb-3">
+                                {% if item.other.profile_picture %}
+                                    <img class="avatar-img" src="{{ item.other.profile_picture.url }}" alt="{{ item.other.username }}">
+                                {% else %}
+                                    <img class="avatar-img" src="{% static 'dashboard/images/avatars/13.jpg' %}" alt="{{ item.other.username }}">
+                                {% endif %}
+                            </div>
+                            <div class="small">{{ item.other.username }}</div>
+                          </a>`
+
+                    {% endfor %}
+
+
+                </div>
+                <!-- Favourites -->
+
+                <!-- Chats -->
+                <nav class="nav d-block list-discussions-js mb-n6">
+
+                    {% for item in contact %}
+                        <a class="text-reset nav-link p-0 mb-6" href="/profil/chat/{{ item.pk }}">
+                            <div class="card card-active-listener">
+                              <div class="card-body">
+                                <div class="media">
+                                      <div class="avatar mr-5 {{ item.other.online_s|yesno:"avatar-online, avatar" }}">
+                                        {% if item.other.profile_picture %}
+                                             <img class="avatar-img" src="{{ item.other.profile_picture.url  }}" alt="{{ item.other.username }}">
+                                        {% else %}
+                                             <img class="avatar-img" src="{% static 'dashboard/images/avatars/13.jpg' %}" alt="{{ item.other.username }}">
+                                        {% endif %}
+                                      </div>
+
+                                  <div class="media-body overflow-hidden">
+                                    <div class="d-flex align-items-center mb-1">
+                                      <h6 class="text-truncate mb-0 mr-auto">{{ item.other.username }}</h6>
+                                      <p class="small text-muted text-nowrap ml-4">{{ item.other_status.timestamp|timesince }}</p>
+                                    </div>
+                                    <div class="text-truncate">{{ item.other_status.content }}</div>
+                                  </div>
+                                </div>
+                              </div>
+{#                               {% if item.unreads > 0  %}#}
+{#                                    <div class="badge badge-circle badge-primary badge-border-light badge-top-right">#}
+{#                                        <span>{{ item.unreads }}</span>#}
+{#                                    </div>#}
+{#                                {% endif %}#}
+{#                             </div>#}
+                            </div>
+                        </a>
+                    {% endfor %}
+
+
+
+                </nav>
+                <!-- Chats -->
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
