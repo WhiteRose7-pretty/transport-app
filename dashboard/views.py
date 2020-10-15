@@ -1,22 +1,83 @@
-from django.shortcuts import render
-from .forms import EditAccountBasicInformation, EditPasswordForm, EditCompanyDataForm, ContactPhoneForm, EmailContactForm
-from authentication.models import UserHelpedElement, CompanyUserData
-from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 from django.core.mail import send_mail
-from .models import NewOrder
-from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
+from authentication.models import UserHelpedElement, CompanyUserData, CustomUser
+from chat.models import get_chatList, Contact, Chat
+from .forms import EditAccountBasicInformation, EditPasswordForm, EditCompanyDataForm, ContactPhoneForm, \
+    EmailContactForm
+from .models import NewOrder
+
+
+def check_contact(user):
+    #user is  admin
+    admin_user = CustomUser.objects.get(company=True)
+    admin_contact = Contact.objects.get(user__pk=admin_user.pk)
+    if user.company:
+        pass
+    else:
+        #check if user have contact, then pass or create
+        contacts = Contact.objects.filter(user=user)
+        if len(contacts) < 1:
+            contact = Contact()
+            contact.user = user
+            contact.save()
+        else:
+            contact = Contact.objects.get(user__pk=user.pk)
+        #if chat is created then pass or create
+        if not Chat.objects.filter(participants=contact):
+            chat = Chat()
+            chat.save()
+            chat.participants.add(contact)
+            chat.participants.add(admin_contact)
+            chat.save()
+        else:
+            chat = Chat.objects.filter(participants=contact).first()
 
 
 @login_required(login_url='/uwierzytelnienie/')
 def chat(request):
+    check_contact(request.user)
+    chat_list = get_chatList(request.user)
+    if chat_list.first():
+        first_room = str(chat_list.first().pk)
+    else:
+        first_room = '0'
+    return redirect('/profil/chat/' + first_room + '/')
+
+
+@login_required(login_url='/uwierzytelnienie/')
+def chat0(request, room_name):
+    check_contact(request.user)
     nav_activate = 1
+    global friend
+    friends = []
+    chat_list = get_chatList(request.user)
+    contact = Contact.objects.get(user=request.user)
+    for chat in chat_list:
+        for partner in chat.participants.all():
+            if partner.user.username != request.user.username:
+                chat.other = partner.user
+                print(chat.other.online)
+                friends.append(chat.other)
 
-    context = {'nav_activate': nav_activate}
+        if str(chat.pk) == room_name:
+            friend = chat.other
+        messages = chat.messages.all()
+        chat.other_status = messages.last()
+        # chat.unreads = chat.messages.exclude(contact=user_contact).filter(read=0).count()
+    context = {
+        'nav_activate': nav_activate,
+        'username': request.user.username,
+        'contact_name': contact.pk,
+        'contact': chat_list,
+        'room_name': room_name,
+        'friend': friend,
+    }
     return render(request, 'dashboard/chat.html', context)
-
 
 
 @login_required(login_url='/uwierzytelnienie/')
@@ -29,10 +90,9 @@ def products(request):
     return render(request, 'dashboard/products.html', context)
 
 
-
 @login_required(login_url='/uwierzytelnienie/')
 def settings(request):
-    #basic information
+    # basic information
     nav_activate = 3
     basic_user_data = UserHelpedElement.objects.filter(owner=request.user).last()
     company_data_object = CompanyUserData.objects.filter(owner=request.user).last()
@@ -43,14 +103,21 @@ def settings(request):
     if send_error:
         request.session['send_error'] = None
 
-    #edit user data
+    # edit user data
     if request.method == 'POST' and 'buttonAccount' in request.POST:
-        form_user_data = EditAccountBasicInformation(request.POST)
+        form_user_data = EditAccountBasicInformation(request.POST, request.FILES)
         if form_user_data.is_valid():
             cd = form_user_data.cleaned_data
             object = UserHelpedElement()
             object.owner = request.user
             object.name = cd['name']
+
+            user_obj = CustomUser.objects.get(pk=request.user.pk)
+            user_obj.username = cd['name']
+            print(cd['profile_img'])
+            user_obj.profile_picture = cd['profile_img']
+            user_obj.save()
+
             object.surname = cd['surname']
             object.save()
             request.session['send'] = 'Twoje informacje o koncie zostały pomyślnie zapisane.'
@@ -62,7 +129,7 @@ def settings(request):
         else:
             form_user_data = EditAccountBasicInformation()
 
-    #change password
+    # change password
     if request.method == 'POST' and 'buttonPasswordChange' in request.POST:
         security_form = EditPasswordForm(request.POST)
         if security_form.is_valid():
@@ -84,7 +151,7 @@ def settings(request):
     else:
         security_form = EditPasswordForm()
 
-    #edit company
+    # edit company
     if request.method == 'POST' and 'buttonAdditionalInformation':
         form_company_data = EditCompanyDataForm(request.POST)
         if form_company_data.is_valid():
@@ -111,7 +178,6 @@ def settings(request):
         else:
             form_company_data = EditCompanyDataForm()
 
-
     context = {'form_user_data': form_user_data,
                'form_company_data': form_company_data,
                'security_form': security_form,
@@ -121,7 +187,6 @@ def settings(request):
     return render(request, 'dashboard/settings.html', context)
 
 
-
 @login_required(login_url='/uwierzytelnienie/')
 def phone_contact(request):
     nav_activate = 4
@@ -129,7 +194,7 @@ def phone_contact(request):
     if send:
         request.session['send'] = None
 
-    #phone form
+    # phone form
     if request.method == 'POST' and 'buttonSubmitPhoneContact' in request.POST:
         phone_form = ContactPhoneForm(request.POST)
         if phone_form.is_valid():
@@ -143,7 +208,7 @@ def phone_contact(request):
     else:
         phone_form = ContactPhoneForm()
 
-    #email phone
+    # email phone
     if request.method == 'POST' and 'buttonSubmitEmailContact' in request.POST:
         email_form = EmailContactForm(request.POST)
         if email_form.is_valid():
@@ -160,5 +225,5 @@ def phone_contact(request):
     context = {'nav_activate': nav_activate,
                'phone_form': phone_form,
                'email_form': email_form,
-               'send': send,}
+               'send': send, }
     return render(request, 'dashboard/phone_contact.html', context)

@@ -31,12 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'chat',
     'app',
     'dashboard',
     'django.contrib.sites',
@@ -48,6 +51,7 @@ INSTALLED_APPS = [
     'imagekit',
     'ckeditor',
     'company',
+
 ]
 
 MIDDLEWARE = [
@@ -79,6 +83,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'app_rama.wsgi.application'
+ASGI_APPLICATION = 'app_rama.routing.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 
 # Database

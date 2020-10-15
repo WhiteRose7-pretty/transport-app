@@ -98,9 +98,29 @@
 
                     <div id="profile-settings-account" class="collapse" data-parent="#profile-settings">
                       <div class="card-body">
-                        <form method="POST">
+                        <form method="POST"  enctype="multipart/form-data">
                         {% csrf_token %}
+                          <div class="form-group">
+                            <label class="small">Avatar
+                            {% with request.user as data_account %}
+                              {% if data_account.profile_picture %}
+                              <a href="{{ data_account.profile_picture.url }}" data-fancybox data-caption="Profile picture">
+                                <span class="badge badge-success ml-2">Photo preview <span class="fe fe-eye ml-1"></span></span>
+                              </a>
+                              {% endif %}
+                            {% endwith %}
+                            </label>
+                            <div class="position-relative text-center bg-secondary rounded p-6">
+                              <div class="avatar bg-primary text-white mb-5">
+                                <i class="icon-md fe-image"></i>
+                              </div>
 
+                              <p class="small text-muted mb-0"><span id="fileLabelImg">You can upload jpg, gif or png files. <br> Max file size 3mb.</span>
+                              </p>
+                              {{ form_user_data.profile_img }}
+                              <label class="stretched-label mb-0" for="id_profile_img"></label>
+                            </div>
+                          </div>
                           <div class="form-group">
                             <label class="small" for="profile-name">Imie</label>
                             {{ form_user_data.name }}

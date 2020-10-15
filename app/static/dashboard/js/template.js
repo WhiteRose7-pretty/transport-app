@@ -161,13 +161,34 @@
             var clickable         = el.querySelector('.dropzone-button-js').id;
             var url               = el.getAttribute('data-dz-url');
             var previewsContainer = el.querySelector('.dropzone-previews-js');
+            var tokenDiv = document.querySelector('#csrf');
+            var token = tokenDiv.querySelector('input').value;
+
 
             var myDropzone = new Dropzone(el, {
                 url: url,
                 previewTemplate: template.innerHTML,
                 previewsContainer: previewsContainer,
-                clickable: '#' + clickable
+                clickable: '#' + clickable,
+                headers: { "X-CSRFToken": token},
+                autoProcessQueue: false,
+                success: function (file, response) {
+                    console.log(response['ext']);
+
+                    newMessage(
+                        response, response['ext']
+                    )
+                }
+             });
+
+            $('#chat-submit').on('click',function(e){
+                e.preventDefault();
+                myDropzone.processQueue();
             });
+            myDropzone.on("complete", function(file) {
+              myDropzone.removeFile(file);
+            });
+
         });
 
         //

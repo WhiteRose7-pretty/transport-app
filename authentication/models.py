@@ -6,6 +6,13 @@ from imagekit.processors import ResizeToFill
 
 class CustomUser(AbstractUser):
     company = models.BooleanField(default=False)
+    online = models.IntegerField(default=0, blank=True)
+    online_s = models.BooleanField(default=False, blank=True)
+    profile_picture = ProcessedImageField(upload_to='profile_pictures',
+                                          blank=True, null=True,
+                                          processors=[ResizeToFill(400, 400)],
+                                          format='JPEG',
+                                          options={'quality': 80},)
 
     def __str__(self):
         return self.email

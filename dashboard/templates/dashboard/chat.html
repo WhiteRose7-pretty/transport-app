@@ -21,1043 +21,143 @@
 
 <body>
 
-  <div class="layout">
+    <div class="layout">
 
-    <!-- Navigation -->
-    {% include "dashboard/basic/navbar.html" %}
-    <!-- Navigation -->
+        <!-- Navigation -->
+        {% include "dashboard/basic/navbar.html" %}
+        <!-- Navigation -->
+        {% include "dashboard/basic/sidebar.html" %}
+        <!-- Main Content -->
+        <div class="main main-visible" data-mobile-height="">
 
-    <!-- Main Content -->
-    <div class="main main-visible" data-mobile-height="">
+            <!-- Chat -->
+            <div id="chat-2" class="chat dropzone-form-js" data-dz-url="/profile/chat/fileupload/">
 
-      <!-- Chat -->
-      <div id="chat-2" class="chat dropzone-form-js" data-dz-url="some.php">
+                <!-- Chat: body -->
+                <div class="chat-body">
 
-        <!-- Chat: body -->
-        <div class="chat-body">
+                    <!-- Chat: Header -->
+                    <div class="chat-header border-bottom py-4 py-lg-6 px-lg-8">
+                        <div class="container-xxl">
 
-          <!-- Chat: Header -->
-          <div class="chat-header border-bottom py-4 py-lg-6 px-lg-8">
-            <div class="container-xxl">
+                            <div class="row align-items-center">
 
-              <div class="row align-items-center">
+                                <!-- Close chat(mobile) -->
+                                <div class="col-3 d-xl-none">
+                                    <ul class="list-inline mb-0">
+                                        <li class="list-inline-item">
+                                            <a class="text-muted px-0" href="#" data-chat="open">
+                                                <i class="icon-md fe-chevron-left"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                <!-- Close chat(mobile) -->
-                <div class="col-3 d-xl-none">
-                  <ul class="list-inline mb-0">
-                    <li class="list-inline-item">
-                      <a class="text-muted px-0" href="#" data-chat="open">
-                        <i class="icon-md fe-chevron-left"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                                <!-- Chat photo -->
+                                <div class="col-6 col-xl-6">
+                                    <div class="media text-center text-xl-left">
+                                        <div class="avatar avatar-sm {{ friend.online_s|yesno:"avatar-online, avatar" }} d-none d-lg-inline-block mr-5">
+                                            {% if friend.profile_picture %}
+                                                <img src="{{ friend.profile_picture.url }}"
+                                                     class="avatar-img" alt="">
+                                            {% else %}
+                                                <img src="{% static 'dashboard/images/avatars/12.jpg' %}"
+                                                     class="avatar-img" alt="">
+                                            {% endif %}
+                                        </div>
 
-                <!-- Chat photo -->
-                <div class="col-6 col-xl-6">
-                  <div class="media text-center text-xl-left">
-                    <div class="avatar avatar-sm avatar-online d-none d-lg-inline-block mr-5">
-                      <img src="{% static 'dashboard/images/avatars/10.jpg' %}" class="avatar-img" alt="">
-                    </div>
+                                        <div class="media-body align-self-center text-truncate">
+                                            {% if friend.username %}
+                                                <h6 class="text-truncate mb-n1">{{ friend.username}}</h6>
+                                                <span class="badge badge-dot badge-success d-inline-block d-xl-none mr-1"></span>
+                                                <small class="text-muted">{{ friend.online_s|yesno:"Online, " }}</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
 
-                    <div class="media-body align-self-center text-truncate">
-                      <h6 class="text-truncate mb-n1">Anna Bridges</h6>
-                      <span class="badge badge-dot badge-success d-inline-block d-xl-none mr-1"></span>
-                      <small class="text-muted">Online</small>
-                    </div>
-                  </div>
-                </div>
+                            </div>
 
-                <!-- Chat toolbar -->
-                <div class="col-3 col-xl-6 text-right">
-                  <ul class="nav justify-content-end">
-                    <li class="nav-item list-inline-item d-none d-xl-block mr-3">
-                      <a class="nav-link text-muted px-3" data-toggle="collapse" data-target="#chat-2-search" href="#" title="Search this chat">
-                        <i class="icon-md fe-search"></i>
-                      </a>
-                    </li>
-
-                    <li class="nav-item list-inline-item d-none d-xl-block mr-0">
-                      <a class="nav-link text-muted px-3" href="#" data-chat-sidebar-toggle="#chat-2-info" title="Details">
-                        <i class="icon-md fe-more-vertical"></i>
-                      </a>
-                    </li>
-
-                    <!-- Mobile nav -->
-                    <li class="nav-item list-inline-item d-block d-xl-none">
-                      <div class="dropdown">
-                        <a class="nav-link text-muted px-0" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-md fe-more-vertical"></i>
-                        </a>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item d-flex align-items-center" data-toggle="collapse" data-target="#chat-2-search" href="#">
-                            Search <span class="ml-auto pl-5 fe-search"></span>
-                          </a>
-
-                          <a class="dropdown-item d-flex align-items-center" href="#" data-chat-sidebar-toggle="#chat-2-info">
-                            Chat Info <span class="ml-auto pl-5 fe-more-horizontal"></span>
-                          </a>
                         </div>
-                      </div>
-                    </li>
-                    <!-- Mobile nav -->
-                  </ul>
+                    </div>
+
+                    <!-- Chat: Content-->
+                    <div class="chat-content px-lg-8">
+                        <div class="container-xxl py-6 py-lg-10">
+
+                        </div>
+
+                        <!-- Scroll to end -->
+                        <div class="end-of-chat"></div>
+                    </div>
+                    <!-- Chat: Content -->
+
+                    <!-- Chat: DropzoneJS container -->
+                    <div class="chat-files hide-scrollbar px-lg-8">
+                        <div class="container-xxl">
+                            <div class="dropzone-previews-js form-row py-4">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-footer border-top py-4 py-lg-6 px-lg-8">
+                        <div class="container-xxl">
+                            <form id="chat-id-2-form" action="" data-emoji-form="">
+                                <div id="csrf">
+                                    {% csrf_token %}
+                                </div>
+                                 <div class="form-row align-items-center">
+                                        <div class="col">
+                                            <div class="input-group">
+
+                                                <!-- Textarea -->
+                                                <textarea id="chat-id-2-input" class="form-control bg-transparent border-0"
+                                                          placeholder="Type your message..." rows="1" data-emoji-input=""
+                                                          data-autosize="true" style="height: 45px!important;"></textarea>
+
+                                                <!-- Emoji button -->
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-ico btn-secondary btn-minimal bg-transparent border-0"
+                                                            type="button" data-emoji-btn="">
+                                                        <img src="{% static 'dashboard/images/smile.svg' %}"
+                                                             data-inject-svg="" alt="">
+                                                    </button>
+                                                </div>
+
+                                                <!-- Upload button -->
+                                                <div class="input-group-append d-none">
+                                                    <button id="chat-upload-btn-2"
+                                                            class="btn btn-ico btn-secondary btn-minimal bg-transparent border-0 dropzone-button-js"
+                                                            type="button">
+                                                        <img src="{% static 'dashboard/images/paperclip.svg' %}"
+                                                             data-inject-svg="" alt="">
+                                                    </button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Submit button -->
+                                        <div class="col-auto">
+                                            <button class="btn btn-ico btn-primary rounded-circle" id="chat-submit" type="submit">
+                                                <span class="fe-send"></span>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Chat: Footer -->
                 </div>
-
-              </div><!-- .row -->
-
+                <!-- Chat: body -->
             </div>
-          </div>
-          <!-- Chat: Header -->
-
-          <!-- Chat: Search -->
-          <div class="collapse border-bottom px-lg-8" id="chat-2-search">
-            <div class="container-xxl py-4 py-lg-6">
-
-              <div class="input-group">
-                <input type="text" class="form-control form-control-lg" placeholder="Search this chat" aria-label="Search this chat">
-
-                <div class="input-group-append">
-                  <button class="btn btn-lg btn-ico btn-secondary btn-minimal" type="submit">
-                    <i class="fe-search"></i>
-                  </button>
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <!-- Chat: Search -->
-
-          <!-- Chat: Content-->
-          <div class="chat-content px-lg-8">
-            <div class="container-xxl py-6 py-lg-10">
-
-              <!-- Message -->
-              <div class="message">
-                <!-- Avatar -->
-                <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
-                  <img class="avatar-img" src="{% static 'dashboard/images/avatars/10.jpg' %}" alt="">
-                </a>
-
-                <!-- Message: body -->
-                <div class="message-body">
-
-                  <!-- Message: row -->
-                  <div class="message-row">
-                    <div class="d-flex align-items-center">
-
-                      <!-- Message: content -->
-                      <div class="message-content bg-light">
-                        <h6 class="mb-2">Anna Bridges</h6>
-                        <div>Yeah, I'm going to meet a friend of mine at the department store. I have to buy some presents for my parents.</div>
-
-                        <div class="mt-1">
-                          <small class="opacity-65">8 mins ago</small>
-                        </div>
-                      </div>
-                      <!-- Message: content -->
-
-                      <!-- Message: dropdown -->
-                      <div class="dropdown">
-                        <a class="text-muted opacity-60 ml-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fe-more-vertical"></i>
-                        </a>
-
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Edit <span class="ml-auto fe-edit-3"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Share <span class="ml-auto fe-share-2"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Delete <span class="ml-auto fe-trash-2"></span>
-                          </a>
-                        </div>
-                      </div>
-                      <!-- Message: dropdown -->
-
-                    </div>
-                  </div>
-                  <!-- Message: row -->
-
-                </div>
-                <!-- Message: Body -->
-              </div>
-              <!-- Message -->
-
-              <!-- Message -->
-              <div class="message message-right">
-                <!-- Avatar -->
-                <div class="avatar avatar-sm ml-4 ml-lg-5 d-none d-lg-block">
-                  <img class="avatar-img" src="{% static 'dashboard/images/avatars/12.jpg' %}" alt="">
-                </div>
-
-                <!-- Message: body -->
-                <div class="message-body">
-
-                  <!-- Message: row -->
-                  <div class="message-row">
-                    <div class="d-flex align-items-center justify-content-end">
-
-                      <!-- Message: dropdown -->
-                      <div class="dropdown">
-                        <a class="text-muted opacity-60 mr-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fe-more-vertical"></i>
-                        </a>
-
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Edit <span class="ml-auto fe-edit-3"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Share <span class="ml-auto fe-share-2"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Delete <span class="ml-auto fe-trash-2"></span>
-                          </a>
-                        </div>
-                      </div>
-                      <!-- Message: dropdown -->
-
-                      <!-- Message: content -->
-                      <div class="message-content bg-primary text-white">
-                        <div>Yeah, I'm going to meet a friend of mine at the department store. I have to buy some presents for my parents.</div>
-
-                        <div class="mt-1">
-                          <small class="opacity-65">8 mins ago</small>
-                        </div>
-                      </div>
-                      <!-- Message: content -->
-
-                    </div>
-                  </div>
-                  <!-- Message: row -->
-
-                  <!-- Message: row -->
-                  <div class="message-row">
-                    <div class="d-flex align-items-center justify-content-end">
-
-                      <!-- Message: dropdown -->
-                      <div class="dropdown">
-                        <a class="text-muted opacity-60 mr-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fe-more-vertical"></i>
-                        </a>
-
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Edit <span class="ml-auto fe-edit-3"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Share <span class="ml-auto fe-share-2"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Delete <span class="ml-auto fe-trash-2"></span>
-                          </a>
-                        </div>
-                      </div>
-                      <!-- Message: dropdown -->
-
-                      <!-- Message: content -->
-                      <div class="message-content bg-primary text-white">
-                        <div class="media">
-                          <a href="#" class="icon-shape mr-5">
-                            <i class="fe-paperclip"></i>
-                          </a>
-                          <div class="media-body overflow-hidden flex-fill">
-                            <a href="#" class="d-block text-truncate font-medium text-reset">bootstrap.min.js</a>
-                            <ul class="list-inline small mb-0">
-                              <li class="list-inline-item">
-                                <span class="t">79.2 KB</span>
-                              </li>
-                              <li class="list-inline-item">
-                                <span class="text-uppercase">js</span>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- Message: content -->
-
-                    </div>
-                  </div>
-                  <!-- Message: row -->
-
-                </div>
-                <!-- Message: body -->
-              </div>
-              <!-- Message -->
-
-              <!-- Divider -->
-              <div class="message-divider my-9 mx-lg-5">
-                <div class="row align-items-center">
-
-                  <div class="col">
-                    <hr>
-                  </div>
-
-                  <div class="col-auto">
-                    <small class="text-muted">Today</small>
-                  </div>
-
-                  <div class="col">
-                    <hr>
-                  </div>
-                </div>
-              </div>
-              <!-- Divider -->
-
-              <!-- Message -->
-              <div class="message">
-                <!-- Avatar -->
-                <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
-                  <img class="avatar-img" src="{% static 'dashboard/images/avatars/10.jpg' %}" alt="">
-                </a>
-
-                <!-- Message: body -->
-                <div class="message-body">
-
-                  <!-- Message: row -->
-                  <div class="message-row">
-                    <div class="d-flex align-items-center">
-
-                      <!-- Message: content -->
-                      <div class="message-content bg-light w-100">
-                        <h6 class="mb-2">Anna Bridges shared 3 photos:</h6>
-                        <div class="form-row py-3">
-                          <div class="col">
-                            <img class="img-fluid rounded" src="https://themes.2the.me/Boomerang/1.2/assets/images/team/1.jpg" data-action="zoom" alt="">
-                          </div>
-                          <div class="col">
-                            <img class="img-fluid rounded" src="https://themes.2the.me/Boomerang/1.2/assets/images/team/2.jpg" data-action="zoom" alt="">
-                          </div>
-                          <div class="col">
-                            <img class="img-fluid rounded" src="https://themes.2the.me/Boomerang/1.2/assets/images/team/3.jpg" data-action="zoom" alt="">
-                          </div>
-                        </div>
-
-                        <div class="mt-1">
-                          <small class="opacity-65">8 mins ago</small>
-                        </div>
-                      </div>
-                      <!-- Message: content -->
-
-                      <!-- Message: dropdown -->
-                      <div class="dropdown">
-                        <a class="text-muted opacity-60 ml-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fe-more-vertical"></i>
-                        </a>
-
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Edit <span class="ml-auto fe-edit-3"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Share <span class="ml-auto fe-share-2"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Delete <span class="ml-auto fe-trash-2"></span>
-                          </a>
-                        </div>
-                      </div>
-                      <!-- Message: dropdown -->
-
-                    </div>
-                  </div>
-                  <!-- Message: row -->
-
-                  <!-- Message: row -->
-                  <div class="message-row">
-                    <div class="d-flex align-items-center">
-
-                      <!-- Message: content -->
-                      <div class="message-content bg-light">
-                        <div>Yeah, I'm going to meet a friend of mine at the department store. I have to buy some presents for my parents.</div>
-
-                        <div class="mt-1">
-                          <small class="opacity-65">8 mins ago</small>
-                        </div>
-                      </div>
-                      <!-- Message: content -->
-
-                      <!-- Message: dropdown -->
-                      <div class="dropdown">
-                        <a class="text-muted opacity-60 ml-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fe-more-vertical"></i>
-                        </a>
-
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Edit <span class="ml-auto fe-edit-3"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Share <span class="ml-auto fe-share-2"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Delete <span class="ml-auto fe-trash-2"></span>
-                          </a>
-                        </div>
-                      </div>
-                      <!-- Message: dropdown -->
-
-                    </div>
-                  </div>
-                  <!-- Message: row -->
-
-                </div>
-                <!-- Message: body -->
-              </div>
-              <!-- Message -->
-
-              <!-- Message -->
-              <div class="message message-right">
-                <!-- Avatar -->
-                <div class="avatar avatar-sm ml-4 ml-lg-5 d-none d-lg-block">
-                  <img class="avatar-img" src="{% static 'dashboard/images/avatars/12.jpg' %}" alt="">
-                </div>
-
-                <!-- Message: body -->
-                <div class="message-body">
-
-                  <!-- Message: row -->
-                  <div class="message-row">
-                    <div class="d-flex align-items-center justify-content-end">
-
-                      <!-- Message: dropdown -->
-                      <div class="dropdown">
-                        <a class="text-muted opacity-60 mr-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fe-more-vertical"></i>
-                        </a>
-
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Edit <span class="ml-auto fe-edit-3"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Share <span class="ml-auto fe-share-2"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Delete <span class="ml-auto fe-trash-2"></span>
-                          </a>
-                        </div>
-                      </div>
-                      <!-- Message: dropdown -->
-
-                      <!-- Message: content -->
-                      <div class="message-content bg-primary text-white">
-                        <div>I'm going to meet a friend of mine at the department store. Yeah, I have to buy some presents for my parents.</div>
-
-                        <div class="mt-1">
-                          <small class="opacity-65">8 mins ago</small>
-                        </div>
-                      </div>
-                      <!-- Message: content -->
-
-                    </div>
-                  </div>
-                  <!-- Message: row -->
-
-                </div>
-                <!-- Message: body -->
-              </div>
-              <!-- Message -->
-
-              <!-- Message -->
-              <div class="message">
-                <!-- Avatar -->
-                <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
-                  <img class="avatar-img" src="{% static 'dashboard/images/avatars/10.jpg' %}" alt="">
-                </a>
-
-                <!-- Message: body -->
-                <div class="message-body">
-
-                  <!-- Message: row -->
-                  <div class="message-row">
-                    <div class="d-flex align-items-center">
-
-                      <!-- Message: content -->
-                      <div class="message-content bg-light">
-                        <h6 class="mb-2">Anna Bridges</h6>
-                        <div>I'm going to meet a friend of mine at the department store. Yeah, I have to buy some presents for my parents.</div>
-
-                        <div class="mt-1">
-                          <small class="opacity-65">8 mins ago</small>
-                        </div>
-                      </div>
-                      <!-- Message: content -->
-
-                      <!-- Message: dropdown -->
-                      <div class="dropdown">
-                        <a class="text-muted opacity-60 ml-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fe-more-vertical"></i>
-                        </a>
-
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Edit <span class="ml-auto fe-edit-3"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Share <span class="ml-auto fe-share-2"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Delete <span class="ml-auto fe-trash-2"></span>
-                          </a>
-                        </div>
-                      </div>
-                      <!-- Message: dropdown -->
-
-                    </div>
-                  </div>
-                  <!-- Message: row -->
-
-                </div>
-                <!-- Message: body -->
-              </div>
-              <!-- Message -->
-
-              <!-- Message -->
-              <div class="message message-right">
-                <!-- Avatar -->
-                <div class="avatar avatar-sm ml-4 ml-lg-5 d-none d-lg-block">
-                  <img class="avatar-img" src="{% static 'dashboard/images/avatars/12.jpg' %}" alt="">
-                </div>
-
-                <!-- Message: body -->
-                <div class="message-body">
-
-                  <!-- Message: row -->
-                  <div class="message-row">
-                    <div class="d-flex align-items-center justify-content-end">
-
-                      <!-- Message: dropdown -->
-                      <div class="dropdown">
-                        <a class="text-muted opacity-60 mr-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fe-more-vertical"></i>
-                        </a>
-
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Edit <span class="ml-auto fe-edit-3"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Share <span class="ml-auto fe-share-2"></span>
-                          </a>
-                          <a class="dropdown-item d-flex align-items-center" href="#">
-                            Delete <span class="ml-auto fe-trash-2"></span>
-                          </a>
-                        </div>
-                      </div>
-                      <!-- Message: dropdown -->
-
-                      <!-- Message: content -->
-                      <div class="message-content bg-primary text-white">
-                        <div>Yeah, I'm going to meet a friend of mine at the department store. I have to buy some presents for my parents.</div>
-
-                        <div class="mt-1">
-                          <small class="opacity-65">8 mins ago</small>
-                        </div>
-                      </div>
-                      <!-- Message: content -->
-
-                    </div>
-                  </div>
-                  <!-- Message: row -->
-
-                </div>
-                <!-- Message: body -->
-              </div>
-              <!-- Message -->
-
-              <!-- Message: Typing -->
-              <div class="message">
-                <!-- Avatar -->
-                <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
-                  <img class="avatar-img" src="{% static 'dashboard/images/avatars/10.jpg' %}" alt="">
-                </a>
-
-                <!-- Message: body -->
-                <div class="message-body">
-
-                  <!-- Message: row -->
-                  <div class="message-row">
-                    <div class="d-flex align-items-center">
-
-                      <!-- Message: content -->
-                      <div class="message-content bg-light">
-                        <div>Anna is typing<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span></div>
-                      </div>
-                      <!-- Message: content -->
-
-                    </div>
-                  </div>
-                  <!-- Message: row -->
-
-                </div>
-                <!-- Message: body -->
-              </div>
-              <!-- Message: Typing -->
-
-            </div>
-
-            <!-- Scroll to end -->
-            <div class="end-of-chat"></div>
-          </div>
-          <!-- Chat: Content -->
-
-          <!-- Chat: DropzoneJS container -->
-          <div class="chat-files hide-scrollbar px-lg-8">
-            <div class="container-xxl">
-              <div class="dropzone-previews-js form-row py-4"></div>
-            </div>
-          </div>
-          <!-- Chat: DropzoneJS container -->
-
-          <!-- Chat: Footer -->
-          <div class="chat-footer border-top py-4 py-lg-6 px-lg-8">
-            <div class="container-xxl">
-
-              <form id="chat-id-2-form" action="dashboard/php/upload.php" data-emoji-form="">
-                <div class="form-row align-items-center">
-                  <div class="col">
-                    <div class="input-group">
-
-                      <!-- Textarea -->
-                      <textarea id="chat-id-2-input" class="form-control bg-transparent border-0" placeholder="Napisz swoją wiadomość..." rows="1" data-emoji-input="" data-autosize="true"></textarea>
-
-                      <!-- Emoji button -->
-                      <div class="input-group-append">
-                        <button class="btn btn-ico btn-secondary btn-minimal bg-transparent border-0" type="button" data-emoji-btn="">
-                          <img src="{% static 'dashboard/images/smile.svg' %}" data-inject-svg="" alt="">
-                        </button>
-                      </div>
-
-                      <!-- Upload button -->
-                      <div class="input-group-append">
-                        <button id="chat-upload-btn-2" class="btn btn-ico btn-secondary btn-minimal bg-transparent border-0 dropzone-button-js" type="button">
-                          <img src="{% static 'dashboard/images/paperclip.svg' %}" data-inject-svg="" alt="">
-                        </button>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                  <!-- Submit button -->
-                  <div class="col-auto">
-                    <button class="btn btn-ico btn-primary rounded-circle" type="submit">
-                      <span class="fe-send"></span>
-                    </button>
-                  </div>
-
-                </div>
-
-              </form>
-
-            </div>
-          </div>
-          <!-- Chat: Footer -->
         </div>
-        <!-- Chat: body -->
-
-        <!-- Chat Details -->
-        <div id="chat-2-info" class="chat-sidebar">
-          <div class="d-flex h-100 flex-column">
-
-            <!-- Header -->
-            <div class="border-bottom py-4 py-lg-6">
-              <div class="container-fluid">
-
-                <ul class="nav justify-content-between align-items-center">
-                  <!-- Close sidebar -->
-                  <li class="nav-item list-inline-item">
-                    <a class="nav-link text-muted px-0" href="#" data-chat-sidebar-close="">
-                      <i class="icon-md fe-chevron-left"></i>
-                    </a>
-                  </li>
-
-                  <!-- Title(mobile) -->
-                  <li class="text-center d-block d-lg-none">
-                    <h6 class="mb-n2">Anna Bridges</h6>
-                    <small class="text-muted">Chat Details</small>
-                  </li>
-
-                  <!-- Dropdown -->
-                  <li class="nav-item list-inline-item">
-                    <div class="dropdown">
-                      <a class="nav-link text-muted px-0" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="icon-md fe-sliders"></i>
-                      </a>
-                      <div class="dropdown-menu">
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                          Mute
-                          <span class="ml-auto fe-bell"></span>
-                        </a>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                          Delete
-                          <span class="ml-auto fe-trash-2"></span>
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-
-              </div>
-            </div>
-            <!-- Header -->
-
-            <!-- Body -->
-            <div class="hide-scrollbar flex-fill">
-
-              <div class="border-bottom text-center py-9 px-10">
-                <!-- Photo -->
-                <div class="avatar avatar-xl mx-5 mb-5">
-                  <img class="avatar-img" src="{% static 'dashboard/images/avatars/10.jpg' %}" alt="">
-                </div>
-                <h5>Anna Bridges</h5>
-                <p class="text-muted">Bootstrap is an open source toolkit for developing web with HTML, CSS, and JS.</p>
-              </div>
-
-              <!-- Navs -->
-              <div class="nav nav-tabs nav-justified bg-light rounded-0" role="tablist">
-                <a class="nav-item nav-link active" href="#chat-2-user-details" data-toggle="tab" aria-selected="true" role="tab">Details</a>
-                <a class="nav-item nav-link" href="#chat-2-user-files" data-toggle="tab" role="tab">Files</a>
-              </div>
-              <!-- Navs -->
-
-              <div class="tab-content" role="tablist">
-                <!-- Details -->
-                <div id="chat-2-user-details" class="tab-pane fade show active" role="tabpanel">
-                  <ul class="list-group list-group-flush mb-8">
-                    <li class="list-group-item py-6">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <p class="small text-muted mb-0">Country</p>
-                          <p>Warsaw, Poland</p>
-                        </div>
-                        <i class="text-muted icon-sm fe-globe"></i>
-                      </div>
-                    </li>
-
-                    <li class="list-group-item py-6">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <p class="small text-muted mb-0">Phone</p>
-                          <p>+39 02 87 21 43 19</p>
-                        </div>
-                        <i class="text-muted icon-sm fe-mic"></i>
-                      </div>
-                    </li>
-
-                    <li class="list-group-item py-6">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <p class="small text-muted mb-0">Email</p>
-                          <p>anna@gmail.com</p>
-                        </div>
-                        <i class="text-muted icon-sm fe-mail"></i>
-                      </div>
-                    </li>
-
-                    <li class="list-group-item py-6">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <p class="small text-muted mb-0">Time</p>
-                          <p>10:03 am</p>
-                        </div>
-                        <i class="text-muted icon-sm fe-clock"></i>
-                      </div>
-                    </li>
-                  </ul>
-
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item py-6">
-                      <a href="#" class="media text-muted">
-                        <div class="media-body align-self-center">
-                          Twitter
-                        </div>
-                        <i class="icon-sm fe-twitter"></i>
-                      </a>
-                    </li>
-
-                    <li class="list-group-item py-6">
-                      <a href="#" class="media text-muted">
-                        <div class="media-body align-self-center">
-                          Facebook
-                        </div>
-                        <i class="icon-sm fe-facebook"></i>
-                      </a>
-                    </li>
-
-                    <li class="list-group-item py-6">
-                      <a href="#" class="media text-muted">
-                        <div class="media-body align-self-center">
-                          Github
-                        </div>
-                        <i class="icon-sm fe-github"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <!-- Details -->
-
-                <!-- Files -->
-                <div id="chat-2-user-files" class="tab-pane fade" role="tabpanel">
-                  <ul class="list-group list-group-flush list-group-no-border-first">
-                    <!-- File -->
-                    <li class="list-group-item py-6">
-                      <div class="media">
-
-                        <div class="icon-shape bg-primary text-white mr-5">
-                          <i class="fe-paperclip"></i>
-                        </div>
-
-                        <div class="media-body align-self-center overflow-hidden">
-                          <h6 class="text-truncate mb-0">
-                            <a href="#" class="text-reset" title="E5419783-047D-4B4C-B30E-F24DD8247731.JPG">E5419783-047D-4B4C-B30E-F24DD8247731.JPG</a>
-                          </h6>
-
-                          <ul class="list-inline small mb-0">
-                            <li class="list-inline-item">
-                              <span class="text-muted">79.2 KB</span>
-                            </li>
-                            <li class="list-inline-item">
-                              <span class="text-muted text-uppercase">txt</span>
-                            </li>
-                          </ul>
-                        </div>
-
-                        <div class="align-self-center ml-5">
-                          <div class="dropdown">
-                            <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe-more-vertical"></i>
-                            </a>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Download <span class="ml-auto fe-download"></span>
-                              </a>
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Share <span class="ml-auto fe-share-2"></span>
-                              </a>
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Delete <span class="ml-auto fe-trash-2"></span>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </li>
-                    <!-- File -->
-
-                    <!-- File -->
-                    <li class="list-group-item py-6">
-                      <div class="media">
-
-                        <div class="icon-shape bg-primary text-white mr-5">
-                          <i class="fe-paperclip"></i>
-                        </div>
-
-                        <div class="media-body align-self-center overflow-hidden">
-                          <h6 class="text-truncate mb-0">
-                            <a href="#" class="text-reset" title="E5419783-047D-4B4C-B30E-F24DD8247731.JPG">E5419783-047D-4B4C-B30E-F24DD8247731.JPG</a>
-                          </h6>
-
-                          <ul class="list-inline small mb-0">
-                            <li class="list-inline-item">
-                              <span class="text-muted">79.2 KB</span>
-                            </li>
-                            <li class="list-inline-item">
-                              <span class="text-muted text-uppercase">psd</span>
-                            </li>
-                          </ul>
-                        </div>
-
-                        <div class="align-self-center ml-5">
-                          <div class="dropdown">
-                            <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe-more-vertical"></i>
-                            </a>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Download <span class="ml-auto fe-download"></span>
-                              </a>
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Share <span class="ml-auto fe-share-2"></span>
-                              </a>
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Delete <span class="ml-auto fe-trash-2"></span>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </li>
-                    <!-- File -->
-
-                    <!-- File -->
-                    <li class="list-group-item py-6">
-                      <div class="media">
-
-                        <div class="icon-shape bg-primary text-white mr-5">
-                          <i class="fe-paperclip"></i>
-                        </div>
-
-                        <div class="media-body align-self-center overflow-hidden">
-                          <h6 class="text-truncate mb-0">
-                            <a href="#" class="text-reset" title="E5419783-047D-4B4C-B30E-F24DD8247731.JPG">E5419783-047D-4B4C-B30E-F24DD8247731.JPG</a>
-                          </h6>
-
-                          <ul class="list-inline small mb-0">
-                            <li class="list-inline-item">
-                              <span class="text-muted">79.2 KB</span>
-                            </li>
-                            <li class="list-inline-item">
-                              <span class="text-muted text-uppercase">pdf</span>
-                            </li>
-                          </ul>
-                        </div>
-
-                        <div class="align-self-center ml-5">
-                          <div class="dropdown">
-                            <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe-more-vertical"></i>
-                            </a>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Download <span class="ml-auto fe-download"></span>
-                              </a>
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Share <span class="ml-auto fe-share-2"></span>
-                              </a>
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Delete <span class="ml-auto fe-trash-2"></span>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </li>
-                    <!-- File -->
-
-                    <!-- File -->
-                    <li class="list-group-item py-6">
-                      <div class="media">
-
-                        <div class="icon-shape bg-primary text-white mr-5">
-                          <i class="fe-paperclip"></i>
-                        </div>
-
-                        <div class="media-body align-self-center overflow-hidden">
-                          <h6 class="text-truncate mb-0">
-                            <a href="#" class="text-reset" title="E5419783-047D-4B4C-B30E-F24DD8247731.JPG">E5419783-047D-4B4C-B30E-F24DD8247731.JPG</a>
-                          </h6>
-
-                          <ul class="list-inline small mb-0">
-                            <li class="list-inline-item">
-                              <span class="text-muted">79.2 KB</span>
-                            </li>
-                            <li class="list-inline-item">
-                              <span class="text-muted text-uppercase">txt</span>
-                            </li>
-                          </ul>
-                        </div>
-
-                        <div class="align-self-center ml-5">
-                          <div class="dropdown">
-                            <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe-more-vertical"></i>
-                            </a>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Download <span class="ml-auto fe-download"></span>
-                              </a>
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Share <span class="ml-auto fe-share-2"></span>
-                              </a>
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Delete <span class="ml-auto fe-trash-2"></span>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </li>
-                    <!-- File -->
-
-                    <!-- File -->
-                    <li class="list-group-item py-6">
-                      <div class="media">
-
-                        <div class="icon-shape bg-primary text-white mr-5">
-                          <i class="fe-paperclip"></i>
-                        </div>
-
-                        <div class="media-body align-self-center overflow-hidden">
-                          <h6 class="text-truncate mb-0">
-                            <a href="#" class="text-reset" title="E5419783-047D-4B4C-B30E-F24DD8247731.JPG">E5419783-047D-4B4C-B30E-F24DD8247731.JPG</a>
-                          </h6>
-
-                          <ul class="list-inline small mb-0">
-                            <li class="list-inline-item">
-                              <span class="text-muted">79.2 KB</span>
-                            </li>
-                            <li class="list-inline-item">
-                              <span class="text-muted text-uppercase">pdf</span>
-                            </li>
-                          </ul>
-                        </div>
-
-                        <div class="align-self-center ml-5">
-                          <div class="dropdown">
-                            <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe-more-vertical"></i>
-                            </a>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Download <span class="ml-auto fe-download"></span>
-                              </a>
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Share <span class="ml-auto fe-share-2"></span>
-                              </a>
-                              <a class="dropdown-item d-flex align-items-center" href="#">
-                                Delete <span class="ml-auto fe-trash-2"></span>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </li>
-                    <!-- File -->
-
-
-                  </ul>
-                </div>
-                <!-- Files -->
-              </div>
-
-            </div>
-            <!-- Body -->
-
-          </div>
-        </div>
-        <!-- Chat Details -->
-
-      </div>
-      <!-- Chat -->
-
     </div>
-    <!-- Main Content -->
-
-  </div>
-  <!-- Layout -->
-
-  <!-- DropzoneJS: Template -->
-  <div id="dropzone-template-js">
+    <!-- DropzoneJS: Template -->
+    <div id="dropzone-template-js">
     <div class="col-lg-4 my-3">
       <div class="card bg-light">
         <div class="card-body p-3">
@@ -1089,63 +189,505 @@
         </div>
       </div>
     </div>
-  </div>
-  <!-- DropzoneJS: Template -->
-
-  <!-- Modal: Invite friends -->
-  <div class="modal fade" id="invite-friends" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-
-        <div class="modal-header">
-          <div class="media flex-fill">
-            <div class="icon-shape rounded-lg bg-primary text-white mr-5">
-              <i class="fe-users"></i>
-            </div>
-            <div class="media-body align-self-center">
-              <h5 class="modal-title">Invite friends</h5>
-              <p class="small">Invite colleagues, clients and friends.</p>
-            </div>
-          </div>
-
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <div class="modal-body">
-          <form action="#">
-            <div class="form-group">
-              <label for="invite-email" class="small">Email</label>
-              <input type="text" class="form-control form-control-lg" id="invite-email">
-            </div>
-
-            <div class="form-group mb-0">
-              <label for="invite-message" class="small">Invitation message</label>
-              <textarea class="form-control form-control-lg" id="invite-message" data-autosize="true"></textarea>
-            </div>
-          </form>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-lg btn-block btn-primary d-flex align-items-center">
-            Invite friend
-            <i class="fe-user-plus ml-auto"></i>
-          </button>
-        </div>
-
-      </div>
     </div>
-  </div>
-  <!-- Modal: Invite friends -->
+    <!-- DropzoneJS: Template -->
 
-  <!-- Scripts -->
-  <script src="{% static 'dashboard/js/libs/jquery.min.js' %}"></script>
-  <script src="{% static 'dashboard/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'dashboard/js/plugins/plugins.bundle.js' %}"></script>
-  <script src="{% static 'dashboard/js/template.js' %}"></script>
-  <!-- Scripts -->
+    {{ room_name|json_script:"room-name" }}
+    {{ username|json_script:"user-name" }}
+    {{ contact_name|json_script:"contact-name" }}
 
+
+    <div style="display: none">
+        {% if friend.profile_picture %}
+            <input type="text" id="friend_avatar" value="{{ friend.profile_picture.url }}">
+        {% else %}
+            <input type="text" id="friend_avatar" value="{% static 'dashboard/images/avatars/13.jpg' %}">
+        {% endif %}
+        <form id="create-chat-form" action="/profile/chat/create/" method="post">
+            {% csrf_token %}
+        </form>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'dashboard/js/libs/jquery.min.js' %}"></script>
+    <script src="{% static 'dashboard/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'dashboard/js/plugins/plugins.bundle.js' %}"></script>
+    <script src="{% static 'dashboard/js/template.js' %}"></script>
+    <!-- Scripts -->
+    <script>
+
+        setTimeout(function () {
+            console.log('reload');
+            var messageInputDom = document.getElementById('chat-id-2-input');
+            var message = messageInputDom.value;
+            if(message === ''){
+                window.location.reload();
+            }
+        }, 600000);
+
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const username = JSON.parse(document.getElementById('user-name').textContent);
+        const contactName = JSON.parse(document.getElementById('contact-name').textContent);
+        var ws_scheme = window.location.protocol === "https:" ? "wss" : "ws";
+
+        var chatSocket = new WebSocket(
+            // var chatSocket = new ReconnectingWebSocket(
+            ws_scheme  + '://' + window.location.host +
+            '/ws/chat/' + roomName + '/');
+
+        chatSocket.onopen = function (e) {
+            console.log("opened");
+            fetchMessages();
+        };
+
+        chatSocket.onmessage = function (e) {
+
+            console.log(e);
+            var data = JSON.parse(e.data);
+            if (data['command'] === 'messages') {
+                for (let i = data['messages'].length; i > 0; i--) {
+                    createMessage(data['messages'][i - 1]);
+                }
+            } else if (data['command'] === 'new_message') {
+                createMessage(data['message']);
+            } else if(data['command'] === 'notification' && data['from'] !== username){
+                notification(data);
+            }
+
+            var s =  $(".chat-content")[0].scrollHeight;
+            $(".chat-content").animate({scrollTop: s}, "fast");
+        };
+
+        function notification(data){
+            console.log(data);
+            var friends_avatar_url = document.getElementById("friend_avatar").value;
+            if(data['status'] === 'typing'){
+                let typing_tempate = `
+                    <div class="message" id="typing-block">
+                        <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-1-user-profile">
+                            <img class="avatar-img" src="${friends_avatar_url}" alt="">
+                        </a>
+                        <div class="message-body">
+                            <div class="message-row">
+                                <div class="d-flex align-items-center">
+                                    <div class="message-content bg-light">
+                                        <div>${data.from} is typing<span class="typing-dots"><span>.</span><span>.</span><span>.</span></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                $('.chat-content .container-xxl').append(typing_tempate);
+
+                {#$(".chat-content").animate({scrollTop: $(document).height()}, "fast");#}
+            }
+            else if(data['status'] === 'no-typing'){
+                $('#typing-block').remove();
+            }
+
+
+        }
+
+        chatSocket.onclose = function (e) {
+            console.error('Chat socket closed unexpectedly');
+            console.error(e);
+        };
+
+
+
+        document.querySelector('#chat-submit').onclick = function (e) {
+
+            var messageInputDom = document.getElementById('chat-id-2-input');
+            var message = messageInputDom.value;
+            if(message !== ''){
+                var message_json = {
+                    'content': message,
+                    'file_url': '',
+                    'file_name': '',
+                    'file_size': '',
+                     };
+                newMessage(message_json, 'text');
+            }
+
+
+            messageInputDom.value = '';
+        };
+
+        function newMessage(data, tag) {
+            chatSocket.send(JSON.stringify({
+                'command': 'new_message',
+                'tag': tag,
+                'message': data,
+                'from': username,
+                'chatId': roomName,
+                'contact_name': contactName
+            }));
+        }
+
+        function fetchMessages() {
+            console.log('fetch');
+            chatSocket.send(JSON.stringify(
+                {
+                    'command': 'fetch_messages',
+                    'chatId': roomName,
+                }
+                ));
+        }
+
+
+        function createMessage(data) {
+
+            var author = data['contact'];
+            var tag = data['tag'];
+            var avatar = '';
+            console.log('tag:' + tag);
+            let messageRightTemplate = ``;
+            if (data['avatar']){
+                avatar = data['avatar']
+            }
+            else{
+                avatar = '/static/dashboard/images/avatars/13.jpg'
+            }
+            if (author === username) {
+
+                   if(tag === 'text' || tag === '' ) {
+                       messageRightTemplate = `<div class="message message-right">
+
+                    <div class="avatar avatar-sm ml-4 ml-lg-5 d-none d-lg-block">
+                      <img class="avatar-img" src="${avatar}" alt="">
+                    </div>
+
+                    <div class="message-body">
+
+                      <div class="message-row">
+                        <div class="d-flex align-items-center justify-content-end">
+                          <div class="message-content bg-primary text-white">
+                            <div>${data.content}</div>
+
+                            <div class="mt-1">
+                              <small class="opacity-65">${passTime(data.timestamp)}</small>
+                            </div>
+                          </div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>`;
+
+                   }
+                   else if( tag === 'file'){
+                       messageRightTemplate = `<div class="message message-right">
+
+                                <div class="avatar avatar-sm ml-4 ml-lg-5 d-none d-lg-block">
+                                    <img class="avatar-img" src="${avatar}"
+                                         alt="">
+                                </div>
+
+                                <div class="message-body">
+
+                                    <div class="message-row">
+                                        <div class="d-flex align-items-center justify-content-end">
+
+                                            <div class="message-content bg-primary text-white">
+                                                <div class="media">
+                                                    <a download="${data.file_name}" data-url="${data.file_url}" class="file-download icon-shape mr-5">
+                                                        <i class="fe-paperclip"></i>
+                                                    </a>
+                                                    <div class="media-body overflow-hidden flex-fill">
+                                                        <a download="${data.file_name}" data-url="${data.file_url}" class="file-download d-block text-truncate font-medium text-reset">
+                                                        ${data.file_name}</a>
+                                                        <ul class="list-inline small mb-0">
+                                                            <li class="list-inline-item">
+                                                                <span class="t">${data.file_size}</span>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>`;
+                   }
+                   else if(tag === 'image'){
+                       messageRightTemplate = `
+                            <div class="message message-right">
+                                <div class="avatar avatar-sm ml-4 ml-lg-5 d-none d-lg-block">
+                                    <img class="avatar-img" src="${avatar}"
+                                         alt="">
+                                </div>
+
+                                <div class="message-body">
+
+                                    <div class="message-row">
+                                        <div class="d-flex align-items-center justify-content-end">
+
+                                            <div class="message-content bg-primary text-white w-100">
+                                                <h6 class="mb-2">${data.contact} shared 1 photos:</h6>
+                                                <div class="form-row py-3">
+                                                    <div class="col">
+                                                        <img class="img-fluid rounded"
+                                                             src="${data.file_url}"
+                                                             data-action="zoom" alt="${data.file_name}">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="mt-1">
+                                                    <small class="opacity-65">${ passTime(data.timestamp)}</small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>`
+                   }
+            }
+            else {
+                   $('#typing-block').remove();
+                   if(tag == 'text' || tag == '') {
+                       messageRightTemplate = `<div class="message">
+                                         <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
+                                              <img class="avatar-img" src="${avatar}" alt="">
+                                         </a>
+                                         <div class="message-body">
+                                             <div class="message-row">
+                                                <div class="d-flex align-items-center">
+                                                      <div class="message-content bg-light">
+                                                            <h6 class="mb-2">${data['contact']}</h6>
+                                                            <div>${data.content}</div>
+
+                                                            <div class="mt-1">
+                                                              <small class="opacity-65">${passTime(data.timestamp)}</small>
+                                                            </div>
+                                                      </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div> `;
+                   }
+                   else if(tag === 'file'){
+                        messageRightTemplate = `<div class="message">
+
+                                <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
+                                              <img class="avatar-img" src="${avatar}" alt="">
+                                </a>
+
+                                <div class="message-body">
+
+                                    <div class="message-row">
+                                        <div class="d-flex align-items-center">
+
+                                            <div class="message-content bg-light">
+                                                <div class="media">
+                                                    <a download="${data.file_name}" data-url="${data.file_url}" class="file-download icon-shape mr-5">
+                                                        <i class="fe-paperclip"></i>
+                                                    </a>
+                                                    <div class="media-body overflow-hidden flex-fill">
+                                                        <a download="${data.file_name}" data-url="${data.file_url}" class="file-download d-block text-truncate font-medium text-reset">
+                                                        ${data.file_name}</a>
+                                                        <ul class="list-inline small mb-0">
+                                                            <li class="list-inline-item">
+                                                                <span class="t">${data.file_size}</span>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>`;
+                   }
+                   else if(tag === 'image'){
+                       messageRightTemplate = `
+                            <div class="message">
+                                <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
+                                    <img class="avatar-img" src="${avatar}"
+                                         alt="">
+                                </a>
+
+                                <div class="message-body">
+
+                                    <div class="message-row">
+                                        <div class="d-flex align-items-center">
+
+                                            <div class="message-content bg-light w-100">
+                                                <h6 class="mb-2">${data.contact} shared 1 photos:</h6>
+                                                <div class="form-row py-3">
+                                                    <div class="col">
+                                                        <img class="img-fluid rounded"
+                                                             src="${data.file_url}"
+                                                             data-action="zoom" alt="${data.file_name}">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="mt-1">
+                                                    <small class="opacity-65">${ passTime(data.timestamp)}</small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>`
+                   }
+            }
+
+            $('.chat-content .container-xxl').append(messageRightTemplate);
+
+            {#console.log($(document).prop("scrollHeight"));#}
+            {#console.log($(document).height());#}
+            {#$(".chat-content").animate({scrollTop: $(document).height()}, "fast");#}
+        }
+
+        function passTime(time) {
+                var current_dateTime = new Date();
+                var origin_dateTime = new Date(time);
+                var time_difference = Math.abs(current_dateTime - origin_dateTime);
+
+                var output='';
+
+                if(time_difference<1000){
+                    output = " Just Committed ";
+                }
+                else if(time_difference < 60*1000){
+                    output = Math.floor(time_difference/1000).toString() + " secs ago";
+                }
+                else if(time_difference < 3600*1000){
+                    output = Math.floor(time_difference/60/1000).toString() + " mins ago";
+                }
+                else if(time_difference < 24*3600*1000){
+                    output = Math.floor(time_difference/3600/1000).toString() + " hours ago";
+                }
+                else if(time_difference < 30*24*3600*1000){
+                    output = Math.floor(time_difference/24/3600/1000).toString() + " days ago";
+                }
+                else{
+                    output = origin_dateTime.getMonth().toString() +
+                            origin_dateTime.getDate().toString() + ',' +
+                            origin_dateTime.getFullYear();
+                }
+
+                return output;
+
+
+            }
+
+
+        $(document).on("click", ".file-download", function(){
+           console.log('data-root_url');
+           download($(this).attr('data-url'), $(this).attr('download') );
+        });
+
+        function download(uri, name) {
+            var link = document.createElement("a");
+            link.download = name;
+            link.href = uri;
+            link.click();
+        }
+
+         $(document).on("click",'.create-chat', function(){
+             var pk = $(this).attr("data-id");
+             var style = $(this).attr("data-style");
+             console.log("pk:"+ pk);
+             console.log("style:"+ style);
+             var form  = document.getElementById("create-chat-form");
+             var input_pk = document.createElement("INPUT");
+             input_pk.setAttribute("type", "text");
+             input_pk.setAttribute("name", "pk");
+             input_pk.setAttribute("value", pk);
+             form.appendChild(input_pk);
+             var input_style = document.createElement("INPUT");
+             input_style.setAttribute("type", "text");
+             input_style.setAttribute("name", "style");
+             input_style.setAttribute("value", style);
+             form.appendChild(input_style);
+             form.submit();
+
+         });
+
+        var my_typing_status = false;
+        $(document).on("blur", "#chat-id-2-input", function () {
+             my_typing_status = false;
+             console.log(my_typing_status);
+             chatSocket.send(JSON.stringify(
+                {
+                    'command': 'notification',
+                    'status': 'no-typing',
+                    'chatId': roomName,
+                    'from': contactName,
+                }
+            ));
+
+        });
+
+        document.querySelector('#chat-id-2-input').onkeyup = function (e) {
+            if (e.keyCode === 13) {  // enter, return
+                  if($(this).val() !== '') {
+                     if($(this).val().length > 1){
+                         document.querySelector('#chat-submit').click();
+                     }
+                     $(this).val("");
+                   }
+            }
+            else{
+                 if($(this).val() !== ''){
+                     if(!my_typing_status) {
+                         my_typing_status = true;
+                         console.log(my_typing_status);
+
+                         chatSocket.send(JSON.stringify(
+                             {
+                                 'command': 'notification',
+                                 'status': 'typing',
+                                 'chatId': roomName,
+                                 'from': username,
+                             }
+                         ));
+
+                     }
+                }
+                else{
+                    if(my_typing_status) {
+                        my_typing_status = false;
+                        console.log(my_typing_status);
+                        chatSocket.send(JSON.stringify(
+                            {
+                                'command': 'notification',
+                                'status': 'no-typing',
+                                'chatId': roomName,
+                                'from': username,
+                            }
+                        ));
+                    }
+                }
+            }
+         };
+
+
+    </script>
 </body>
 
 </html>
