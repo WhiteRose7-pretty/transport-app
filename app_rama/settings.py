@@ -144,6 +144,8 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'app/media')
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'app/static')
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 AUTH_USER_MODEL = 'authentication.CustomUser'
