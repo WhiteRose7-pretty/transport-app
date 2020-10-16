@@ -21,7 +21,7 @@
                     <div class="text-center hide-scrollbar d-flex my-7" data-horizontal-scroll="">
                         {% for item in contact %}
 
-                              <a href="/profil/chat/{{ item.pk }}" class="d-block text-reset mr-7 mr-lg-6">
+                              <a href="/profil-firmowy/chat/{{ item.pk }}" class="d-block text-reset mr-7 mr-lg-6">
                                 <div class="avatar avatar-sm {{ item.other.online_s|yesno:"avatar-online, avatar" }} mb-3">
                                     {% if item.other.profile_picture %}
                                         <img class="avatar-img" src="{{ item.other.profile_picture.url }}" alt="{{ item.other.username }}">
@@ -40,7 +40,7 @@
                     <nav class="nav d-block list-discussions-js mb-n6">
 
                         {% for item in contact %}
-                            <a class="text-reset nav-link p-0 mb-6" href="/profil/chat/{{ item.pk }}">
+                            <a class="text-reset nav-link p-0 mb-6" href="/profil-firmowy/chat/{{ item.pk }}">
                                 <div class="card card-active-listener">
                                   <div class="card-body">
                                     <div class="media">
