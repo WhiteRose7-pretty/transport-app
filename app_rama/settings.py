@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['159.89.8.165', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'channels',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
