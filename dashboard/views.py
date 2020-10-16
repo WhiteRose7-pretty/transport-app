@@ -46,7 +46,11 @@ def chat(request):
         first_room = str(chat_list.first().pk)
     else:
         first_room = '0'
-    return redirect('/profil/chat/' + first_room + '/')
+    if not request.user.company:
+        return redirect('/profil/chat/' + first_room + '/')
+    else:
+        return redirect('/profil-firmowy/chat/' + first_room + '/')
+
 
 
 @login_required(login_url='/uwierzytelnienie/')
@@ -77,7 +81,11 @@ def chat0(request, room_name):
         'room_name': room_name,
         'friend': friend,
     }
-    return render(request, 'dashboard/chat.html', context)
+    if not request.user.company:
+        return render(request, 'dashboard/chat.html', context)
+    else:
+        return redirect('/profil-firmowy/czat/')
+
 
 
 @login_required(login_url='/uwierzytelnienie/')
