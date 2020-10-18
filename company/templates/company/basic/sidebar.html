@@ -1,4 +1,5 @@
 {% load static %}
+{% load app_tags %}
     <div class="sidebar">
       <div class="tab-content h-100" role="tablist">
         <div class="tab-pane fade h-100" id="tab-content-create-chat" role="tabpanel">
@@ -61,13 +62,15 @@
                                       </div>
                                     </div>
                                   </div>
-    {#                               {% if item.unreads > 0  %}#}
-    {#                                    <div class="badge badge-circle badge-primary badge-border-light badge-top-right">#}
-    {#                                        <span>{{ item.unreads }}</span>#}
-    {#                                    </div>#}
-    {#                                {% endif %}#}
-    {#                             </div>#}
+                                {% get_new_message item request.user as new_message%}
+                                {% if new_message %}
+                                    <div class="badge badge-circle badge-primary badge-border-light badge-top-right" id="chat_new_badge_{{ item.pk }}">
+                                        <span>Nowa</span>
+                                    </div>
+                                {% endif %}
+
                                 </div>
+
                             </a>
                         {% endfor %}
 

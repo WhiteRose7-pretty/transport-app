@@ -13,7 +13,7 @@
 
   <link href="{% static 'dashboard/css/template.min.css' %}" rel="stylesheet">
   <link href="{% static 'dashboard/css/template.dark.min.css' %}" rel="stylesheet" media="(prefers-color-scheme: dark)">
-
+  <link href="{% static 'dashboard/css/custom.css' %}" rel="stylesheet" >
 
 
 </head>
@@ -316,6 +316,7 @@
         };
 
         function newMessage(data, tag) {
+            $('#chat_new_badge_'+roomName).hide();
             chatSocket.send(JSON.stringify({
                 'command': 'new_message',
                 'tag': tag,
@@ -657,6 +658,7 @@
                      if(!my_typing_status) {
                          my_typing_status = true;
                          console.log(my_typing_status);
+                         $('#chat_new_badge_'+roomName).hide();
 
                          chatSocket.send(JSON.stringify(
                              {
@@ -664,6 +666,7 @@
                                  'status': 'typing',
                                  'chatId': roomName,
                                  'from': username,
+                                 'contact_name': contactName,
                              }
                          ));
 
@@ -679,6 +682,7 @@
                                 'status': 'no-typing',
                                 'chatId': roomName,
                                 'from': username,
+                                'contact_name': contactName,
                             }
                         ));
                     }

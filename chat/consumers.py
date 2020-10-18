@@ -80,10 +80,12 @@ def read_messages(contact, chat_id):
 class ChatConsumer(AsyncWebsocketConsumer):
 
     async def notification(self, data):
-        print(data)
+        print('notification')
+        user_contact = Contact.objects.get(pk=int(data['contact_name']))
+        read_messages(user_contact, data['chatId'])
         await self.send_chat_message(data)
 
-    async def fetch_messages(self, data):
+    async def fetch_messages(self, data):  
         messages = get_last_10_messages(data['chatId'])
         content = {
             'command': 'messages',
@@ -94,26 +96,20 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def new_message(self, data):
 
         user_contact = Contact.objects.get(pk=int(data['contact_name']))
-        # read_messages(user_contact, data['chatId'])
+        read_messages(user_contact, data['chatId'])
         message = Message.objects.create(
             contact=user_contact,
             tag=data['tag'],
             file_name=data['message']['file_name'],
             file_url=data['message']['file_url'],
             file_size=data['message']['file_size'],
-            content=data['message']['content'])
+            content=data['message']['content'],
+            read=0)
 
         current_chat = get_current_chat(data['chatId'])
         current_chat.messages.add(message)
         current_chat.save()
 
-        message = Message.objects.create(
-            contact=user_contact,
-            tag=data['tag'],
-            file_name=data['message']['file_name'],
-            file_url=data['message']['file_url'],
-            file_size=data['message']['file_size'],
-            content=data['message']['content'])
         content = {
             'command': 'new_message',
             'message': message_to_json(message)
