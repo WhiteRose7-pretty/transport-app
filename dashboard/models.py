@@ -1,9 +1,9 @@
+from ckeditor.fields import RichTextField
 from django.db import models
 from imagekit.models import ProcessedImageField, ImageSpecField
 from imagekit.processors import ResizeToFit, ResizeToFill
+
 from authentication.models import CustomUser
-from .choices import PROVINCES_CHOICES
-from ckeditor.fields import RichTextField
 
 
 class TypeProduct(models.Model):
@@ -13,7 +13,6 @@ class TypeProduct(models.Model):
     class Meta:
         verbose_name = 'Typy produktów'
         verbose_name_plural = 'Typy produktów'
-
 
 
 class NewOrder(models.Model):
@@ -71,7 +70,6 @@ class NewOrder(models.Model):
         verbose_name_plural = 'Wyceny'
 
 
-
 class CompanyUser(models.Model):
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Właściciel')
     company_name = models.CharField(max_length=500, verbose_name='Nazwa firmy')
@@ -79,7 +77,7 @@ class CompanyUser(models.Model):
     company_email = models.EmailField(verbose_name='Adres email')
     description = models.TextField(verbose_name='Opis firmy')
     nip = models.CharField(max_length=20, verbose_name='NIP')
-    location= models.CharField(max_length=500)
+    location = models.CharField(max_length=500)
     package = models.CharField(max_length=50, verbose_name='Pakiet')
     blocked = models.CharField(max_length=50, verbose_name='Zablokowany')
     logo = models.ImageField(verbose_name='Logo')
@@ -94,7 +92,6 @@ class CompanyUser(models.Model):
         verbose_name_plural = 'Firmy'
 
 
-
 class OfferResponse(models.Model):
     owner = models.ForeignKey(NewOrder, on_delete=models.CASCADE, verbose_name='Właściciel')
     company = models.ForeignKey(CompanyUser, on_delete=models.CASCADE, verbose_name='Firma')
@@ -106,7 +103,6 @@ class OfferResponse(models.Model):
     class Meta:
         verbose_name = 'Odpowiedzi na oferty'
         verbose_name_plural = 'Odpowiedzi na oferty'
-
 
 
 class Payment(models.Model):
@@ -137,9 +133,9 @@ class Newsletter(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Kategoria')
     sub_title = models.TextField()
     bg_img = ProcessedImageField(upload_to='profile-pictures',
-                                    processors=[ResizeToFill(1920, 1080)],
-                                    format='JPEG',
-                                    options={'quality': 100})
+                                 processors=[ResizeToFill(1920, 1080)],
+                                 format='JPEG',
+                                 options={'quality': 100})
     img = ProcessedImageField(upload_to='profile-pictures',
                               verbose_name='Zdjęcie artykułu',
                               processors=[ResizeToFit(1920, 1920)],

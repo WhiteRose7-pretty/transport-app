@@ -65,7 +65,6 @@ def chat0(request, room_name):
         for partner in chat.participants.all():
             if partner.user.username != request.user.username:
                 chat.other = partner.user
-                print(chat.other.online)
                 friends.append(chat.other)
 
         if str(chat.pk) == room_name:
