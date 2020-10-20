@@ -172,6 +172,7 @@ def settings(request):
             object.city = cd['city']
             object.zip_code = cd['zip_code']
             object.street = cd['street']
+            object.invoice = cd['invoice']
             object.save()
             request.session['send'] = 'Twoje dane o firmie zostały pomyślnie zapisane.'
             return HttpResponseRedirect(reverse('dashboard:settings'))
@@ -182,7 +183,8 @@ def settings(request):
                                                              'province': company_data_object.province,
                                                              'city': company_data_object.city,
                                                              'zip_code': company_data_object.zip_code,
-                                                             'street': company_data_object.street})
+                                                             'street': company_data_object.street,
+                                                             'invoice': company_data_object.invoice})
         else:
             form_company_data = EditCompanyDataForm()
 
@@ -209,7 +211,7 @@ def phone_contact(request):
             cd = phone_form.cleaned_data
             topic = 'Klient prosi o kontakt telefoniczny. | %s | %s | %s |' % (cd['name'], cd['phone'], cd['date'])
             massage = 'Klient prosi o kontakt.'
-            to = ['tymoteusz.zymla@gmail.com', ]
+            to = ['info@transportuj24.pl', ]
             send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
             request.session['send'] = 'Twoja prośba o kontakt została pomyślnie zapisana.'
             return HttpResponseRedirect(reverse('dashboard:phone_contact'))
@@ -223,7 +225,7 @@ def phone_contact(request):
             cd = email_form.cleaned_data
             topic = 'Klient prosi o odpowiedź | %s |' % (cd['email'])
             massage = cd['description']
-            to = ['tymoteusz.zymla@gmail.com', ]
+            to = ['info@transportuj24.pl', ]
             send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
             request.session['send'] = 'Twoja wiadomość została wysłana.'
             return HttpResponseRedirect(reverse('dashboard:phone_contact'))

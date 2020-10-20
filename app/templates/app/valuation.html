@@ -63,6 +63,7 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{% static 'assets/libs/@fortawesome/fontawesome-free/css/all.min.css' %}">
   <link rel="stylesheet" href="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/libs/flatpickr/dist/flatpickr.min.css' %}">
   <!-- Quick CSS -->
   <link rel="stylesheet" href="{% static 'assets/css/quick-website.css' %}" id="stylesheet">
 </head>
@@ -132,6 +133,13 @@
               
               <div class="form-row">
                 <div class="form-group col-md-12">
+                  <label class="form-control-label">Ilość sztuk</label>
+                  {{ form.quantity }}
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-12">
                   <label class="form-control-label">Uwagi (opcjonalnie)</label>
                   {{ form.comments }}
                 </div>
@@ -165,9 +173,24 @@
               </div>
               
               <div class="form-row">
-                <div class="form-group col-md-12">
-                  <label class="form-control-label">Data wysyłki</label>
-                  {{ form.data }}
+                <div class="form-group col-md-6">
+                  <label class="form-control-label">Preferowana data i czas wysłania od:</label>
+                  {{ form.date_st_send }}
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="form-control-label">Preferowana data i czas wysłania do:</label>
+                  {{ form.date_end_send }}
+                </div>
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label class="form-control-label">Preferowana data i czas odbioru od:</label>
+                  {{ form.date_st_received }}
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="form-control-label">Preferowana data i czas odbioru do:</label>
+                  {{ form.date_end_received }}
                 </div>
               </div>
               
@@ -189,10 +212,10 @@
               </div>
               
               <div class="form-row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-6">
                   <div class="d-flex align-items-center justify-content-between">
                     <div>
-                      <label class="form-control-label">Dodatkowe zdjęcie przesyłki 1 (opcjonalnie)</label>
+                      <label class="form-control-label">Dodatkowe zdjęcie 1 (opcjonalnie)</label>
                     </div>
                   </div>
                   <div>
@@ -203,13 +226,10 @@
                     </label>
                   </div>
                 </div>
-              </div>
-              
-              <div class="form-row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-6">
                   <div class="d-flex align-items-center justify-content-between">
                     <div>
-                      <label class="form-control-label">Dodatkowe zdjęcie przesyłki 2 (opcjonalnie)</label>
+                      <label class="form-control-label">Dodatkowe zdjęcie 2 (opcjonalnie)</label>
                     </div>
                   </div>
                   <div>
@@ -221,7 +241,6 @@
                   </div>
                 </div>
               </div>
-
 
               <div class="mt-4 mb-5"><button type="button" onclick="stepThird()" class="btn btn-block btn-primary" id="secondStepButton">Następny krok <i class="fas fa-chevron-right ml-2"></i></button></div>
             </div>
@@ -319,6 +338,7 @@
   <script src="{% static 'assets/libs/@fancyapps/fancybox/dist/jquery.fancybox.min.js' %}"></script>
   <script src="{% static 'assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js' %}"></script>
   <script src="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+  <script src="{% static 'assets/libs/flatpickr/dist/flatpickr.min.js' %}"></script>
   <!-- Quick JS -->
   <script src="{% static 'assets/js/quick-website.js' %}"></script>
   <!-- Feather Icons -->
@@ -359,7 +379,7 @@
   }}
   
   function stepThird() {
-  var valueCategory = document.getElementById('id_data');
+  var valueCategory = document.getElementById('id_date_st_send');
   if (valueCategory.value.length < 6 ) {
     Swal.fire({
       icon: 'error',

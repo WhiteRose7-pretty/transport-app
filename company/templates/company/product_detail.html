@@ -11,6 +11,7 @@
 
   <!-- Template core CSS -->
   <link rel="stylesheet" href="{% static 'assets/libs/flatpickr/dist/flatpickr.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.css' %}">
   <link href="{% static 'dashboard/css/template.min.css' %}" rel="stylesheet">
   <link href="{% static 'dashboard/css/template.dark.min.css' %}" rel="stylesheet" media="(prefers-color-scheme: dark)">
 </head>
@@ -54,8 +55,8 @@
                 <div class="col-6 col-xl-6">
                   <div class="media text-center text-xl-left">
                     <div class="media-body align-self-center text-truncate">
-                      <h6 class="text-truncate mb-n1">Przesyłki</h6>
-                      <small class="text-muted">Lista przesyłek użytkowników <b>({{ user_products.count }})</b></small>
+                      <h6 class="text-truncate mb-n1">Szczegóły przesyłki</h6>
+                      <small class="text-muted">Szczegóły przesyłki - <b>{{ object.type_product }}</b></small>
                     </div>
                   </div>
                 </div>
@@ -72,49 +73,26 @@
 
               <div class="row">
               
-                {% if not user_products %}
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-body text-center">
-                      <div class="py-7">
-                        <h1 class="mb-6">Nikt nie dodał jeszcze przesyłek.</h1>
-                        <p>Brak nowych przesyłek do wyświetlenia.</p>
-                        <div class="mt-8 mb-5">
-                          <a class="btn btn-info btn-lg mr-4" href="{% url 'dashboard:chat' %}">Czat z użytkownikami</a>
-                          <a class="btn btn-primary btn-lg" href="{% url 'app:home' %}#formularz-wyceny">Strona główna</a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {% else %}
                 <div class="col-12 mb-5">
                   <div class="card">
                     <div class="card-body">
-                      <form method="GET">
+                      <form method="POST">
+                      {% csrf_token %}
                         <div class="form-row">
-                          <div class="form-group col-md-3">
+                          <div class="form-group col-md-6">
                             <div class="form-group">
-                              <label class="form-control-label">Data załadunku od</label>
-                              {{ form.date_st_send }}
+                              <label class="form-control-label">Podaj cene w PLN</label>
+                              {{ form.price }}
                             </div>
                           </div>
                           <div class="form-group col-md-3">
                             <div class="form-group">
-                              <label class="form-control-label">Date załadunku do</label>
-                              {{ form.date_end_send }}
+                              <button class="btn btn-primary btn-block mt-8" type="submit">Poproś o wycene firmy</button>
                             </div>
                           </div>
-                          <div class="form-group col-md-4">
+                          <div class="form-group col-md-3">
                             <div class="form-group">
-                              <label class="form-control-label">Kategoria</label>
-                              {{ form.category }}
-                            </div>
-                          </div>
-                          <div class="form-group col-md-2">
-                            <div class="form-group">
-                              <button class="btn btn-info btn-block mt-8" type="submit">Wyszukaj</button>
-                              <a href="{% url 'company:products' %}">Wyczyść formularz <span class="fe-refresh-ccw ml-2"></span><a>
+                              <button class="btn btn-success btn-block mt-8" type="submit" name="priceButton">Wyceń</button>
                             </div>
                           </div>
                         </div>
@@ -122,39 +100,59 @@
                     </div>
                   </div>
                 </div>
-                {% for object in user_products %}
                 <div class="col-12 mb-5">
-                  <a href="{% url 'company:product_detail' object.id %}" target="_blank">
-                    <div class="card text-dark">
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col-8">
-                            {% if object.image_1 %}
-                            <img class="rounded float-left mr-6" src="{{ object.profile_pictures.url }}" alt="Image Description" style="width: 100px;" data-toggle="tooltip" data-placement="top" title="DYSTANS: {{ object.distance|floatformat:'0' }}km, OPIS: {{ object.items_descriptions }}">
-                            {% else %}
-                            <img class="rounded float-left mr-6" src="{% static 'dashboard/images/avatars/3a.jpg' %}" alt="Image Description" style="width: 100px;" data-toggle="tooltip" data-placement="top" title="Dystans: {{ object.distance }}, Opis: {{ object.items_descriptions }}">
-                            {% endif %}
-                            <h5 class="mt-4">{{ object.type_product }}. ID {{ object.id }}</h5>
-                            <p><span class="fe-map-pin mr-2"></span>{{ object.location_name_from }} ({{ object.org_latitude_form }}, {{ object.org_longitude_from }})<br>
-                            <span class="fe-truck mr-2"></span>{{ object.location_name_to }} ({{ object.org_latitude_to }}, {{ object.org_longitude_to }})</p>
-                          </div>
-                          <div class="col-4 text-right mt-7">
-                            {% if object.price %}
-                            <button class="btn btn-success">Wyceniona: {{ object.price }} zł</button>
-                            {% else %}
-                            <button class="btn btn-danger">Wyceń przesyłke</button>
-                            {% endif %}
-                          </div>
-                          <div class="col-12 mt-4">
-                            <p><b>Data załadunku:</b> Od {{ object.date_st_send }} do {{ object.date_end_send }} | <b>Data rozładunku:</b> Od {{ object.date_st_received }} do {{ object.date_end_received }} | <b>Wymiary:</b> {{ object.width }}x{{ object.depth }}x{{ object.height }}cm | <b>Waga:</b> {{ object.weight }}kg | <b>Ilość:</b> {{ object.quantity }} | <b>Kontakt:</b> {{ object.contact_person }}, {{ object.phone }}, {{ object.email }} ({{ object.contact_person }})</p>
-                          </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-8">
+                          {% if object.image_1 %}
+                          <a href="{{ object.image_1.url }}" target="_blank">
+                            <img class="rounded float-left mr-6" src="{{ object.image_1.url }}" alt="Image Description" style="width: 100px;">
+                          </a>
+                          {% else %}
+                          <img class="rounded float-left mr-6" src="{% static 'dashboard/images/avatars/3a.jpg' %}" alt="Image Description" style="width: 100px;">
+                          {% endif %}
+                          {% if object.image_2 %}
+                          <a href="{{ object.image_2.url }}" target="_blank">
+                            <img class="rounded float-left mr-6" src="{{ object.image_2.url }}" alt="Image Description" style="width: 100px;">
+                          </a>
+                          {% endif %}
+                          {% if object.image_3 %}
+                          <a href="{{ object.image_3.url }}" target="_blank">
+                            <img class="rounded float-left mr-6" src="{{ object.image_3.url }}" alt="Image Description" style="width: 100px;">
+                          </a>
+                          {% endif %}
+                        </div>
+                        <div class="col-4 text-right mt-7">
+                          {% if object.price %}
+                          <button class="btn btn-success">Wyceniona: {{ object.price }} zł</button>
+                          {% else %}
+                          <button class="btn btn-danger">Nie podano</button>
+                          {% endif %}
+                        </div>
+                        <div class="col-12 mt-4">
+                          <p>
+                            <b>Typ produktu:</b> {{ object.type_product }} <br>
+                            <b>ID:</b> {{ object.id }} <br>
+                            <b>Data załadunku:</b> Od {{ object.date_st_send }} do {{ object.date_end_send }} <br>
+                            <b>Data rozładunku:</b> Od {{ object.date_st_received }} do {{ object.date_end_received }} <br>
+                            <b>Skąd:</b> {{ object.location_name_from }} ({{ object.org_latitude_form }}, {{ object.org_longitude_from }}) <br>
+                            <b>Dokąd:</b> {{ object.location_name_to }} ({{ object.org_latitude_to }}, {{ object.org_longitude_to }}) <br>
+                            <b>Wymiary:</b> {{ object.width }}x{{ object.depth }}x{{ object.height }}cm <br>
+                            <b>Waga:</b> {{ object.weight }}kg <br>
+                            <b>Ilość:</b> {{ object.quantity }} szt.<br>
+                            <b>Kontakt:</b> {{ object.contact_person }}, {{ object.phone }}, {{ object.email }}<br>
+                            <b>Osoba kontaktowa:</b> {{ object.contact_person }}<br>
+                            <b>Data dodania:</b> {{ object.created_at }}<br>
+                            <b>Odległość punktów (od do):</b> {{ object.distance|floatformat:'0' }}km<br>
+                            <b>Unikalny URL:</b> <a href="{{ object.unique_url }}" target="_blank"><u>Przejż do strony</u></a><br>
+                            <b>Opis:</b> {{ object.items_descriptions }} <br>
+                          </p>
                         </div>
                       </div>
                     </div>
-                  </a>
+                  </div>
                 </div>
-                {% endfor %}
-                {% endif %}
 
               </div>
 
@@ -264,6 +262,7 @@
   <script src="{% static 'dashboard/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
   <script src="{% static 'dashboard/js/plugins/plugins.bundle.js' %}"></script>
   <script src="{% static 'assets/libs/flatpickr/dist/flatpickr.min.js' %}"></script>
+  <script src="{% static 'assets/libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
   <script src="{% static 'dashboard/js/template.js' %}"></script>
   <!-- Calendar -->
   <script>
@@ -276,6 +275,20 @@
     $('[data-toggle="tooltip"]').tooltip()
   })
   </script>
+  <!-- sweet alert -->
+ {% if send %}
+  <script>
+    Swal.fire({
+      title: 'OK!',
+      timer: 2000,
+      text: '{{ send }}',
+      type: 'success',
+      icon: 'success',
+      confirmButtonColor: '#5EC9A7',
+      confirmButtonText: 'Zamknij okno'
+    })
+  </script>
+  {% endif %}
   
 
 </body>

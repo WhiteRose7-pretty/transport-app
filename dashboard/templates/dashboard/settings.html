@@ -308,6 +308,13 @@
                             <label class="small" for="profile-phone">Ulica</label>
                             {{ form_company_data.street }}
                           </div>
+                          
+                          <div class="form-group">
+                            <div class="custom-control custom-checkbox">
+                              {{ form_company_data.invoice }}
+                              <label class="custom-control-label" for="id_invoice">Chcę otrzymywać faktury</label>
+                            </div>
+                          </div>
 
                           <button class="btn btn-lg btn-primary btn-block" type="submit" name="buttonAdditionalInformation" style="margin-bottom: 30px">Zapisz informacje o firmie
 

@@ -25,7 +25,14 @@ class NewOrder(models.Model):
     org_latitude_to = models.CharField(max_length=500, verbose_name='Współrzedne odbiorcy (Szerokość geograficzna)')
     org_longitude_to = models.CharField(max_length=500, verbose_name='Współrzedne odbiorcy (Długość geograficzna)')
     distance = models.CharField(max_length=500, verbose_name='Odległość między punktami')
-    date = models.CharField(max_length=50, verbose_name='Data wysłania paczki')
+    # date_st_send = models.CharField(max_length=50, verbose_name='Data wysłania paczki od')
+    # date_end_send = models.CharField(max_length=50, verbose_name='Data wysłania paczki do', blank=True)
+    # date_st_received = models.CharField(max_length=50, verbose_name='Data wysłania paczki do', blank=True)
+    # date_end_received = models.CharField(max_length=50, verbose_name='Data wysłania paczki do', blank=True)
+    date_st_send = models.DateTimeField( verbose_name='Data wysłania paczki od')
+    date_end_send = models.DateTimeField(verbose_name='Data wysłania paczki do', blank=True, null=True)
+    date_st_received = models.DateTimeField(verbose_name='Data wysłania paczki do', blank=True, null=True)
+    date_end_received = models.DateTimeField(verbose_name='Data wysłania paczki do', blank=True, null=True)
     image_1 = ProcessedImageField(upload_to='profile-pictures',
                                   verbose_name='Zdjęcie poglądowe 1',
                                   processors=[ResizeToFit(1080, 1080)],
@@ -53,6 +60,7 @@ class NewOrder(models.Model):
     depth = models.IntegerField(verbose_name='Długość paczki')
     height = models.IntegerField(verbose_name='Wysokość paczki')
     weight = models.IntegerField(verbose_name='Waga paczki')
+    quantity = models.IntegerField(verbose_name='Ilość sztuk do przesłania')
     email = models.EmailField(verbose_name='Adres email')
     phone = models.CharField(max_length=30, verbose_name='Numer telefonu')
     contact_person = models.CharField(max_length=50)
@@ -73,21 +81,20 @@ class NewOrder(models.Model):
 
 
 class CompanyUser(models.Model):
-    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Właściciel')
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='Właściciel', blank=True, null=True)
     company_name = models.CharField(max_length=500, verbose_name='Nazwa firmy')
     company_phone = models.CharField(max_length=30, verbose_name='Telefon kontaktowy')
     company_email = models.EmailField(verbose_name='Adres email')
-    description = models.TextField(verbose_name='Opis firmy')
     nip = models.CharField(max_length=20, verbose_name='NIP')
     location= models.CharField(max_length=500)
-    package = models.CharField(max_length=50, verbose_name='Pakiet')
-    blocked = models.CharField(max_length=50, verbose_name='Zablokowany')
-    logo = models.ImageField(verbose_name='Logo')
-    thumbnail = models.ImageField(verbose_name='Miniatura')
+    blocked = models.BooleanField(default=False)
     licence = models.FileField(verbose_name='Licencja')
     contact_person = models.CharField(max_length=50, verbose_name='Osoba kontaktowa')
     directions_supported = models.CharField(max_length=500)
     vehicle_fleet = models.TextField()
+
+    def __str__(self):
+        return self.company_name
 
     class Meta:
         verbose_name = 'Firmy'

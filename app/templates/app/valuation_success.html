@@ -82,7 +82,11 @@
             <!-- ============================================-->
             <!-- Go back ====================================-->
             <div class="mb-2 text-center">
+              {% if not object.price %}
               <h2 class="h1 mb-3">Przesyłka dodana!</h2><!-- Large -->
+              {% else %}
+              <h2 class="h1 mb-3">Przesyłka wyceniona!</h2>
+              {% endif %}
               <p class="d-none d-md-block">Twoja <b class="text-primary">przesyłka</b> została pozytywnie dodana do <b class="text-primary">uzyskania wyceny</b>. Poinformujemy Cię drogą mailową o otrzymaniu odpowiedzi.</p><!-- Small -->
               <!-- error message ==============================-->
               <!-- end erroe message ==========================-->

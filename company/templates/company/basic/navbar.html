@@ -37,12 +37,15 @@
           </a>
         </li>
 
-        <!-- home page website 
+        <!-- 2 -->
         <li class="nav-item mt-xl-9">
-          <a class="nav-link position-relative p-0 py-xl-3" href="{% url 'app:home' %}#formularz-wyceny">
-            <i class="icon-lg fe-plus-square"></i>
+          <a class="nav-link position-relative p-0 py-xl-3 {% if nav_activate == 3 %}active{% endif %}" href="{% url 'company:mass_message' %}">
+            <i class="icon-lg fe-layers"></i>
+            {% if nav_activate == 3 %}
+            <div class="badge badge-dot badge-primary badge-bottom-center"></div>
+            {% endif %}
           </a>
-        </li>-->
+        </li>
 
         <!-- 3
         <li class="nav-item mt-xl-9">

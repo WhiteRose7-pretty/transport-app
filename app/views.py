@@ -52,7 +52,7 @@ def home(request):
             cd = contact_phone_form.cleaned_data
             topic = 'Klient prosi o kontakt telefoniczny. | %s | %s | %s |' % (cd['name'], cd['phone'], cd['date'])
             massage = 'Klient prosi o kontakt.'
-            to = ['tymoteusz.zymla@gmail.com', ]
+            to = ['info@transportuj24.pl', ]
             send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
             request.session['send'] = 'Twoja prośba o kontakt została pomyślnie zapisana.'
             return HttpResponseRedirect(reverse('app:home'))
@@ -65,7 +65,7 @@ def home(request):
             cd = email_form.cleaned_data
             topic = 'Klient prosi o odpowiedź | %s |' % (cd['email'])
             massage = cd['description']
-            to = ['tymoteusz.zymla@gmail.com', ]
+            to = ['info@transportuj24.pl', ]
             send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
             request.session['send'] = 'Twoja wiadomość została wysłana.'
             return HttpResponseRedirect(reverse('app:home'))
@@ -145,8 +145,12 @@ def valuation(request):
             valuation_object.width = cd['width']
             valuation_object.height = cd['height']
             valuation_object.weight = cd['weight']
+            valuation_object.quantity = cd['quantity']
             valuation_object.items_descriptions = cd['comments']
-            valuation_object.date = cd['data']
+            valuation_object.date_st_send = cd['date_st_send']
+            valuation_object.date_end_send = cd['date_end_send']
+            valuation_object.date_st_received = cd['date_st_received']
+            valuation_object.date_end_received = cd['date_end_received']
             valuation_object.image_1 = cd['img_1']
             valuation_object.image_2 = cd['img_2']
             valuation_object.image_3 = cd['img_3']
@@ -167,7 +171,7 @@ def valuation(request):
                     (valuation_object.id, cd['contact_person'], cd['email'], cd['phone'])
             massage = 'Klient prosi o wycene przesyłki | ID: %s | Nazwa: %s | Email: %s | Phone: %s' % \
                     (valuation_object.id, cd['contact_person'], cd['email'], cd['phone'])
-            to = ['tymoteusz.zymla@gmail.com', ]
+            to = ['info@transportuj24.pl', ]
             send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
             # send email to costumer
             topic_costumer = 'Twoja prośba o wycenę przesyłki w kategorii - %s, została pomyślnie dodana' % \

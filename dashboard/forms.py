@@ -52,6 +52,9 @@ class EditCompanyDataForm(forms.Form):
                                                                             'placeholder': '00-000'}))
     street = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class': 'form-control',
                                                                           'placeholder': 'Podaj ulice i numer domu'}))
+    invoice = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': 'custom-control-input'}),
+                                     required=False, initial=False)
+
 
 
 class ContactPhoneForm(forms.Form):

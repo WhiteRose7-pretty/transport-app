@@ -48,7 +48,7 @@ class NewCompanyForm(forms.Form):
     licence = forms.FileField(widget=FileInput(attrs={'class': 'custom-input-file',}))
     contact_person = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control form-control-prepend',
                                                                                   'placeholder': 'Podaj imię osoby kontaktowej...'}))
-    directions_supported = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class': 'form-control form-control-prepend',
+    directions_supported = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class': 'form-control form-control-prepend',
                                                                                         'placeholder': 'Wpisz jakie kierunki obsługuje Twoja firma...'}))
     vehicle_fleet = forms.CharField(widget=forms.Textarea(attrs={'rows': '3',
                                                                  'class': 'form-control',

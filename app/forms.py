@@ -32,12 +32,23 @@ class FirstStepForm(forms.Form):
                                                                 'placeholder': 'Wartość w cm'}))
     weight = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control form-control-emphasized',
                                                                 'placeholder': 'Wartość w kg'}))
+    quantity = forms.IntegerField(initial=1, widget=forms.NumberInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                  'placeholder': 'Ilość sztuk do przesłania...'}))
     comments = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows': '4',
                                                             'class': 'form-control form-control-emphasized',
                                                             'placeholder': 'Powiedz nam parę słów o swojej przesyłce...'}))
-    data = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
-                                                                         'data-mask': '00/00/0000',
-                                                                         'placeholder': 'DD/MM/YYYY'}))
+    date_st_send = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                                'data-toggle': 'datetime',
+                                                                                'placeholder': 'Wybierz termin od'}))
+    date_end_send = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                                'data-toggle': 'datetime',
+                                                                                'placeholder': 'Wybierz termin do'}))
+    date_st_received = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                                'data-toggle': 'datetime',
+                                                                                'placeholder': 'Wybierz termin od'}))
+    date_end_received = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                                'data-toggle': 'datetime',
+                                                                                'placeholder': 'Wybierz termin do'}))
     img_1 = forms.ImageField(required=False, widget=FileInput(attrs={'class': 'custom-input-file',
                                                    'accept': '.jpg, .jpeg',}))
     img_2 = forms.ImageField(required=False, widget=FileInput(attrs={'class': 'custom-input-file',

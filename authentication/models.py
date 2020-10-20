@@ -61,6 +61,7 @@ class CompanyUserData(models.Model):
     city = models.CharField(max_length=100)
     zip_code = models.CharField(max_length=10)
     street = models.CharField(max_length=150)
+    invoice = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Dane użytkownika do faktury'

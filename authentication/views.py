@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from .forms import NewCompanyForm
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from dashboard.models import CompanyUser
 
 
 
@@ -32,6 +33,18 @@ def new_company(request):
     if request.method == 'POST':
         form = NewCompanyForm(request.POST, request.FILES)
         if form.is_valid():
+            cd = form.cleaned_data
+            company = CompanyUser()
+            company.company_name = cd['company_name']
+            company.company_phone = cd['company_phone']
+            company.company_email = cd['company_email']
+            company.nip = cd['nip']
+            company.location = cd['location']
+            company.licence = cd['licence']
+            company.contact_person = cd['contact_person']
+            company.directions_supported = cd['directions_supported']
+            company.vehicle_fleet = cd['vehicle_fleet']
+            company.save()
             return HttpResponseRedirect(reverse('authentication:new_company_success'))
     else:
         form = NewCompanyForm()

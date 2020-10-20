@@ -64,16 +64,17 @@
 </head>
 
 <body>
-  <div class="modal fade" tabindex="-1" role="dialog" id="modal-cookies" data-backdrop="false" aria-labelledby="modal-cookies" aria-hidden="true">
+  <div class="modal fade" tabindex="-1" role="dialog" id="modal-cookies" data-backdrop="true" aria-labelledby="modal-cookies" aria-hidden="true">
     <div class="modal-dialog modal-dialog-aside left-4 right-4 bottom-4">
       <div class="modal-content bg-dark-dark">
         <div class="modal-body">
           <!-- Text -->
           <p class="text-sm text-white mb-3">
-            We use cookies so that our themes work for you. By using our website, you agree to our use of cookies.
+            Używamy plików cookie, aby zapewnić najwyższy poziom działania naszego serwisu. Korzystając z naszej
+            witryny, zgadzasz się na ich wykorzystywanie.
           </p>
           <!-- Buttons -->
-          <a href="../../pages/utility/terms.html" class="btn btn-sm btn-white" target="_blank">Learn more</a>
+          <a href="{% url 'app:privacy_policy' %}" class="btn btn-sm btn-white" target="_blank">Czytaj więcej</a>
           <button type="button" class="btn btn-sm btn-primary mr-2" data-dismiss="modal">OK</button>
         </div>
       </div>
@@ -98,7 +99,7 @@
 
                   <div class="form-row mt-5">
                     <div class="form-group col-md-6">
-                      <a href="#" class="btn btn-block btn-dark">Mam pytania</a>
+                      <a href="#" class="btn btn-block btn-dark" data-toggle="tooltip" data-placement="top" title="Jeżeli masz pytania zapraszamy do kontakut pod (+48) 882 023 063 lub adresem email info@transportuj24.pl">Mam pytania</a>
                     </div>
                     <div class="form-group col-md-6">
                       <a href="{% url 'app:home' %}" class="btn btn-block btn-primary">Strona główna</a>
