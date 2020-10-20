@@ -241,7 +241,7 @@
         };
 
         chatSocket.onmessage = function (e) {
-
+            console.log("result;");
             console.log(e);
             var data = JSON.parse(e.data);
             if (data['command'] === 'messages') {
@@ -295,10 +295,9 @@
             console.error(e);
         };
 
-
-
         document.querySelector('#chat-submit').onclick = function (e) {
 
+            console.log("new message");
             var messageInputDom = document.getElementById('chat-id-2-input');
             var message = messageInputDom.value;
             if(message !== ''){
@@ -639,6 +638,7 @@
                     'status': 'no-typing',
                     'chatId': roomName,
                     'from': contactName,
+                    'contact_name': contactName,
                 }
             ));
 

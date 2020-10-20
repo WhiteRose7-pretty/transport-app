@@ -243,7 +243,7 @@
         };
 
         chatSocket.onmessage = function (e) {
-
+            console.log("result;");
             console.log(e);
             var data = JSON.parse(e.data);
             if (data['command'] === 'messages') {
@@ -301,6 +301,7 @@
 
         document.querySelector('#chat-submit').onclick = function (e) {
 
+            console.log("new message");
             var messageInputDom = document.getElementById('chat-id-2-input');
             var message = messageInputDom.value;
             if(message !== ''){
@@ -318,6 +319,7 @@
         };
 
         function newMessage(data, tag) {
+            $('#chat_new_badge_'+roomName).hide();
             chatSocket.send(JSON.stringify({
                 'command': 'new_message',
                 'tag': tag,
@@ -458,7 +460,7 @@
             }
             else {
                    $('#typing-block').remove();
-                   if(tag == 'text' || tag == '') {
+                   if(tag === 'text' || tag === '') {
                        messageRightTemplate = `<div class="message">
                                          <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
                                               <img class="avatar-img" src="${avatar}" alt="">
@@ -639,7 +641,8 @@
                     'command': 'notification',
                     'status': 'no-typing',
                     'chatId': roomName,
-                    'from': contactName,
+                    'from': username,
+                    'contact_name': contactName,
                 }
             ));
 
@@ -666,6 +669,7 @@
                                  'status': 'typing',
                                  'chatId': roomName,
                                  'from': username,
+                                 'contact_name': contactName,
                              }
                          ));
 
@@ -681,6 +685,7 @@
                                 'status': 'no-typing',
                                 'chatId': roomName,
                                 'from': username,
+                                'contact_name': contactName,
                             }
                         ));
                     }

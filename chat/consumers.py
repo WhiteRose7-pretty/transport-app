@@ -85,7 +85,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         read_messages(user_contact, data['chatId'])
         await self.send_chat_message(data)
 
-    async def fetch_messages(self, data):  
+    async def fetch_messages(self, data):
         messages = get_last_10_messages(data['chatId'])
         content = {
             'command': 'messages',
@@ -94,7 +94,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send_message(content)
 
     async def new_message(self, data):
-
+        print("new message")
         user_contact = Contact.objects.get(pk=int(data['contact_name']))
         read_messages(user_contact, data['chatId'])
         message = Message.objects.create(
@@ -114,6 +114,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             'command': 'new_message',
             'message': message_to_json(message)
         }
+
         await self.send_chat_message(content)
 
     commands = {
