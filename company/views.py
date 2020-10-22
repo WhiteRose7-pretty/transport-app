@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from dashboard.models import NewOrder, CompanyUser
 from django.contrib.auth.decorators import login_required
@@ -6,6 +7,9 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from .forms import SearchProductForm, PriceProductForm
+from chat.models import Chat
+from authentication.models import CustomUser
+
 
 
 
@@ -13,8 +17,6 @@ from .forms import SearchProductForm, PriceProductForm
 def products(request):
     nav_activate = 2
     user_products = NewOrder.objects.all().order_by('-updated_at')
-
-    #form
     form = SearchProductForm(request.GET)
     date_st_send = request.GET.get('date_st_send')
     date_end_send = request.GET.get('date_end_send')
@@ -31,6 +33,40 @@ def products(request):
               'user_products': user_products}
     return render(request, 'company/products.html', context)
 
+
+def check_contact():
+    # user is  admin
+    admin_user_query = CustomUser.objects.filter(company=True)
+    if len(admin_user_query) < 1:
+        return False
+    admin_user = CustomUser.objects.get(company=True)
+    users = CustomUser.objects.filter(company=False)
+    admin_contacts = Contact.objects.filter(user__pk=admin_user.pk)
+    if len(admin_contacts) < 1:
+        admin_contact = Contact()
+        admin_contact.user = admin_user
+        admin_contact.save()
+    else:
+        admin_contact = Contact.objects.get(user__pk=admin_user.pk)
+
+    for user in users:
+        # check if user have contact, then pass or create
+        contacts = Contact.objects.filter(user=user)
+        if len(contacts) < 1:
+            contact = Contact()
+            contact.user = user
+            contact.save()
+        else:
+            contact = Contact.objects.get(user__pk=user.pk)
+        # if chat is created then pass or create
+        if not Chat.objects.filter(participants=contact):
+            chat = Chat()
+            chat.save()
+            chat.participants.add(contact)
+            chat.participants.add(admin_contact)
+            chat.save()
+        else:
+            chat = Chat.objects.filter(participants=contact).first()
 
 
 @login_required(login_url='/uwierzytelnienie/')
@@ -89,21 +125,23 @@ def mass_message(request):
 
 @login_required(login_url='/uwierzytelnienie/')
 def chat(request):
+    check_contact()
     chat_list = get_chatList(request.user)
     if chat_list.first():
         first_room = str(chat_list.first().pk)
     else:
-        first_room = '0'
+        return redirect('/')
 
     if request.user.company:
         return redirect('/profil-firmowy/chat/' + first_room)
     else:
-        return redirect('/')
+        return redirect('/profil/')
 
 
 
 @login_required(login_url='/uwierzytelnienie/')
 def chat0(request, room_name):
+    check_contact()
     nav_activate = 1
     global friend
     friends = []

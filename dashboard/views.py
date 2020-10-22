@@ -14,8 +14,21 @@ from .models import NewOrder
 
 def check_contact(user):
     #user is  admin
-    admin_user = CustomUser.objects.get(company=True)
-    admin_contact = Contact.objects.get(user__pk=admin_user.pk)
+    admin_user_query = CustomUser.objects.filter(company=True)
+    print(len(admin_user_query))
+    if len(admin_user_query) > 0:
+        admin_user = CustomUser.objects.get(company=True)
+    else:
+        return False
+
+    admin_contacts = Contact.objects.filter(user__pk=admin_user.pk)
+    if len(admin_contacts) < 1:
+        admin_contact = Contact()
+        admin_contact.user = admin_user
+        admin_contact.save()
+    else:
+        admin_contact = Contact.objects.get(user__pk=admin_user.pk)
+
     if user.company:
         pass
     else:
@@ -36,16 +49,19 @@ def check_contact(user):
             chat.save()
         else:
             chat = Chat.objects.filter(participants=contact).first()
-
+    return True
 
 @login_required(login_url='/uwierzytelnienie/')
 def chat(request):
-    check_contact(request.user)
+    if not check_contact(request.user):
+        return redirect('/')
+
     chat_list = get_chatList(request.user)
     if chat_list.first():
         first_room = str(chat_list.first().pk)
     else:
-        first_room = '0'
+        return redirect('/')
+
     if not request.user.company:
         return redirect('/profil/chat/' + first_room + '/')
     else:
