@@ -24,3 +24,14 @@ class PriceProductForm(forms.Form):
                                decimal_places=2,
                                widget=forms.TextInput(attrs={'class': 'form-control',
                                                              'placeholder': 'Podaj cene... (np. 149.99)'}))
+
+
+
+class PriceProductFormPartner(forms.Form):
+    price = forms.DecimalField(max_digits=20,
+                               decimal_places=2,
+                               widget=forms.TextInput(attrs={'class': 'form-control',
+                                                             'placeholder': 'Podaj cene... (np. 149.99)'}))
+    nip = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class': 'form-control form-control-prepend',
+                                                                       'data-mask': '000-000-00-00',
+                                                                       'placeholder': '123-456-78-91'}))

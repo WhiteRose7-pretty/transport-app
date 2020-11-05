@@ -87,7 +87,7 @@ class CompanyUser(models.Model):
     nip = models.CharField(max_length=20, verbose_name='NIP')
     location = models.CharField(max_length=500)
     blocked = models.BooleanField(default=False)
-    licence = models.FileField(verbose_name='Licencja')
+    licence = models.FileField(verbose_name='Licencja', blank=True, null=True)
     contact_person = models.CharField(max_length=50, verbose_name='Osoba kontaktowa')
     directions_supported = models.CharField(max_length=500)
     vehicle_fleet = models.TextField()

@@ -11,4 +11,5 @@ urlpatterns = [
     path('masowe-wiadomosci/', views.mass_message, name='mass_message'),
     path('czat/', views.chat, name='chat'),
     path('chat/<str:room_name>/', views.chat0, name='chat0'),
+    path('wycen-produkt/firma/<custom_id>/', views.valuation_order, name='valuation_order'),
 ]

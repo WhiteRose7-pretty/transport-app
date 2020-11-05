@@ -43,9 +43,9 @@ class NewCompanyForm(forms.Form):
     company_email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control form-control-prepend',
                                                                     'placeholder': 'przyklad@domena.pl',}))
     nip = forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class': 'form-control form-control-prepend',
-                                                                       'data-mask': '000-00-00-000',
-                                                                       'placeholder': '123-45-67-819'}))
-    licence = forms.FileField(widget=FileInput(attrs={'class': 'custom-input-file',}))
+                                                                       'data-mask': '000-000-00-00',
+                                                                       'placeholder': '123-456-78-91'}))
+    licence = forms.FileField(widget=FileInput(attrs={'class': 'custom-input-file',}), required=False)
     contact_person = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control form-control-prepend',
                                                                                   'placeholder': 'Podaj imię osoby kontaktowej...'}))
     directions_supported = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class': 'form-control form-control-prepend',

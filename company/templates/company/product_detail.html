@@ -87,12 +87,19 @@
                           </div>
                           <div class="form-group col-md-3">
                             <div class="form-group">
-                              <button class="btn btn-primary btn-block mt-8" type="submit">Poproś o wycene firmy</button>
+                              <button type="button" class="btn btn-primary btn-block mt-8" onClick="sendCompanyEmail()">
+                                <span id="buttonNameCompany" style="display:block">Poproś o wycene firmy</span>
+                                <span id="spinerButtonCompany" style="display:none;" >Wysyłanie... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></span>
+                              </button>
                             </div>
                           </div>
+                          <input type="hidden" name="priceButton" value="priceButton" id="priceButton" />
                           <div class="form-group col-md-3">
                             <div class="form-group">
-                              <button class="btn btn-success btn-block mt-8" type="submit" name="priceButton">Wyceń</button>
+                              <button type="button" class="btn btn-success btn-block mt-8" onClick="this.form.submit(); this.disabled=true; this.value='acceptAction'; displaySpiner();">
+                                <span id="buttonName" style="display:block">Wyceń</span>
+                                <span id="spinerButton" style="display:none;" >Wczytywanie... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></span>
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -125,9 +132,9 @@
                         </div>
                         <div class="col-4 text-right mt-7">
                           {% if object.price %}
-                          <button class="btn btn-success">Wyceniona: {{ object.price }} zł</button>
+                          <button class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Aby zmienić cene podaj nową wartość w polu 'Podaj cene w PLN'">Wyceniona: {{ object.price }} zł</button>
                           {% else %}
-                          <button class="btn btn-danger">Nie podano</button>
+                          <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Aby wycenić przesyłkę podaj cenę w polu 'Podaj cene w PLN'">Nie podano</button>
                           {% endif %}
                         </div>
                         <div class="col-12 mt-4">
@@ -255,7 +262,12 @@
     </div>
   </div>
 
-  <!-- Modal: Invite friends -->
+ <!-- Hiden form-->
+  <form method="POST" id="sendCompanyEmailForm">
+  {% csrf_token %}
+  <input type="hidden" name="sendCompanyEmail" id="sendCompanyEmail" value="sendCompanyEmail" />
+   
+  </form>
 
   <!-- Scripts -->
   <script src="{% static 'dashboard/js/libs/jquery.min.js' %}"></script>
@@ -289,6 +301,20 @@
     })
   </script>
   {% endif %}
+  <script>
+  function displaySpiner() {
+  document.getElementById("buttonName").style.display = "none";
+  document.getElementById("spinerButton").style.display = "block";
+  }
+  </script>
+  
+  <script>
+  function sendCompanyEmail() {
+     document.getElementById("buttonNameCompany").style.display = "none";
+    document.getElementById("spinerButtonCompany").style.display = "block";
+    document.getElementById('sendCompanyEmailForm').submit();
+  }
+  </script>
   
 
 </body>

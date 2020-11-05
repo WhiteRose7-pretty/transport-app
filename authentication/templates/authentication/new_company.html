@@ -254,7 +254,10 @@
                     </div>
                   </div>
                   <div class="mt-4">
-                    <button type="submit" class="btn btn-block btn-primary">Zapisz informacje</button>
+                    <button type="button" class="btn btn-block btn-primary" onClick="this.form.submit(); this.disabled=true; this.value='acceptAction'; displaySpiner();">
+                      <span id="buttonName" style="display:block">Zapisz informacje</span>
+                      <span id="spinerButton" style="display:none;" >Wczytywanie... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></span>
+                    </button>
                   </div>
               </div>
             </div>
@@ -294,8 +297,7 @@
   var valueContactPhone = document.getElementById('id_company_phone');
   var valueEmailCompany = document.getElementById('id_company_email');
   var valueNip = document.getElementById('id_nip');
-  var valueLicence = document.getElementById('id_licence');
-  if (valueLicence.value.length == 0 || valueNip.value.length < 2 || valueEmailCompany.value.length < 2 || valueContactPhone.value.length < 2 || valueLocation.value.length < 2 || valueCompanyName.value.length < 2 ) {
+  if (valueNip.value.length < 2 || valueEmailCompany.value.length < 2 || valueContactPhone.value.length < 2 || valueLocation.value.length < 2 || valueCompanyName.value.length < 2 ) {
     Swal.fire({
       icon: 'error',
       title: 'Wypełnij pola.',
@@ -309,6 +311,12 @@
   document.getElementById('formStepFirst').style.display = 'none';
   document.getElementById('formStepSecond').style.display = 'block';
   }}
+  </script>
+  <script>
+    function displaySpiner() {
+    document.getElementById("buttonName").style.display = "none";
+    document.getElementById("spinerButton").style.display = "block";
+    }
   </script>
   
 </body>

@@ -6,9 +6,11 @@ from chat.models import get_chatList, Contact
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from .forms import SearchProductForm, PriceProductForm
+from .forms import SearchProductForm, PriceProductForm, PriceProductFormPartner
 from chat.models import Chat
 from authentication.models import CustomUser
+from django.core.mail import send_mail
+from app.additional_functions import code_function, decode_function
 
 
 
@@ -84,10 +86,26 @@ def product_detail(request, id):
             cd = form.cleaned_data
             object.price = cd['price']
             object.save()
+            topic = 'Otrzymałeś wycenę swojej przesyłki z %s do %s' %(object.location_name_from, object.location_name_to)
+            massage = 'Otrzymałeś wycenę swojej przesyłi, sprawdź szczegóły: %s' %(object.unique_url)
+            to = [object.email, ]
+            send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
             request.session['send'] = 'Cena została pomyślnie zapisana.'
             return HttpResponseRedirect(reverse('company:product_detail', args=[object.id]))
     else:
         form = PriceProductForm()
+
+    if request.method == 'POST' and 'sendCompanyEmail' in request.POST:
+        url = '%s%s/%s/' %(request.build_absolute_uri("/"), 'profil-firmowy/wycen-produkt/firma', object.custom_id)
+        company_to_send_mail = CompanyUser.objects.filter(blocked=False)
+        recievers = []
+        for user in company_to_send_mail:
+            recievers.append(user.company_email)
+        topic = 'Prośba o wycen przesyłki'
+        massage = 'Prośba o wycene przesyłki: %s' %(url)
+        send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', recievers)
+        request.session['send'] = 'Wiadomości do firm zostały wysłane.'
+        return HttpResponseRedirect(reverse('company:product_detail', args=[object.id]))
 
     context = {'object': object,
                'send': send,
@@ -171,3 +189,28 @@ def chat0(request, room_name):
         return render(request, 'company/chat.html', context)
     else:
         return redirect('/')
+
+
+def valuation_order(request, custom_id):
+    send = request.session.get('send')
+    if send:
+        request.session['send'] = None
+    decode_forwarding = decode_function(custom_id)
+    object = get_object_or_404(NewOrder, id=int(decode_forwarding))
+    if request.method == 'POST':
+        form = PriceProductFormPartner(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            topic = 'Firma wyceniła produkt o numerze ID %s' %(object.id)
+            massage = 'Wycena produktu %s PLN | NIP: %s ' %(cd['price'], cd['nip'])
+            to = ['info@transportuj24.pl', ]
+            send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
+            request.session['send'] = 'Twoja wycena została pomyślnie wysłana.'
+            return HttpResponseRedirect(reverse('company:valuation_order', args=[custom_id]))
+    else:
+        form = PriceProductFormPartner()
+
+    context = {'object': object,
+               'send': send,
+               'form': form}
+    return render(request, 'company/valuation_order.html', context)
