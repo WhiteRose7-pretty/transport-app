@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import TypeProduct, NewOrder, CompanyUser, OfferResponse, Payment, Category, Newsletter, Coments, \
-    PrivacyPolicy, ChangeLog, Chat, CustomUser, AdditionalOrderDetails, Parametrs
+     ChangeLog, Chat, CustomUser, AdditionalOrderDetails, Parametrs
 
 def duplicate(modeladmin, request, queryset):
     for object in queryset:
@@ -20,7 +20,6 @@ admin.site.register(Payment)
 admin.site.register(Category)
 admin.site.register(Newsletter, AdminDuplicate)
 admin.site.register(Coments)
-admin.site.register(PrivacyPolicy)
 admin.site.register(ChangeLog)
 admin.site.register(Chat)
 admin.site.register(CustomUser)

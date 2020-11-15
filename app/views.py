@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.core.mail import send_mail
 from .additional_functions import code_function, decode_function
 from dashboard.forms import ContactPhoneForm, EmailContactForm
+from .models import PrivacyPolicy
 
 
 def home(request):
@@ -83,16 +84,20 @@ def home(request):
 
 def privacy_policy(request):
     special_navbar = True
+    document = PrivacyPolicy.objects.last()
 
-    context = {'special_navbar': special_navbar}
+    context = {'special_navbar': special_navbar,
+               'document': document}
     return render(request, 'app/privacy_policy.html', context)
 
 
 
 def terms(request):
     special_navbar = True
+    document = PrivacyPolicy.objects.last()
 
-    context = {'special_navbar': special_navbar}
+    context = {'special_navbar': special_navbar,
+               'document': document}
     return render(request, 'app/terms.html', context)
 
 

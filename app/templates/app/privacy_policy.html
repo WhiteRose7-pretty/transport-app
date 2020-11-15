@@ -55,7 +55,7 @@
       }, 300);
     });
   </script><!-- Favicon -->
-  <link rel="icon" href="{% static 'assets/img/brand/favicon.png' %}" type="image/png"><!-- Font Awesome -->
+  <link rel="icon" href="{% static 'assets/img/brand/logo-sm.png' %}" type="image/png">
   <link rel="stylesheet" href="{% static 'assets/libs/@fortawesome/fontawesome-free/css/all.min.css' %}"><!-- Quick CSS -->
   <link rel="stylesheet" href="{% static 'assets/css/quick-website.css' %}" id="stylesheet">
 </head>
@@ -108,73 +108,8 @@
   <section class="slice">
     <div class="container">
       <div class="row row-grid justify-content-between">
-        <div class="col-lg-3">
-          <div data-toggle="sticky" data-sticky-offset="50">
-            <div class="card">
-              <div class="card-body">
-                <nav class="nav nav-pills flex-column" id="nav-terms"><a class="nav-link text-sm" href="#item-1" data-scroll-to data-scroll-to-offset="130">Informacje ogólne</a><a class="nav-link text-sm" href="#item-2" data-scroll-to data-scroll-to-offset="130">Administrator</a><a class="nav-link text-sm" href="#item-3" data-scroll-to data-scroll-to-offset="130">Bezpieczeństwo</a><a class="nav-link text-sm" href="#item-4" data-scroll-to data-scroll-to-offset="130">Przetwarzanie danych osobowych</a><a class="nav-link text-sm" href="#item-5" data-scroll-to data-scroll-to-offset="130">Zmiany w polityce prywatności</a><a class="nav-link text-sm" href="#item-6" data-scroll-to data-scroll-to-offset="130">Postanowienia końcowe</a></nav>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-8">
-          <div class="mb-5">
-            <h5 id="item-1">Informacje ogólne</h5>
-            <p>
-              Niniejsza Polityka Prywatności określa zasady przetwarzania i ochrony danych osobowych przekazanych przez użytkowników w związku z korzystaniem przez nich usług oferowanych w serwisie Lombo.pl.
-            </p>
-          </div>
-          <div class="mb-5">
-            <h5 id="item-2">Administrator</h5>
-            <p>
-              Administratorem danych osobowych jest właściciel serwisu Maciej Czerwiński z siedzibą w Poznaniu.
-            </p>
-          </div>
-          <div class="mb-5">
-            <h5 id="item-3">Bezpieczeństwo</h5>
-            <p>
-              W trosce o bezpieczeństwo powierzonych nam danych opracowaliśmy wewnętrzne procedury i zalecenia, które mają zapobiec udostępnieniu danych osobom nieupoważnionym. Kontrolujemy ich wykonywanie i stale sprawdzamy ich zgodność z odpowiednimi aktami prawnymi - ustawą o ochronie danych osobowych, ustawą o świadczeniu usług drogą elektroniczną, a także wszelkiego rodzaju aktach wykonawczych i aktach prawa wspólnotowego.
-            </p>
-          </div>
-          <div class="mb-5">
-            <h5 id="item-4">Przetwarzanie danych osobowych</h5>
-            <p>
-              Dane Osobowe przetwarzane są na podstawie zgody wyrażanej przez Użytkownika oraz w przypadkach, w których przepisy prawa upoważniają Administratora do przetwarzania danych osobowych na podstawie przepisów prawa lub w celu realizacji zawartej pomiędzy stronami umowy oraz podstawowych działalności niniejszego serwisu.
-            </p>
-            <p>
-              Serwis realizuje funkcje pozyskiwania informacji o użytkownikach i ich zachowaniach w następujący sposób:
-            </p>
-            <p>
-              a) Poprzez dobrowolnie wprowadzone w formularzach informacje.
-            </p>
-            <p>
-              b) Poprzez gromadzenie plików “cookies”.
-            </p>
-            <p>
-              Serwis zbiera informacje dobrowolnie podane przez użytkownika.
-            </p>
-            <p>
-              Dane podane w formularzu są przetwarzane w celu wynikającym z funkcji konkretnego formularza np. w celu dokonania procesu obsługi kontaktu informacyjnego.
-            </p>
-            <p>
-              Dane osobowe pozostawione w serwisie nie zostaną sprzedane ani udostępnione osobom trzecim, nie będącymi użytkownikami niniejszego serwisu zgodnie z przepisami Ustawy o ochronie danych osobowych.
-            </p>
-            <p>
-              Do danych zawartych w formularzu przysługuje wgląd osobie fizycznej, która je tam umieściła oraz firmą i spółce kapitałowej (jeżeli jest odpowiedzialna za ich dodanie i ma do nich prawo). Podmiot ten ma również prawo do modyfikacji i zaprzestania przetwarzania swoich danych w dowolnym momencie.
-            </p>
-          </div>
-          <div class="mb-5">
-            <h5 id="item-5">Zmiany w polityce prywatności</h5>
-            <p>
-              Zastrzegamy sobie prawo do zmiany w polityce ochrony prywatności serwisu, na które może wpłynąć rozwój technologii internetowej, ewentualne zmiany prawa w zakresie ochrony danych osobowych oraz rozwój naszego serwisu internetowego. O wszelkich zmianach będziemy informować w sposób widoczny i zrozumiały.
-            </p>
-          </div>
-          <div class="mb-5">
-            <h5 id="item-6">Postanowienia końcowe</h5>
-            <p>
-              W Serwisie mogą pojawiać się linki do innych stron internetowych. Takie strony internetowe działają niezależnie od Serwisu i nie są w żaden sposób nadzorowane przez serwis Lombo.pl strony te mogą posiadać własne polityki dotyczące prywatności oraz regulaminy, z którymi zalecamy się zapoznać. W razie wątpliwości co któregokolwiek z zapisów niniejszej polityki prywatności jesteśmy do dyspozycji - nasze dane znaleźć można w regulaminie strony.
-            </p>
-          </div>
+        <div class="col-lg-12">
+          {{ document.privacy|safe }}
         </div>
       </div>
     </div>

@@ -175,15 +175,6 @@ class Coments(models.Model):
         verbose_name_plural = 'Komentarze'
 
 
-class PrivacyPolicy(models.Model):
-    terms = RichTextField(verbose_name='Polityka prywatności')
-    conditions = RichTextField(verbose_name='Regulamin strony')
-
-    class Meta:
-        verbose_name = 'Polityka prywatności i regulamin strony'
-        verbose_name_plural = 'Polityka prywatności i regulamin strony'
-
-
 class ChangeLog(models.Model):
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     type = models.CharField(max_length=50)
