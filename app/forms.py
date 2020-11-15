@@ -50,11 +50,11 @@ class FirstStepForm(forms.Form):
                                                                                 'data-toggle': 'date',
                                                                                 'placeholder': 'Wybierz termin do'}))
     img_1 = forms.ImageField(required=False, widget=FileInput(attrs={'class': 'custom-input-file',
-                                                   'accept': '.jpg, .jpeg',}))
+                                                   'accept': '.jpg, .jpeg, .png',}))
     img_2 = forms.ImageField(required=False, widget=FileInput(attrs={'class': 'custom-input-file',
-                                                   'accept': '.jpg, .jpeg',}))
+                                                   'accept': '.jpg, .jpeg, .png',}))
     img_3 = forms.ImageField(required=False, widget=FileInput(attrs={'class': 'custom-input-file',
-                                                   'accept': '.jpg, .jpeg',}))
+                                                   'accept': '.jpg, .jpeg, .png',}))
     phone = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
                                                                          'placeholder': '(+00) 000 000 000'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control form-control-emphasized',
