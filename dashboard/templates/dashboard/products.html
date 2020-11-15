@@ -100,8 +100,8 @@
                           <img class="rounded float-left mr-6" src="{% static 'dashboard/images/avatars/3a.jpg' %}" alt="Image Description" style="width: 100px;">
                           {% endif %}
                           <h5 class="mt-4">{{ object.type_product }} ({{ object.width }}x{{ object.depth }}x{{ object.height }}cm, {{ object.weight }}kg). ID {{ object.id }}</h5>
-                          <p><span class="fe-map-pin mr-2"></span>{{ object.location_name_from }} <br>
-                          <span class="fe-truck mr-2"></span>{{ object.location_name_to }}</p>
+                            <p><span class="fe-map-pin mr-2"></span>{{ object.location_name_from }} ({{ object.org_latitude_form }}, {{ object.org_longitude_from }})<br>
+                            <span class="fe-truck mr-2"></span>{{ object.location_name_to }} ({{ object.org_latitude_to }}, {{ object.org_longitude_to }})</p>
                         </div>
                         <div class="col-4 text-right mt-7">
                           {% if object.price %}
@@ -110,6 +110,9 @@
                           <button class="btn btn-danger">Oczekuje na wycene</button>
                           {% endif %}
                         </div>
+                          <div class="col-12 mt-4">
+                            <p><b>Data załadunku:</b> Od {{ object.date_st_send }} do {{ object.date_end_send }} | <b>Data rozładunku:</b> Od {{ object.date_st_received }} do {{ object.date_end_received }} | <b>Wymiary:</b> {{ object.width }}x{{ object.depth }}x{{ object.height }}cm | <b>Waga:</b> {{ object.weight }}kg | <b>Ilość:</b> {{ object.quantity }} | <b>Kontakt:</b> {{ object.contact_person }}, {{ object.phone }}, {{ object.email }} ({{ object.contact_person }})</p>
+                          </div>
                       </div>
                     </div>
                   </div>
