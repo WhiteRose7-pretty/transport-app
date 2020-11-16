@@ -1,11 +1,19 @@
 from django import forms
 from django.forms import FileInput
+from dashboard.models import TypeProduct
 
+CHOICE_TYPE = [
+    ('%s'%(i), '%s'%(i)) for i in TypeProduct.objects.all()
+]
 
+CHOICE_TYPE_CATEGORY = [
+    ('', 'Wybierz kategorię')
+] + CHOICE_TYPE
 
 class BasicTypeProductForm(forms.Form):
-    type_product = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
-                                                                                'placeholder': 'Wybierz kategorię'}))
+    type_product = forms.ChoiceField(label='',
+                                     choices=CHOICE_TYPE_CATEGORY,
+                                     widget=forms.Select(attrs={'class': 'form-control form-control-emphasized'}))
     location_from = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
                                                                                  'placeholder': 'Skąd?'}))
     location_to = forms.CharField(max_length=500, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',

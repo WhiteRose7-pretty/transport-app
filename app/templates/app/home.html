@@ -128,7 +128,7 @@
           <!-- Text -->
           <form action="/" id="location_frm" method="post">
             {% csrf_token %}
-            <div class="form-group ui-widget">
+            <div class="form-group">
               {{ form.type_product }}
             </div>
             <!-- Buttons -->
@@ -559,20 +559,6 @@
   <script>
       var location_to_actived = false;
       var location_from_actived = false;
-      $(function () {
-          var availableTags = [
-              {% for object in type_products %}
-                  "{{ object.name }}",
-              {% endfor %}
-          ];
-          $("#id_type_product").autocomplete({
-              minLength: 0,
-              source: availableTags
-          }).focus(function () {
-              //Use the below line instead of triggering keydown
-              $(this).data("uiAutocomplete").search($(this).val());
-          });
-      });
 
       $(document).ready(function () {
           var autocomplete1, autocomplete2;
