@@ -62,8 +62,8 @@ class ContactPhoneForm(forms.Form):
                                                                         'placeholder': 'Podaj imię lub firmę...'}))
     phone = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control',
                                                                         'placeholder': 'Podaj numer telefonu...'}))
-    date = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
-                                                         'data-mask': '0000-00-00 00:00',
+    date = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+                                                         'data-toggle': 'datetime',
                                                          'placeholder': 'RRRR-MM-DD HH:MM'
                                                          }))
 

@@ -77,7 +77,7 @@
   
     <!-- First step  ================================-->
     <section id="firstStep" style="display:block;">
-      <a href="javascript:history.back()" class="btn btn-secondary btn-icon-only rounded-circle position-absolute zindex-101 left-4 top-4 d-none d-lg-inline-flex"><span class="btn-inner--icon"><i data-feather="arrow-left"></i></span></a>
+      <a href="{% url 'app:home' %}" class="btn btn-secondary btn-icon-only rounded-circle position-absolute zindex-101 left-4 top-4 d-none d-lg-inline-flex"><span class="btn-inner--icon"><i data-feather="arrow-left"></i></span></a>
       <div class="container d-flex flex-column">
         <div class="row align-items-center justify-content-center min-vh-100">
           <div class="col-md-8 col-lg-7 col-xl-6 py-6 py-md-0">
@@ -297,7 +297,7 @@
                     <strong class="text-danger" id="alert_conditions" style="display:none;"><i class="fas fa-exclamation-circle mr-2"></i> Zaakceptuj regulamin i polityke prywatności.</strong>
                     <div class="custom-control custom-checkbox mb-3">
                       <input type="checkbox" class="custom-control-input" id="check-terms" required> 
-                      <label class="custom-control-label" for="check-terms">Akceptuje regulamin i polityke prywatności. <a href="#" target="_blank">Czytaj więcej</a>.
+                      <label class="custom-control-label" for="check-terms">Akceptuje regulamin i polityke prywatności. <a href="{% url 'app:terms' %}" target="_blank">Czytaj więcej</a>.
                       </label>
                     </div>
                   </div>

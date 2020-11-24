@@ -54,7 +54,7 @@ def home(request):
             topic = 'Klient prosi o kontakt telefoniczny. | %s | %s | %s |' % (cd['name'], cd['phone'], cd['date'])
             massage = 'Klient prosi o kontakt.'
             to = ['info@transportuj24.pl', ]
-            send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
+            send_mail(topic, massage, 'info@transportuj24.pl', to)
             request.session['send'] = 'Twoja prośba o kontakt została pomyślnie zapisana.'
             return HttpResponseRedirect(reverse('app:home'))
     else:
@@ -67,7 +67,7 @@ def home(request):
             topic = 'Klient prosi o odpowiedź | %s |' % (cd['email'])
             massage = cd['description']
             to = ['info@transportuj24.pl', ]
-            send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
+            send_mail(topic, massage, 'info@transportuj24.pl', to)
             request.session['send'] = 'Twoja wiadomość została wysłana.'
             return HttpResponseRedirect(reverse('app:home'))
     else:
@@ -177,14 +177,14 @@ def valuation(request):
             massage = 'Klient prosi o wycene przesyłki | ID: %s | Nazwa: %s | Email: %s | Phone: %s' % \
                     (valuation_object.id, cd['contact_person'], cd['email'], cd['phone'])
             to = ['info@transportuj24.pl', ]
-            send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
+            send_mail(topic, massage, 'info@transportuj24.pl', to)
             # send email to costumer
             topic_costumer = 'Twoja prośba o wycenę przesyłki w kategorii - %s, została pomyślnie dodana' % \
                     (request.session.get('type_product'))
             massage_costumer = 'Zaloguj się do swojego profilu użytkownika i sprawdź aktualny status przesyłki (transportuj24.pl/logowanie/). Twój unikalny link przesyłki to: %s' % \
                     (object_saved.unique_url)
             to_costumer = [cd['email'], ]
-            send_mail(topic_costumer, massage_costumer, 'benjamin.langeriaf7@gmail.com', to_costumer)
+            send_mail(topic_costumer, massage_costumer, 'info@transportuj24.pl', to_costumer)
             #redirect next view
             return HttpResponseRedirect(reverse('app:valuation_success', args=[code_forwarding]))
     else:

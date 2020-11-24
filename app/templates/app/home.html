@@ -64,6 +64,8 @@
   <link rel="stylesheet" href="{% static 'assets/libs/@fortawesome/fontawesome-free/css/all.min.css' %}">
   <!-- Autocompleted -->
   <link rel="stylesheet" href="{% static 'assets/libs/autocomplete/dist/css/jquery-ui.css' %}">
+  <!-- Calendar-->
+  <link rel="stylesheet" href="{% static 'assets/libs/flatpickr/dist/flatpickr.min.css' %}">
   <!-- Quick CSS -->
   <link rel="stylesheet" href="{% static 'assets/css/quick-website.css' %}" id="stylesheet">
 
@@ -429,12 +431,16 @@
           <div class="modal-body">
             <div class="row mb-3">
               <div class="col-12 text-center mb-2">
-                <span class="badge badge-soft-success mr-2">
-                   <i class="fab fa-whatsapp"></i> (+48) 882 023 063 (WhatsApp)
-                </span>
-                <span class="badge badge-soft-dark">
-                  <i class="fas fa-phone-square-alt"></i> (+48) 882 023 063
-                </span>
+                <a href="https://api.whatsapp.com/send?phone=882023063" target="_blank">
+                  <span class="badge badge-soft-success mr-2">
+                     <i class="fab fa-whatsapp"></i> (+48) 882 023 063 (WhatsApp)
+                  </span>
+                </a>
+                <a href="tel:(+48)882023063">
+                  <span class="badge badge-soft-dark">
+                    <i class="fas fa-phone-square-alt"></i> (+48) 882 023 063
+                  </span>
+                </a>
               </div>
             </div>
             <div class="row">
@@ -490,15 +496,21 @@
           <div class="modal-body">
             <div class="row mb-3">
               <div class="col-12 text-center mb-2">
-                <span class="badge badge-info mr-2">
-                   <i class="fas fa-envelope-square"></i> info@transportuj24.pl
-                </span>
-                <span class="badge badge-dark">
-                  <i class="fas fa-phone-square-alt"></i> (+48) 882 023 063
-                </span>
-                <span class="badge badge-warning ml-2">
-                  <i class="fab fa-skype"></i> Skype
-                </span>
+                <a href="mailto:info@transportuj24.pl">
+                  <span class="badge badge-info mr-2">
+                     <i class="fas fa-envelope-square"></i> info@transportuj24.pl
+                  </span>
+                </a>
+                <a href="tel:(+48)882023063">
+                  <span class="badge badge-dark">
+                    <i class="fas fa-phone-square-alt"></i> (+48) 882 023 063
+                  </span>
+                </a>
+                <a href="skype:transportuj24?chat">
+                  <span class="badge badge-warning ml-2">
+                    <i class="fab fa-skype"></i> Skype
+                  </span>
+                </a>
               </div>
             </div>
             <div class="row">
@@ -539,6 +551,8 @@
   <script src="{% static 'assets/libs/autocomplete/dist/js/jquery-ui-1.12.1/jquery-ui.js' %}"></script>
   <!-- Input mask -->
   <script src="{% static 'assets/libs/jquery-mask-plugin/dist/jquery.mask.min.js' %}"></script>
+  <!-- Calendar -->
+  <script src="{% static 'assets/libs/flatpickr/dist/flatpickr.min.js' %}"></script>
   <!-- Quick JS -->
   <script src="{% static 'assets/js/quick-website.js' %}"></script>
   <script src="{% static 'assets/libs/form/jquery.form.js' %}"></script>

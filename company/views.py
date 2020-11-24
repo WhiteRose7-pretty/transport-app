@@ -89,7 +89,7 @@ def product_detail(request, id):
             topic = 'Otrzymałeś wycenę swojej przesyłki z %s do %s' %(object.location_name_from, object.location_name_to)
             massage = 'Otrzymałeś wycenę swojej przesyłi, sprawdź szczegóły: %s' %(object.unique_url)
             to = [object.email, ]
-            send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
+            send_mail(topic, massage, 'info@transportuj24.pl', to)
             request.session['send'] = 'Cena została pomyślnie zapisana.'
             return HttpResponseRedirect(reverse('company:product_detail', args=[object.id]))
     else:
@@ -103,7 +103,7 @@ def product_detail(request, id):
             recievers.append(user.company_email)
         topic = 'Prośba o wycen przesyłki'
         massage = 'Prośba o wycene przesyłki: %s' %(url)
-        send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', recievers)
+        send_mail(topic, massage, 'info@transportuj24.pl', recievers)
         request.session['send'] = 'Wiadomości do firm zostały wysłane.'
         return HttpResponseRedirect(reverse('company:product_detail', args=[object.id]))
 
@@ -204,7 +204,7 @@ def valuation_order(request, custom_id):
             topic = 'Firma wyceniła produkt o numerze ID %s' %(object.id)
             massage = 'Wycena produktu %s PLN | NIP: %s ' %(cd['price'], cd['nip'])
             to = ['info@transportuj24.pl', ]
-            send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
+            send_mail(topic, massage, 'info@transportuj24.pl', to)
             request.session['send'] = 'Twoja wycena została pomyślnie wysłana.'
             return HttpResponseRedirect(reverse('company:valuation_order', args=[custom_id]))
     else:

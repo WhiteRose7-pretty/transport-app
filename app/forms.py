@@ -63,7 +63,10 @@ class FirstStepForm(forms.Form):
                                                    'accept': '.jpg, .jpeg, .png',}))
     img_3 = forms.ImageField(required=False, widget=FileInput(attrs={'class': 'custom-input-file',
                                                    'accept': '.jpg, .jpeg, .png',}))
-    phone = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+    phone = forms.CharField(max_length=30,
+                            initial='48 ',
+                            widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+                                                                         'data-mask': '(+00) 000-000-000',
                                                                          'placeholder': '(+00) 000 000 000'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control form-control-emphasized',
                                                             'placeholder': 'nazwa@domena.pl',}))

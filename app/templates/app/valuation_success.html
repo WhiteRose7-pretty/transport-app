@@ -94,11 +94,11 @@
               <!-- visable large -->
               <div class="d-none d-md-block">
                 {% if not user.is_authenticated %}
-                <a class="btn btn-sm btn-dark" href="{% url 'authentication:signup' %}" data-toggle="tooltip" data-placement="top" title="Utwórz konto i śledź etap wyceny!">Utwórz nowe konto<i class="far fa-user-circle ml-2"></i></a>
+                <a class="btn btn-sm btn-soft-warning text-dark" href="{% url 'authentication:signup' %}" data-toggle="tooltip" data-placement="top" title="Utwórz konto i śledź etap wyceny!">Utwórz nowe konto<i class="far fa-user-circle ml-2"></i></a>
                 {% else %}
-                <a class="btn btn-sm btn-dark" href="{% url 'authentication:signup' %}" data-toggle="tooltip" data-placement="top" title="Przejdź do profilu użytkownika.">Przejdź do swojego konta<i class="far fa-user-circle ml-2"></i></a>
+                <a class="btn btn-sm btn-soft-warning text-dark" href="{% url 'authentication:signup' %}" data-toggle="tooltip" data-placement="top" title="Przejdź do profilu użytkownika.">Przejdź do swojego konta<i class="far fa-user-circle ml-2"></i></a>
                 {% endif %}
-                <a href="{% url 'app:home' %}#formularz-wyceny" class="btn btn-sm btn-dark ml-2" data-toggle="tooltip" data-placement="top" title="Uzyskaj wycenę dla kolejnej przesyłki!">Wyceń nową przesyłke <i class="far fa-plus-square ml-2"></i></a>
+                <a href="{% url 'app:home' %}#formularz-wyceny" class="btn btn-sm btn-soft-warning ml-2 text-dark" data-toggle="tooltip" data-placement="top" title="Uzyskaj wycenę dla kolejnej przesyłki!">Wyceń nową przesyłke <i class="far fa-plus-square ml-2"></i></a>
               </div>
             </div><!-- End first step =============================-->
             <!-- ============================================-->
@@ -106,7 +106,7 @@
               <div class="col-12 text-center">
               
                 {% if not object.price %}
-                <img alt="Image placeholder" src="{% static 'assets/img/svg/icons/Ripple-4s-200px.svg' %}" class="svg-inject mb-3" style="height: 200px;"><br>
+                <i class="far fa-check-circle fa-10x text-success py-5"></i><br>
                 {% else %}
                 <div class="col-12 mb-5 text-left mt-5">
                   <div class="card">

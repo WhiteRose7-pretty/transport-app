@@ -227,7 +227,7 @@ def phone_contact(request):
             topic = 'Klient prosi o kontakt telefoniczny. | %s | %s | %s |' % (cd['name'], cd['phone'], cd['date'])
             massage = 'Klient prosi o kontakt.'
             to = ['info@transportuj24.pl', ]
-            send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
+            send_mail(topic, massage, 'info@transportuj24.pl', to)
             request.session['send'] = 'Twoja prośba o kontakt została pomyślnie zapisana.'
             return HttpResponseRedirect(reverse('dashboard:phone_contact'))
     else:
@@ -241,7 +241,7 @@ def phone_contact(request):
             topic = 'Klient prosi o odpowiedź | %s |' % (cd['email'])
             massage = cd['description']
             to = ['info@transportuj24.pl', ]
-            send_mail(topic, massage, 'benjamin.langeriaf7@gmail.com', to)
+            send_mail(topic, massage, 'info@transportuj24.pl', to)
             request.session['send'] = 'Twoja wiadomość została wysłana.'
             return HttpResponseRedirect(reverse('dashboard:phone_contact'))
     else:
