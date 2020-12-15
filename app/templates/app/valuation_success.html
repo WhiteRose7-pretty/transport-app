@@ -70,14 +70,17 @@
 <body>
   <!-- ============================================-->
   <!-- Go back ====================================-->
-  <a href="{% url 'app:home' %}" class="btn btn-secondary btn-icon-only rounded-circle position-absolute zindex-101 left-4 top-4 d-none d-lg-inline-flex"><span class="btn-inner--icon"><i data-feather="arrow-left"></i></span></a>
+  <a href="{% url 'app:home' %}" class="btn btn-secondary btn-icon-only rounded-circle position-absolute zindex-101 left-4 top-4 d-none d-lg-inline-flex" data-toggle="tooltip" data-placement="right" title="Wróć"><span class="btn-inner--icon"><i data-feather="arrow-left"></i></span></a>
+  <a href="{% url 'app:home' %}" class="position-absolute zindex-101 right-4 top-4 d-none d-lg-inline-flex">
+    <img src="{% static 'dashboard/images/logo-white.png' %}" class="mx-auto fill-primary" alt="" style="height: 46px;" data-toggle="tooltip" data-placement="left" title="Strona główna.">
+  </a>
   <!-- ============================================-->
   <!-- ============================================-->
   <!-- Basic section ==============================-->
   <section>
     <div class="container d-flex flex-column">
       <div class="row align-items-center justify-content-center min-vh-100">
-        <div class="col-md-11 col-lg-9 col-xl-8 py-6 py-md-0">
+        <div class="col-md-12 col-lg-11 col-xl-10 py-6 py-md-0">
           <div>
             <!-- ============================================-->
             <!-- Go back ====================================-->
@@ -108,7 +111,7 @@
                 {% if not object.price %}
                 <i class="far fa-check-circle fa-10x text-success py-5"></i><br>
                 {% else %}
-                <div class="col-12 mb-5 text-left mt-5">
+                <div class="col-12 mb-0  text-left mt-4">
                   <div class="card">
                     <div class="card-body">
                       <div class="row">
@@ -118,13 +121,17 @@
                           {% else %}
                           <img class="rounded float-left mr-2" src="{% static 'dashboard/images/avatars/3a.jpg' %}" alt="Image Description" style="width: 100px;">
                           {% endif %}
-                          <h5 class="">{{ object.type_product }}. ID {{ object.id }}</h5>
-                          <p><span class="fe-map-pin"></span>{{ object.location_name_from }} <br>
-                          <span class="fe-truck"></span>{{ object.location_name_to }}</p>
+                          <h5 class="mt-0 mr-2">{{ object.type_product }} ({{ object.width }}x{{ object.depth }}x{{ object.height }}cm, {{ object.weight }}kg). ID {{ object.id }}</h5>
+                            <p>{{ object.location_name_from }} <span class="badge badge-dark" data-toggle="tooltip" data-placement="top" title="({{ object.org_latitude_form }}, {{ object.org_longitude_from }})">Położenie</span><br>
+                            {{ object.location_name_to }} <span class="badge badge-dark" data-toggle="tooltip" data-placement="top" title="({{ object.org_latitude_to }}, {{ object.org_longitude_to }})">Położenie</span></p>
                         </div>
-                        <div class="col-4 text-right mt-4">
+                          <div class="col-12 mt-2">
+                            <p><b>Data załadunku:</b> Od {{ object.date_st_send|date:"SHORT_DATE_FORMAT" }} do {{ object.date_end_send|date:"SHORT_DATE_FORMAT" }} | <b>Data rozładunku:</b> Od {{ object.date_st_received|date:"SHORT_DATE_FORMAT" }} do {{ object.date_end_received|date:"SHORT_DATE_FORMAT" }} | <b>Wymiary:</b> {{ object.width }}x{{ object.depth }}x{{ object.height }}cm | <b>Waga:</b> {{ object.weight }}kg | <b>Ilość:</b> {{ object.quantity }} | <b>Kontakt:</b> {{ object.contact_person }}, {{ object.phone }}, {{ object.email }} ({{ object.contact_person }})</p>
+                          </div>
+                          
+                        <div class="col-12 text-right mt-2">
                           {% if object.price %}
-                          <button class="btn btn-primary">Opłać: {{ object.price }}zł</button>
+                          <button class="btn btn-primary btn-lg btn-block">Opłać przesyłke: {{ object.price }} PLN</button>
                           {% else %}
                           <button class="btn btn-danger">Oczekuje na wycene</button>
                           {% endif %}

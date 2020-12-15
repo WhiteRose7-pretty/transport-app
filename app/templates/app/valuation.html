@@ -88,14 +88,18 @@
                   
                     <!-- ============================================-->
                     <!-- error message ==============================-->
-                    {% for key, value in form.errors.items %}
+                    {% if form.errors %}
+                    {% for field in form %}
+                    {% for error in field.errors %}
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                      <strong>Błąd:</strong> {% if key != '__all__' %}{{ key|title  }} {% endif %} - {{ value|striptags }}
+                      <strong>Błąd:</strong> {{field.label}} - {{ error|escape }}
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     {% endfor %}
+                    {% endfor %}
+                    {% endif %}
                     <!-- end erroe message ==========================-->
                     <!-- ============================================-->
 
@@ -113,10 +117,12 @@
                 <div class="form-group col-md-6">
                   <label class="form-control-label">Długość</label>
                   {{ form.length }}
+                  {% if form.length.errors|striptags %}<small class="text-danger"><b>{{ form.length.errors|striptags }}</b></small>{% endif %}
                 </div>
                 <div class="form-group col-md-6">
                   <label class="form-control-label">Szerokość</label>
                   {{ form.width }}
+                  {% if form.width.errors|striptags %}<small class="text-danger"><b>{{ form.width.errors|striptags }}</b></small>{% endif %}
                 </div>
               </div>
               
@@ -124,10 +130,12 @@
                 <div class="form-group col-md-6">
                   <label class="form-control-label">Wysokość</label>
                   {{ form.height }}
+                  {% if form.height.errors|striptags %}<small class="text-danger"><b>{{ form.height.errors|striptags }}</b></small>{% endif %}
                 </div>
                 <div class="form-group col-md-6">
                   <label class="form-control-label">Waga</label>
                   {{ form.weight }}
+                  {% if form.weight.errors|striptags %}<small class="text-danger"><b>{{ form.weight.errors|striptags }}</b></small>{% endif %}
                 </div>
               </div>
               
@@ -135,6 +143,7 @@
                 <div class="form-group col-md-12">
                   <label class="form-control-label">Ilość sztuk</label>
                   {{ form.quantity }}
+                  {% if form.quantity.errors|striptags %}<small class="text-danger"><b>{{ form.quantity.errors|striptags }}</b></small>{% endif %}
                 </div>
               </div>
               
@@ -142,6 +151,7 @@
                 <div class="form-group col-md-12">
                   <label class="form-control-label">Uwagi (opcjonalnie)</label>
                   {{ form.comments }}
+                  {% if form.comments.errors|striptags %}<small class="text-danger"><b>{{ form.comments.errors|striptags }}</b></small>{% endif %}
                 </div>
               </div>
 
@@ -176,10 +186,12 @@
                 <div class="form-group col-md-6">
                   <label class="form-control-label">Preferowana data i czas wysłania od:</label>
                   {{ form.date_st_send }}
+                  {% if form.date_st_send.errors|striptags %}<small class="text-danger"><b>{{ form.date_st_send.errors|striptags }}</b></small>{% endif %}
                 </div>
                 <div class="form-group col-md-6">
                   <label class="form-control-label">Preferowana data i czas wysłania do:</label>
                   {{ form.date_end_send }}
+                  {% if form.date_end_send.errors|striptags %}<small class="text-danger"><b>{{ form.date_end_send.errors|striptags }}</b></small>{% endif %}
                 </div>
               </div>
               
@@ -187,10 +199,12 @@
                 <div class="form-group col-md-6">
                   <label class="form-control-label">Preferowana data i czas odbioru od:</label>
                   {{ form.date_st_received }}
+                  {% if form.date_st_received.errors|striptags %}<small class="text-danger"><b>{{ form.date_st_received.errors|striptags }}</b></small>{% endif %}
                 </div>
                 <div class="form-group col-md-6">
                   <label class="form-control-label">Preferowana data i czas odbioru do:</label>
                   {{ form.date_end_received }}
+                  {% if form.date_end_received.errors|striptags %}<small class="text-danger"><b>{{ form.date_end_received.errors|striptags }}</b></small>{% endif %}
                 </div>
               </div>
               
@@ -207,6 +221,7 @@
                       <i class="fa fa-upload"></i>
                       <span>Wybierz plik…</span>
                     </label>
+                    {% if form.img_1.errors|striptags %}<small class="text-danger"><b>{{ form.img_1.errors|striptags }}</b></small>{% endif %}
                   </div>
                 </div>
               </div>
@@ -224,6 +239,7 @@
                       <i class="fa fa-upload"></i>
                       <span>Wybierz plik…</span>
                     </label>
+                    {% if form.img_2.errors|striptags %}<small class="text-danger"><b>{{ form.img_2.errors|striptags }}</b></small>{% endif %}
                   </div>
                 </div>
                 <div class="form-group col-md-6">
@@ -238,6 +254,7 @@
                       <i class="fa fa-upload"></i>
                       <span>Wybierz plik…</span>
                     </label>
+                    {% if form.img_3.errors|striptags %}<small class="text-danger"><b>{{ form.img_3.errors|striptags }}</b></small>{% endif %}
                   </div>
                 </div>
               </div>
@@ -274,6 +291,7 @@
                 <div class="form-group col-md-12">
                   <label class="form-control-label">Telefon kontaktowy</label>
                   {{ form.phone }}
+                  {% if form.phone.errors|striptags %}<small class="text-danger"><b>{{ form.phone.errors|striptags }}</b></small>{% endif %}
                 </div>
               </div>
               
@@ -281,6 +299,7 @@
                 <div class="form-group col-md-12">
                   <label class="form-control-label">Adres email</label>
                   {{ form.email }}
+                  {% if form.email.errors|striptags %}<small class="text-danger"><b>{{ form.email.errors|striptags }}</b></small>{% endif %}
                 </div>
               </div>
               
@@ -288,6 +307,7 @@
                 <div class="form-group col-md-12">
                   <label class="form-control-label">Osoba kontaktowa</label>
                   {{ form.contact_person }}
+                  {% if form.contact_person.errors|striptags %}<small class="text-danger"><b>{{ form.contact_person.errors|striptags }}</b></small>{% endif %}
                 </div>
               </div>
               

@@ -45,16 +45,16 @@ class FirstStepForm(forms.Form):
     comments = forms.CharField(required=False, widget=forms.Textarea(attrs={'rows': '4',
                                                             'class': 'form-control form-control-emphasized',
                                                             'placeholder': 'Powiedz nam parę słów o swojej przesyłce...'}))
-    date_st_send = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+    date_st_send = forms.DateTimeField(label='Czas wysłania od:', widget=forms.DateTimeInput(attrs={'class': 'form-control form-control-emphasized',
                                                                                 'data-toggle': 'date',
                                                                                 'placeholder': 'Wybierz termin od'}))
-    date_end_send = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+    date_end_send = forms.DateTimeField(label='Czas wysłania do:', required=False, widget=forms.DateTimeInput(attrs={'class': 'form-control form-control-emphasized',
                                                                                 'data-toggle': 'date',
                                                                                 'placeholder': 'Wybierz termin do'}))
-    date_st_received = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+    date_st_received = forms.DateTimeField(label='Czas odbioru od:', required=False, widget=forms.DateTimeInput(attrs={'class': 'form-control form-control-emphasized',
                                                                                 'data-toggle': 'date',
                                                                                 'placeholder': 'Wybierz termin od'}))
-    date_end_received = forms.CharField(max_length=50, required=False, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
+    date_end_received = forms.DateTimeField(label='Czas odbioru do:', required=False, widget=forms.DateTimeInput(attrs={'class': 'form-control form-control-emphasized',
                                                                                 'data-toggle': 'date',
                                                                                 'placeholder': 'Wybierz termin do'}))
     img_1 = forms.ImageField(required=False, widget=FileInput(attrs={'class': 'custom-input-file',

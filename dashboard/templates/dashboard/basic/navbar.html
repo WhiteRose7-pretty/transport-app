@@ -17,8 +17,18 @@
           </a>
         </li>
         
+        <!-- 2 -->
+        <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Produkty">
+          <a class="nav-link position-relative p-0 py-xl-3 {% if nav_activate == 2 %}active{% endif %}" href="{% url 'dashboard:products' %}">
+            <i class="icon-lg fe-list"></i>
+            {% if nav_activate == 2 %}
+            <div class="badge badge-dot badge-primary badge-bottom-center"></div>
+            {% endif %}
+          </a>
+        </li>
+        
         <!-- 1 -->
-        <li class="nav-item">
+        <li class="nav-item mt-xl-9" data-toggle="tooltip" data-placement="top" title="Czat">
           <a class="nav-link position-relative p-0 py-xl-3 {% if nav_activate == 1 %}active{% endif %}" href="{% url 'dashboard:chat' %}">
             <i class="icon-lg fe-message-square"></i>
             {% if nav_activate == 1 %}
@@ -27,25 +37,15 @@
           </a>
         </li>
 
-        <!-- 2 -->
-        <li class="nav-item mt-xl-9">
-          <a class="nav-link position-relative p-0 py-xl-3 {% if nav_activate == 2 %}active{% endif %}" href="{% url 'dashboard:products' %}">
-            <i class="icon-lg fe-list"></i>
-            {% if nav_activate == 2 %}
-            <div class="badge badge-dot badge-primary badge-bottom-center"></div>
-            {% endif %}
-          </a>
-        </li>
-
         <!-- home page website -->
-        <li class="nav-item mt-xl-9">
+        <li class="nav-item mt-xl-9" data-toggle="tooltip" data-placement="top" title="Wyceń">
           <a class="nav-link position-relative p-0 py-xl-3" href="{% url 'app:home' %}#formularz-wyceny">
             <i class="icon-lg fe-plus-square"></i>
           </a>
         </li>
 
         <!-- 3 -->
-        <li class="nav-item mt-xl-9">
+        <li class="nav-item mt-xl-9" data-toggle="tooltip" data-placement="top" title="Ustawienia">
           <a class="nav-link position-relative p-0 py-xl-3 {% if nav_activate == 3 %}active{% endif %}" href="{% url 'dashboard:settings' %}" title="User" role="tab">
             <i class="icon-lg fe-settings"></i>
             {% if nav_activate == 3 %}
@@ -55,7 +55,7 @@
         </li>
 
         <!-- 4 -->
-        <li class="nav-item mt-xl-9 d-none d-xl-block flex-xl-grow-1">
+        <li class="nav-item mt-xl-9 d-none d-xl-block flex-xl-grow-1" data-toggle="tooltip" data-placement="top" title="Kontakt">
           <a class="nav-link position-relative p-0 py-xl-3 {% if nav_activate == 4 %}active{% endif %}" href="{% url 'dashboard:phone_contact' %}">
             <i class="icon-lg fe-phone"></i>
             {% if nav_activate == 4 %}
@@ -65,7 +65,7 @@
         </li>
 
         <!-- Log out element -->
-        <li class="nav-item mt-xl-9">
+        <li class="nav-item mt-xl-9" data-toggle="tooltip" data-placement="top" title="Wyloguj">
           <a class="nav-link position-relative p-0 py-xl-3" href="{% url 'account_logout' %}" title="Settings">
             <i class="icon-lg fe-log-out"></i>
           </a>
