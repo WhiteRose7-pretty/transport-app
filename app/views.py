@@ -248,7 +248,8 @@ def valuation_success(request, id_code):
 
     context = {'user': user,
                'object': object,
-               'order_form': order_form}
+               'order_form': order_form,
+               'secure': request.is_secure()}
 
     return render(request, 'app/valuation_success.html', context)
 
