@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = '4ke64p$w5q7oooh=lou$*e_pp--oa%+kadij1elv8j2=c#pmc+'
 DEBUG = True
 
 ALLOWED_HOSTS = ['159.89.8.165', 'localhost', '127.0.0.1']
-
 
 # Application definition
 
@@ -50,14 +48,13 @@ INSTALLED_APPS = [
     'imagekit',
     'ckeditor',
     'company',
-
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -90,7 +87,6 @@ CHANNEL_LAYERS = {
     }
 }
 
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 #
@@ -100,7 +96,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # DATABASES = {
 #     'default': {
@@ -131,7 +126,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
@@ -144,7 +138,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -187,8 +180,12 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET = True
 
 # ocpjonalnie emaillogin_project/settings.py
-LOGIN_REDIRECT_URL = 'dashboard:products' #redirect
-ACCOUNT_LOGOUT_REDIRECT_URL = 'app:home' #rediect
+LOGIN_REDIRECT_URL = 'dashboard:products'  # redirect
+ACCOUNT_LOGOUT_REDIRECT_URL = 'app:home'  # rediect
 
 ACCOUNT_FORMS = {'login': 'authentication.forms.SimpleLoginForm',
                  'signup': 'authentication.forms.SimpleSignupForm'}
+
+# przelexy
+SELLER_ID = '127619'
+CRC_KEY = '0985fae7a9ac0207'

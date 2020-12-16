@@ -1,32 +1,39 @@
-from django.shortcuts import render
-from django.urls import reverse
-from django.http import HttpResponseRedirect
-from dashboard.models import Category, Newsletter, TypeProduct, NewOrder
-from django.shortcuts import get_object_or_404
-from .forms import BasicTypeProductForm, FirstStepForm
 import random
 from math import radians, cos, sin, asin, sqrt
-from django.http import JsonResponse
+
+import requests
 from django.core.mail import send_mail
-from .additional_functions import code_function, decode_function
+from django.http import HttpResponseRedirect
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
+from django.urls import reverse
+
 from dashboard.forms import ContactPhoneForm, EmailContactForm
+from dashboard.models import Category, Newsletter, TypeProduct, NewOrder, Przelewy24Transaction
+from .additional_functions import code_function, decode_function
+from .forms import BasicTypeProductForm, FirstStepForm, Przelewy24PrepareForm
 from .models import PrivacyPolicy
+from app_rama import settings
+import hashlib
+from dashboard import choices
 
 
 def home(request):
-    #query
+    # query
     post_list = Newsletter.objects.all()[:9]
     type_products = TypeProduct.objects.all()
     send = request.session.get('send')
     if send:
         request.session['send'] = None
 
-    #form
+    # form
     if request.method == 'POST' and 'valuationButtonSubmit' in request.POST:
         form = BasicTypeProductForm(request.POST)
         if form.is_valid():
             form_data = form.cleaned_data
-            distance = calc_distance(form_data['lat_from'], form_data['lng_from'], form_data['lat_to'], form_data['lng_to'])
+            distance = calc_distance(form_data['lat_from'], form_data['lng_from'], form_data['lat_to'],
+                                     form_data['lng_to'])
             request.session['lat_from'] = form_data['lat_from']
             request.session['lng_from'] = form_data['lng_from']
             request.session['lat_to'] = form_data['lat_to']
@@ -91,7 +98,6 @@ def privacy_policy(request):
     return render(request, 'app/privacy_policy.html', context)
 
 
-
 def terms(request):
     special_navbar = True
     document = PrivacyPolicy.objects.last()
@@ -99,7 +105,6 @@ def terms(request):
     context = {'special_navbar': special_navbar,
                'document': document}
     return render(request, 'app/terms.html', context)
-
 
 
 def blog(request):
@@ -115,7 +120,6 @@ def blog(request):
     return render(request, 'app/blog.html', context)
 
 
-
 def article(request, id):
     special_navbar = True
     object = get_object_or_404(Newsletter, pk=id)
@@ -128,7 +132,6 @@ def article(request, id):
                'special_navbar': special_navbar,
                'random_article': random_article}
     return render(request, 'app/article.html', context)
-
 
 
 def valuation(request):
@@ -165,27 +168,28 @@ def valuation(request):
             if user.is_authenticated:
                 valuation_object.owner = user
             valuation_object.save()
-            #save unuque url
+            # save unuque url
             object_saved = get_object_or_404(NewOrder, id=valuation_object.id)
             code_forwarding = code_function(object_saved.id)
             object_saved.custom_id = code_function(object_saved.id)
-            object_saved.unique_url = request.build_absolute_uri(reverse('app:valuation_success', args=[code_forwarding]))
+            object_saved.unique_url = request.build_absolute_uri(
+                reverse('app:valuation_success', args=[code_forwarding]))
             object_saved.save()
-            #send email to admin
+            # send email to admin
             topic = 'Klient prosi o wycene przesyłki | ID: %s | Nazwa: %s | Email: %s | Phone: %s' % \
                     (valuation_object.id, cd['contact_person'], cd['email'], cd['phone'])
             massage = 'Klient prosi o wycene przesyłki | ID: %s | Nazwa: %s | Email: %s | Phone: %s' % \
-                    (valuation_object.id, cd['contact_person'], cd['email'], cd['phone'])
+                      (valuation_object.id, cd['contact_person'], cd['email'], cd['phone'])
             to = ['info@transportuj24.pl', ]
             send_mail(topic, massage, 'info@transportuj24.pl', to)
             # send email to costumer
             topic_costumer = 'Twoja prośba o wycenę przesyłki w kategorii - %s, została pomyślnie dodana' % \
-                    (request.session.get('type_product'))
+                             (request.session.get('type_product'))
             massage_costumer = 'Zaloguj się do swojego profilu użytkownika i sprawdź aktualny status przesyłki (transportuj24.pl/logowanie/). Twój unikalny link przesyłki to: %s' % \
-                    (object_saved.unique_url)
+                               (object_saved.unique_url)
             to_costumer = [cd['email'], ]
             send_mail(topic_costumer, massage_costumer, 'info@transportuj24.pl', to_costumer)
-            #redirect next view
+            # redirect next view
             return HttpResponseRedirect(reverse('app:valuation_success', args=[code_forwarding]))
     else:
         form = FirstStepForm()
@@ -194,25 +198,135 @@ def valuation(request):
 
 
 def valuation_success(request, id_code):
-    #<========== Query ==========>
+    temp = request.build_absolute_uri().split('/')
+    host = temp[0] + '/' + temp[1] + '/' + temp[2]
+    # <========== Query ==========>
     decode_forwarding = decode_function(id_code)
     object = get_object_or_404(NewOrder, id=int(decode_forwarding))
     user = request.user
 
+    order_form = Przelewy24PrepareForm()
+    if not object.verified():
+        if object.price:
+            transaction = Przelewy24Transaction()
+            transaction.amount = object.price
+            transaction.email = object.email
+            transaction.status = choices.P24_STATUS_INITIATED
+            transaction.save()
+
+            object.transaction = transaction
+            object.save()
+
+            session_id = temp[2] + '_' + str(object.transaction.pk)
+            price = int(object.price * 100)
+
+            form_value = {
+                'p24_session_id': session_id,
+                'p24_id_sprzedawcy': settings.SELLER_ID,
+                'p24_email': object.email,
+                'p24_kwota': price,
+                'p24_opis': '',
+                'p24_klient': object.contact_person,
+                'p24_adres': '',
+                'p24_kod': '',
+                'p24_miasto': '',
+                'p24_kraj': 'PL',
+                'p24_language': 'pl',
+                'p24_return_url_ok': host + '/payment_result/',
+                'p24_return_url_error': host + '/payment_result/',
+                'p24_crc': crc_code(session_id, settings.SELLER_ID, price, settings.CRC_KEY),
+            }
+            order_form = Przelewy24PrepareForm(form_value)
+
     context = {'user': user,
-               'object': object}
+               'object': object,
+               'order_form': order_form}
+
     return render(request, 'app/valuation_success.html', context)
 
+
+def payment_result(request):
+    if request.method == 'POST':
+
+        session_id = str(request.POST.get('p24_session_id'))
+        session_id = session_id.split('_')[1]
+
+        transaction_obj = get_object_or_404(Przelewy24Transaction, pk=int(session_id))
+        transaction_obj.order_id = request.POST.get('p24_order_id')
+        transaction_obj.order_id_full = request.POST.get('p24_order_id_full')
+        transaction_obj.save()
+
+        confirmed, confirmation_response = p24_verify(request.POST.get('p24_id_sprzedawcy'),
+                                                      request.POST.get('p24_session_id'),
+                                                      request.POST.get('p24_order_id'),
+                                                      request.POST.get('p24_kwota'))
+
+        if not confirmed:
+            transaction_obj.status = choices.P24_STATUS_ACCEPTED_NOT_VERIFIED
+            transaction_obj.error_code = confirmation_response[2].decode('cp1252')
+            transaction_obj.error_description = confirmation_response[3].decode('cp1252')
+            transaction_obj.save()
+        else:
+            transaction_obj.status = choices.P24_STATUS_ACCEPTED_VERIFIED
+            transaction_obj.save()
+        transaction_obj.save()
+
+        context = {
+            'result': choices.P24_STATUS_CHOICES[int(transaction_obj.status) - 1][1],
+            'transaction': transaction_obj
+        }
+
+        return render(request, 'app/payment.html', context)
+
+    context = {
+        'result': "Payment Error",
+        'transaction': None
+    }
+    return render(request, 'app/payment.html', context)
+
+
+def p24_verify(seller_id, session_id, order_id, amount):
+    url = 'https://sandbox.przelewy24.pl/transakcja.php'
+    data = {
+        'p24_id_sprzedawcy': seller_id,
+        'p24_session_id': session_id,
+        'p24_order_id': order_id,
+        'p24_kwota': amount,
+        'p24_crc': crc_code(session_id, order_id, amount, settings.CRC_KEY)
+    }
+    response = requests.post(url, data=data)
+    confirmation_response = list(response.iter_lines())
+    print(response.status_code)
+    print(data)
+    print(response)
+    print(confirmation_response[0])
+    print(confirmation_response[1])
+
+    if response.status_code == 200 and confirmation_response[1] == b'TRUE':
+        return True, confirmation_response
+
+    return False, confirmation_response
+
+
+def crc_code(session_id, seller_id, amount, crc_key):
+    crc_hash = "%s|%s|%s|%s" % (
+        session_id, seller_id,
+        amount, crc_key)
+
+    print(crc_hash)
+    m = hashlib.md5()
+    m.update(crc_hash.encode())
+    crc_code = m.hexdigest()
+    print(crc_code)
+    return crc_code
 
 
 def signup_company(request):
     return render(request, 'app/signup_company.html')
 
 
-
 def signup_company_1(request):
     return render(request, 'app/signup_company_1.html')
-
 
 
 def calc_distance(lat1, lon1, lat2, lon2):

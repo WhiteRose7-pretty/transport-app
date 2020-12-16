@@ -5,6 +5,22 @@ from imagekit.processors import ResizeToFit, ResizeToFill
 from authentication.models import CustomUser
 from .choices import PROVINCES_CHOICES
 from ckeditor.fields import RichTextField
+from .choices import P24_STATUS_CHOICES
+
+
+class Przelewy24Transaction(models.Model):
+    amount = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    order_id = models.CharField(max_length=100, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    status = models.IntegerField(choices=P24_STATUS_CHOICES)
+    order_id_full = models.CharField(max_length=100, null=True, blank=True)
+    error_code = models.CharField(max_length=100, null=True, blank=True)
+    error_description = models.CharField(max_length=200, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.pk)
 
 
 class TypeProduct(models.Model):
@@ -73,9 +89,16 @@ class NewOrder(models.Model):
     price = models.DecimalField(max_digits=30, decimal_places=2, verbose_name='Cena', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Data utworzenia')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Data edycji')
+    transaction = models.ForeignKey(Przelewy24Transaction, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return '%s - %s' % (self.type_product, self.pk)
+
+    def verified(self):
+        if self.transaction:
+            if self.transaction.status == 3:
+                return True
+        return False
 
     class Meta:
         verbose_name = 'Wyceny'
@@ -222,3 +245,5 @@ class Parametrs(models.Model):
     par_value = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
     par_active = models.CharField(max_length=200)
+
+

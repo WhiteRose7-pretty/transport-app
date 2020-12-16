@@ -13,4 +13,6 @@ urlpatterns = [
     path('artykul/<int:id>/', views.article, name='article'),
     path('wycena/', views.valuation, name='valuation'),
     path('wycena/przesylka-dodana/<id_code>/', views.valuation_success, name='valuation_success'),
+    path('payment_result/', views.payment_result, name='payment_result'),
 ]
+

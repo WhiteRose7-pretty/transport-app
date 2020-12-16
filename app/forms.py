@@ -73,3 +73,20 @@ class FirstStepForm(forms.Form):
     contact_person = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control form-control-emphasized',
                                                                                   'placeholder': 'Podaj tekst...'}))
 
+
+class Przelewy24PrepareForm(forms.Form):
+    p24_session_id = forms.CharField(max_length=100, label='', widget=forms.HiddenInput())
+    p24_id_sprzedawcy = forms.CharField(max_length=100, label='', widget=forms.HiddenInput())
+    p24_email = forms.CharField(max_length=100, label='email', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    p24_kwota = forms.CharField(max_length=100, label='', widget=forms.HiddenInput(attrs={'class': 'form-control'}))
+    # p24_opis = forms.CharField(max_length=100, label='title', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    p24_klient = forms.CharField(max_length=100, label='surname', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    # p24_adres = forms.CharField(max_length=100, label='address', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    # p24_kod = forms.CharField(max_length=100, label='zip code', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    # p24_miasto = forms.CharField(max_length=100, label='city', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    p24_kraj = forms.CharField(max_length=100, label='', widget=forms.HiddenInput())
+    p24_language = forms.CharField(max_length=100, label='', widget=forms.HiddenInput())
+    p24_return_url_ok = forms.CharField(max_length=100, label='', widget=forms.HiddenInput())
+    p24_return_url_error = forms.CharField(max_length=100, label='', widget=forms.HiddenInput())
+    p24_crc = forms.CharField(max_length=100, label='', widget=forms.HiddenInput())
+
