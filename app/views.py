@@ -198,6 +198,7 @@ def valuation(request):
 
 
 def valuation_success(request, id_code):
+    print(request.build_absolute_uri())
     temp = request.build_absolute_uri().split('/')
     host = temp[0] + '/' + temp[1] + '/' + temp[2]
     # <========== Query ==========>
