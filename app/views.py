@@ -283,7 +283,7 @@ def payment_result(request):
         # send mail to customer and administrator
         subject = "Payment Result"
         message = 'One user paid PLN ' + str(transaction_obj.amount) + ' by przelexy24.'
-        url = 'https://transportuj24.pl/admin/dashboard/neworder/' + str(transaction_obj.pk) + '/change/'
+        url = 'https://transportuj24.pl/admin/dashboard/neworder/' + str(transaction_obj.order.all().first().pk) + '/change/'
         message = message + ' His/Her email is ' + transaction_obj.email + '. Please check this url.' + url
         send_mail(subject, message, 'info@transportuj24.pl', ['timurkju@gmail.com', 'info@transportuj24.pl'])
 

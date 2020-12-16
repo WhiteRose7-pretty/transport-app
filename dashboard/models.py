@@ -89,7 +89,7 @@ class NewOrder(models.Model):
     price = models.DecimalField(max_digits=30, decimal_places=2, verbose_name='Cena', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Data utworzenia')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Data edycji')
-    transaction = models.ForeignKey(Przelewy24Transaction, on_delete=models.CASCADE, null=True, blank=True)
+    transaction = models.ForeignKey(Przelewy24Transaction, on_delete=models.CASCADE, null=True, blank=True, related_name='order')
 
     def __str__(self):
         return '%s - %s' % (self.type_product, self.pk)
