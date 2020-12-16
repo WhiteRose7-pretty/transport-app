@@ -280,6 +280,14 @@ def payment_result(request):
             transaction_obj.save()
         transaction_obj.save()
 
+        # send mail to customer and administrator
+        subject = "Payment Result"
+        message = transaction_obj.email + 'paid PLN' + transaction_obj.amount + 'by przelexy24.'
+        url = 'https://transportuj24.pl/admin/dashboard/neworder/' + transaction_obj.pk + '/change/'
+        message = message + 'Please check this url.' + url
+        send_mail(subject, message, 'info@transportuj24.pl', ['timurkju@gmail.com', ])
+
+
         context = {
             'result': choices.P24_STATUS_CHOICES[int(transaction_obj.status) - 1][1],
             'transaction': transaction_obj
