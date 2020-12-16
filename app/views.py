@@ -199,7 +199,7 @@ def valuation(request):
 
 def valuation_success(request, id_code):
     temp = ['', '', '']
-    if request.is_secure():
+    if settings.SSL:
         temp[0] = 'https:'
     else:
         temp[0] = 'http:'
