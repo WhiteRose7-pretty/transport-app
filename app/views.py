@@ -198,8 +198,15 @@ def valuation(request):
 
 
 def valuation_success(request, id_code):
-    print(request.build_absolute_uri())
-    temp = request.build_absolute_uri().split('/')
+    temp = ['', '', '']
+    if request.is_secure():
+        temp[0] = 'https:'
+    else:
+        temp[0] = 'http:'
+
+    temp[1] = ''
+    temp[2] = request.META['HTTP_HOST']
+
     host = temp[0] + '/' + temp[1] + '/' + temp[2]
     # <========== Query ==========>
     decode_forwarding = decode_function(id_code)
