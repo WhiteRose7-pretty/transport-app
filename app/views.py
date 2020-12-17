@@ -208,6 +208,41 @@ def valuation_success(request, id_code):
     temp[2] = request.META['HTTP_HOST']
 
     host = temp[0] + '/' + temp[1] + '/' + temp[2]
+    error_message = ''
+
+    # <========== Query ==========>
+    if request.method == 'POST':
+        session_id = str(request.POST.get('p24_session_id'))
+        session_id = session_id.split('_')[1]
+
+        transaction_obj = get_object_or_404(Przelewy24Transaction, pk=int(session_id))
+        transaction_obj.order_id = request.POST.get('p24_order_id')
+        transaction_obj.order_id_full = request.POST.get('p24_order_id_full')
+        transaction_obj.save()
+
+        confirmed, confirmation_response = p24_verify(request.POST.get('p24_id_sprzedawcy'),
+                                                      request.POST.get('p24_session_id'),
+                                                      request.POST.get('p24_order_id'),
+                                                      request.POST.get('p24_kwota'))
+
+        if not confirmed:
+            transaction_obj.status = choices.P24_STATUS_ACCEPTED_NOT_VERIFIED
+            transaction_obj.error_code = confirmation_response[2].decode('cp1252')
+            transaction_obj.error_description = confirmation_response[3].decode('cp1252')
+            error_message = transaction_obj.error_description
+            transaction_obj.save()
+        else:
+            transaction_obj.status = choices.P24_STATUS_ACCEPTED_VERIFIED
+            transaction_obj.save()
+        transaction_obj.save()
+
+        # send mail to customer and administrator
+        subject = "Payment Result"
+        message = 'One user paid PLN ' + str(transaction_obj.amount) + ' by przelexy24.'
+        url = 'https://transportuj24.pl/admin/dashboard/neworder/' + str(transaction_obj.order.all().first().pk) + '/change/'
+        message = message + ' His/Her email is ' + transaction_obj.email + '. Please check this url. ' + url
+        send_mail(subject, message, 'info@transportuj24.pl', ['timurkju@gmail.com', 'info@transportuj24.pl'])
+
     # <========== Query ==========>
     decode_forwarding = decode_function(id_code)
     object = get_object_or_404(NewOrder, id=int(decode_forwarding))
@@ -240,8 +275,8 @@ def valuation_success(request, id_code):
                 'p24_miasto': '',
                 'p24_kraj': 'PL',
                 'p24_language': 'pl',
-                'p24_return_url_ok': host + '/payment_result/',
-                'p24_return_url_error': host + '/payment_result/',
+                'p24_return_url_ok': host + '/wycena/przesylka-dodana/' + object.custom_id + '/',
+                'p24_return_url_error': host + '/wycena/przesylka-dodana/' + object.custom_id + '/',
                 'p24_crc': crc_code(session_id, settings.SELLER_ID, price, settings.CRC_KEY),
             }
             order_form = Przelewy24PrepareForm(form_value)
@@ -249,7 +284,9 @@ def valuation_success(request, id_code):
     context = {'user': user,
                'object': object,
                'order_form': order_form,
-               'secure': request.is_secure()}
+               'secure': request.is_secure(),
+               'error_message': error_message,
+               }
 
     return render(request, 'app/valuation_success.html', context)
 
@@ -284,7 +321,7 @@ def payment_result(request):
         subject = "Payment Result"
         message = 'One user paid PLN ' + str(transaction_obj.amount) + ' by przelexy24.'
         url = 'https://transportuj24.pl/admin/dashboard/neworder/' + str(transaction_obj.order.all().first().pk) + '/change/'
-        message = message + ' His/Her email is ' + transaction_obj.email + '. Please check this url.' + url
+        message = message + ' His/Her email is ' + transaction_obj.email + '. Please check this url. ' + url
         send_mail(subject, message, 'info@transportuj24.pl', ['timurkju@gmail.com', 'info@transportuj24.pl'])
 
 
