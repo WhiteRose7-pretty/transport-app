@@ -340,7 +340,7 @@ def payment_result(request):
 
 
 def p24_verify(seller_id, session_id, order_id, amount):
-    url = 'https://sandbox.przelewy24.pl/transakcja.php'
+    url = 'https://secure.przelewy24.pl/transakcja.php'
     data = {
         'p24_id_sprzedawcy': seller_id,
         'p24_session_id': session_id,

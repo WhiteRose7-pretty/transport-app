@@ -156,10 +156,11 @@ AUTH_USER_MODEL = 'authentication.CustomUser'
 
 # Send e-mail
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'benjamin.langeriaf7@gmail.com'
-EMAIL_HOST_PASSWORD = 'vjab48tzdz'
+EMAIL_HOST_USER = 'info@transportuj24.pl'
+EMAIL_HOST_PASSWORD = 'I@Trans1'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -188,4 +189,6 @@ ACCOUNT_FORMS = {'login': 'authentication.forms.SimpleLoginForm',
 
 # przelexy
 SELLER_ID = '127619'
-CRC_KEY = '0985fae7a9ac0207'
+CRC_KEY = 'd7130493a4eba439'
+
+SSL = False
