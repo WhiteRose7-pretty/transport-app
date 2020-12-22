@@ -2,14 +2,16 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
+from app.views import p24_verify
 from authentication.models import UserHelpedElement, CompanyUserData, CustomUser
 from chat.models import get_chatList, Contact, Chat
 from .forms import EditAccountBasicInformation, EditPasswordForm, EditCompanyDataForm, ContactPhoneForm, \
     EmailContactForm
-from .models import NewOrder
+from .models import NewOrder, Przelewy24Transaction
+from dashboard import choices
 
 
 def check_contact(user):
@@ -102,14 +104,17 @@ def chat0(request, room_name):
         return redirect('/profil-firmowy/czat/')
 
 
-
 @login_required(login_url='/uwierzytelnienie/')
 def products(request):
     nav_activate = 2
     user_products = NewOrder.objects.filter(owner=request.user).order_by('-updated_at')
 
+    url = request.get_full_path()
+    print(url)
+
     context = {'nav_activate': nav_activate,
                'user_products': user_products}
+
     return render(request, 'dashboard/products.html', context)
 
 
@@ -252,3 +257,4 @@ def phone_contact(request):
                'email_form': email_form,
                'send': send, }
     return render(request, 'dashboard/phone_contact.html', context)
+

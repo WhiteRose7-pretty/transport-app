@@ -293,7 +293,6 @@ def valuation_success(request, id_code):
 
 def payment_result(request):
     if request.method == 'POST':
-
         session_id = str(request.POST.get('p24_session_id'))
         session_id = session_id.split('_')[1]
 
@@ -311,6 +310,7 @@ def payment_result(request):
             transaction_obj.status = choices.P24_STATUS_ACCEPTED_NOT_VERIFIED
             transaction_obj.error_code = confirmation_response[2].decode('cp1252')
             transaction_obj.error_description = confirmation_response[3].decode('cp1252')
+            error_message = transaction_obj.error_description
             transaction_obj.save()
         else:
             transaction_obj.status = choices.P24_STATUS_ACCEPTED_VERIFIED
@@ -320,23 +320,14 @@ def payment_result(request):
         # send mail to customer and administrator
         subject = "Payment Result"
         message = 'One user paid PLN ' + str(transaction_obj.amount) + ' by przelexy24.'
-        url = 'https://transportuj24.pl/admin/dashboard/neworder/' + str(transaction_obj.order.all().first().pk) + '/change/'
+        url = 'https://transportuj24.pl/admin/dashboard/neworder/' + str(
+            transaction_obj.order.all().first().pk) + '/change/'
         message = message + ' His/Her email is ' + transaction_obj.email + '. Please check this url. ' + url
         send_mail(subject, message, 'info@transportuj24.pl', ['timurkju@gmail.com', 'info@transportuj24.pl'])
 
 
-        context = {
-            'result': choices.P24_STATUS_CHOICES[int(transaction_obj.status) - 1][1],
-            'transaction': transaction_obj
-        }
 
-        return render(request, 'app/payment.html', context)
-
-    context = {
-        'result': "Payment Error",
-        'transaction': None
-    }
-    return render(request, 'app/payment.html', context)
+    return HttpResponseRedirect(reverse('dashboard:products'))
 
 
 def p24_verify(seller_id, session_id, order_id, amount):
@@ -402,4 +393,60 @@ def calc_distance(lat1, lon1, lat2, lon2):
     r = 6371
 
     # calculate the result
-    return (c * r)
+    return c * r
+
+
+def payment(request, id):
+    temp = ['', '', '']
+    if settings.SSL:
+        temp[0] = 'https:'
+    else:
+        temp[0] = 'http:'
+
+    temp[1] = ''
+    temp[2] = request.META['HTTP_HOST']
+
+    host = temp[0] + '/' + temp[1] + '/' + temp[2]
+    hostname = request.META['HTTP_HOST']
+    object = get_object_or_404(NewOrder, id=id)
+    if not object.verified():
+        if object.price:
+            transaction = Przelewy24Transaction()
+            transaction.amount = object.price
+            transaction.email = object.email
+            transaction.status = choices.P24_STATUS_INITIATED
+            transaction.save()
+
+            object.transaction = transaction
+            object.save()
+
+            session_id = hostname + '_' + str(object.transaction.pk)
+            price = int(object.price * 100)
+
+            form_value = {
+                'p24_session_id': session_id,
+                'p24_id_sprzedawcy': settings.SELLER_ID,
+                'p24_email': object.email,
+                'p24_kwota': price,
+                'p24_opis': '',
+                'p24_klient': object.contact_person,
+                'p24_adres': '',
+                'p24_kod': '',
+                'p24_miasto': '',
+                'p24_kraj': 'PL',
+                'p24_language': 'pl',
+                'p24_return_url_ok': host + '/payment_result/',
+                'p24_return_url_error': host + '/payment_result/',
+                'p24_crc': crc_code(session_id, settings.SELLER_ID, price, settings.CRC_KEY),
+            }
+
+            order_form = Przelewy24PrepareForm(form_value)
+
+            context ={
+                'order_form': order_form
+            }
+
+            return render(request, 'app/payment_redirect.html', context)
+
+    return HttpResponseRedirect(reverse('dashboard:products'))
+

@@ -105,10 +105,15 @@
                             <span class="fe-truck mr-2"></span>{{ object.location_name_to }} ({{ object.org_latitude_to }}, {{ object.org_longitude_to }})</p>
                         </div>
                         <div class="col-4 text-right mt-7">
+
+                          {% if not object.verified %}
                           {% if object.price %}
-                          <button class="btn btn-primary">Opłać: {{ object.price }}zł</button>
+                          <a class="btn btn-primary" href="{% url 'app:payment' object.pk %}">Opłać przesyłke: {{ object.price }} PLN</a>
                           {% else %}
                           <button class="btn btn-danger">Oczekuje na wycene</button>
+                          {% endif %}
+                          {% else %}
+                          <button class="btn btn-success" >Zamówienie opłacone!</button>
                           {% endif %}
                         </div>
                           <div class="col-12 mt-4">
