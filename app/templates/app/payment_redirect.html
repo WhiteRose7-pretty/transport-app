@@ -99,16 +99,18 @@
 <script src="{% static 'assets/js/quick-website.js' %}"></script>
 <!-- Feather Icons -->
 <script>
+   $(document).on('ready', function () {
+        console.log('here');
+        var form = $('#payment_frm');
+        form.submit();
+    });
+
     feather.replace({
         'width': '1em',
         'height': '1em'
     });
 
-    $(document).on('ready', function () {
-        console.log('here');
-        var form = $('#payment_frm');
-        form.submit();
-    })
+
 </script>
 </body>
 
