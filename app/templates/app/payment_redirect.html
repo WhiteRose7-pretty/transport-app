@@ -63,7 +63,7 @@
 <body>
 <div class="preloader">
     <div class="spinner-border text-primary" role="status">
-      <span class="sr-only">Loading...</span>
+        <span class="sr-only">Loading...</span>
     </div>
 </div>
 <div class="d-none">
@@ -83,7 +83,7 @@
 
 <!--    JavaScripts-->
 <!-- ===============================================-->
-<script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>
+{#<script src="{% static 'assets/libs/jquery/dist/jquery.min.js' %}"></script>#}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{% static 'assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
@@ -101,11 +101,9 @@
 <script src="{% static 'assets/js/quick-website.js' %}"></script>
 <!-- Feather Icons -->
 <script>
-   $(document).on('ready', function () {
-        console.log('here');
-        var form = $('#payment_frm');
-        form.submit();
-    });
+    console.log('here');
+    var form = $('#payment_frm');
+    form.submit();
 
     feather.replace({
         'width': '1em',
